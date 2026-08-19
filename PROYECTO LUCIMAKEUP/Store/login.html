@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login-Lucimakeup</title>
+
+   
+</head>
+    <style>
+        /*Variables de color**/ /*Declara variables sen CSS**/
+        :root {  
+       /*Define la variable aqui**/
+            --rosa-fuerte: #ff69b4; 
+            --oscuro: #212121;
+            --blanco: #ffffff;
+
+        }
+/*Reset general**/
+/*Selector universal**/
+        *{ 
+            /*espacios externos alrededor de un elemento**/
+            margin: 0; 
+            padding: 0; 
+            /*Define como se calcula el tamaño de un elemento
+            border-box:Hace que el tamaño incluya bordes y padding**/
+            box-sizing: border-box; 
+            /*Fuente de letra general**/
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+
+        }
+/*Cuerpo de la página**/
+
+    body { 
+        /*Llama la variable CSS**/
+        /*Var: llama una variable CSS definida en el :root**/
+        background-color:  var(--rosa-fuerte); 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+
+    }
+
+/*Contenedor principal**/
+    .contenedor-login {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+
+
+/*Caja de formulario**/
+    .caja-login{
+        background-color: var(--blanco);
+        padding: 4rem;
+        border-radius: 1rem;
+        width: 40rem;
+        text-align: center;
+    }
+
+    /*Titulo principal**/
+
+
+    h1 { 
+        color: var(--rosa-fuerte);
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+
+
+/*Campos del formulario**/
+    .campo { 
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+        margin-bottom: 1.5rem;
+
+    }
+
+/*Etiquetas**/
+
+    label { 
+        color: var(--oscuro);
+        font-weight: bold;
+        /*espacio externo solo en la parte INFERIOR del elemento**/
+        margin-bottom: 0.5rem; 
+    }
+
+/*Inputs**/
+
+    input { 
+        padding: 1rem;
+        border: 2px solid var(--rosa-fuerte);
+        border-radius: 0.5rem;
+        font-size: 1.4rem;
+    }
+
+/*Boton principal**/
+    button { 
+        /*Define el color de fondo de un elemento**/
+        background-color: var(--rosa-fuerte); 
+        /*Define el color del texto**/
+        color: var(--blanco); 
+        /*Define el borde de un elemento**/
+        border: none; 
+        /*Espacio interno dentro de un elemento: entre el borde y el contenido**/
+        padding: 1rem 3rem; 
+        /*Redondea las esquinas de un elemento**/
+        border-radius: 0.5rem; 
+        /*Define el tamaño de la letra: rem, px, em**/
+        font-size: 1.6rem; 
+        font-weight: bold;
+        /*Define el ancho de un elemento**/
+        width: 100%; 
+        /*Espacio externo solo en la parte SUPERIOR del elemento**/
+        margin-top: 1rem; 
+        /*Define el tipo de cursor al pasar sobre el elemento**/
+        /*Pointer: define una manito**/
+        cursor: pointer; 
+    }
+
+
+/*Enlaces**/
+    a {
+         /*Define como se muestra un elemento. Flex: organiza elementos en fila o columna, block: ocupa el ancho
+        disponible, inline-block: se ajusta al ancho del contenido**/
+        display: block;
+        margin-top: 1rem;
+        color: var(--oscuro);
+        text-decoration: none;
+        font-size: 1.3rem;
+    }
+
+     /*Body: Define los estilos del cuerpo**/
+    /*H1 define los estilos del titulo principal**/
+    /*Label: etiqueta que define un campo del formulario**/
+     /*Input "Campo donde el usuario escribe la informacion"**/
+     /*Button: Boton que ejecuta una accion al hacer click**/
+     /*a: Enlace que lleva a otra página o seccion**/
+    </style>
+<body> 
+    <div class="contenedor-login">
+        <div class="caja-login">
+
+
+            <h1>LuciMakeup</h1> 
+                <p>Bienvenidos, inicia sesion</p>
+
+            <form>
+                <div class="campo">
+                    <label for="Usuario">Usuario o correo electronico</label> 
+                    <input type="email" id="Usuario" placeholder="ejemplo@correo.com">
+                </div>
+
+                <div class="campo">
+                    <label for="Contraseña">Contraseña</label>
+                    <input type="password" id="Contraseña" placeholder="....">
+                </div>
+
+                <button type="submit">Ingresar</button> 
+                <a href="#">¿Olvidaste tu contraseña?</a> 
+                <a href="registro.html">¿No tienes cuenta? Registrate</a>
+
+            </form>
+        </div>
+
+
+
+    </div>
+    <script src="JS/carrito.js"></script>
+</body>
+</html>

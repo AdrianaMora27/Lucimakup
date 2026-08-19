@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FrontEnd Store Lucimakeup</title>
+    <link rel="stylesheet" href="css/normalize.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=Akt:wght@100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Krub:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Staatliches&display=swap" rel="stylesheet">
+
+
+
+<style>
+     :root { 
+            --blanco: #ffffff;
+            --oscuro: #212121;
+            --primario: #ffc107;
+            --gris: #757575;
+            --rosa-claro: #ffb6c1;
+            --rosa-fuerte: #ff69b4;
+            --rojo-oscuro: #880e2f;
+            --Gris-claro: #dfe9f3;
+            --Blanco-crema: #FFF8F5;
+            --Gris-arena: #F4F4F2;
+            --Beige-calido: #F9F5EB;
+            --Azul-lavanda: #D6E4F0;
+            --Verde-menta: #E2F0D9;
+            --Rosa-sutil: #FCE4EC;
+            --morado: #9C27B0;
+            --morado-oscuro: #89119D;
+            --secundario-oscuro: rgb(255,287,2);
+            --negro: #000;
+
+            --fuentePrincipal: "Staatliches", sans-serif;
+
+            }
+        html { 
+            box-sizing: border-box;
+            font-size: 62.5%;
+        }
+        
+        *, *:before, *::after {
+            box-sizing: inherit;
+        }
+
+        /* GLOBALES */
+        body { 
+            background-color: var(--rosa-fuerte, #ff69b4);
+            font-size: 1.6rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        p { 
+            font-size: 1.8rem;
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--negro, #000);
+        }
+
+        a { 
+            text-decoration: none;
+        }
+
+        img { 
+            max-width: 100%;
+        }
+
+        .contenedor { 
+            max-width: 120rem;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        h1, h2, h3 { 
+            text-align: center;
+            color: var(--oscuro, #333);
+            font-family: var(--fuentePrincipal, sans-serif);
+        }
+
+        h1 { font-size: 4rem; }
+        h2 { font-size: 3.2rem; }
+        h3 { font-size: 2.4rem; }
+
+        /** HEADER **/
+        .header { 
+            display: flex;
+            justify-content: center;
+        }
+
+        .header__logo { 
+            margin: 3rem 0;
+        }
+
+        /** FOOTER **/
+        .footer { 
+            background-color: var(--Blanco-crema, #fffdd0);
+            padding: 1rem 0;
+            margin-top: 4rem;
+        }
+
+        .footer__texto { 
+            text-align: center;
+            font-family: var(--fuentePrincipal, sans-serif);
+            font-size: 2.2rem;
+        }
+
+        /** NAVEGACION **/
+        .navegacion { 
+            background-color: var(--Blanco-crema, #fffdd0);
+            padding: 1rem 0;
+            display: flex;
+            justify-content: center; 
+            gap: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .navegacion__enlace {
+            font-family: var(--fuentePrincipal, sans-serif);
+            color: var(--negro, #000);
+            font-size: 2.5rem;
+        }
+
+        .navegacion__enlace:hover {
+            color: var(--morado, #800080);
+        }
+
+        /** GRID **/
+        .grid { 
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            align-items: stretch; /* Obliga a que todas las tarjetas de la misma fila midan lo mismo */
+        }
+
+        @media (min-width: 768px) {
+            .grid { 
+                grid-template-columns: repeat(3, 1fr); /* 3 columnas organizadas en PC */
+            }
+        }
+
+        /** PRODUCTO **/
+        .producto { 
+            background-color: var(--rosa-claro, #ffb6c1);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-radius: 0.8rem;
+        }
+
+        .producto__imagen {
+            width: 100%;
+            height: 24rem; /* Altura idéntica para todas las fotos */
+            object-fit: cover; /* Recorta limpiamente las imágenes sin deformarlas */
+            display: block;
+            border-radius: 0.5rem;
+        }
+
+        .producto__informacion {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
+            text-align: center;
+        }
+
+        .producto__nombre {
+            font-size: 2.4rem;
+        }
+
+        .producto__precio {
+            font-size: 2.2rem;
+            color: var(--negro, #000);
+            font-weight: bold;
+        }
+
+        .producto__nombre,
+        .producto__precio { 
+            font-family: var(--fuentePrincipal, sans-serif);
+            margin: 1rem 0;
+            text-align: center;
+            line-height: 2.8rem;
+        }
+
+        .producto__acciones {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .boton {
+            background-color: var(--primario, #ffc0cb);
+            color: var(--negro, #000);
+            font-family: var(--fuentePrincipal, sans-serif);
+            font-size: 2rem;
+            padding: 1.2rem;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            text-align: center;
+            width: 100%;
+            display: block;
+        }
+
+        .boton:hover {
+            background-color: var(--morado, #800080);
+            color: var(--blanco, #fff);
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <a href="indexstore.html">
+            <img class="header__logo" src="img/logolucistore.png" alt="Logotipo">
+        </a>
+    </header>
+
+    <!-- Barra de navegación completa -->
+    <nav class="navegacion">
+        <a class="navegacion__enlace" href="indexstore.html">Inicio</a>
+        <a class="navegacion__enlace navegacion__enlace--activo" href="categorias.html">Catálogo</a>
+        <a class="navegacion__enlace" href="cuidadoPersonal.html">Cuidado Personal</a>
+        <a class="navegacion__enlace" href="hogar.html">Hogar y Estilo de Vida</a>
+        <a class="navegacion__enlace" href="papeleria.html">Papelería</a>
+        <a class="navegacion__enlace" href="Nosotros.html">Nosotros</a>
+    </nav>
+
+    <main class="contenedor">
+        <h1>Nuestros productos</h1>
+
+        <div class="grid">
+
+            <!-- PRODUCTO ID: 1 -->
+            <div class="producto">
+                <a href="producto.html?id=1">
+                    <img class="producto__imagen" src="img/brilloGloss.jpeg" alt="Brillo Gloss">
+                </a>
+                <div class="producto__informacion">
+                    <p class="producto__nombre">Brillo Gloss</p>
+                    <p class="producto__precio">$ 15.000 COP</p>
+
+                    <div class="producto__acciones">
+                        <a class="boton" href="producto.html?id=1">Ver producto</a>
+                        <button class="boton" onclick="agregarAlCarrito(1, 'Brillo Gloss', 15000, 'img/brilloGloss.jpeg')">
+                            Agregar al Carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PRODUCTO ID: 2 -->
+            <div class="producto">
+                <a href="producto.html?id=2">
+                    <img class="producto__imagen" src="img/brilloLlavero.jpeg" alt="Brillo Llavero">
+                </a>
+                <div class="producto__informacion">
+                    <p class="producto__nombre">Brillo Llavero</p>
+                    <p class="producto__precio">$ 15.000 COP</p>
+
+                    <div class="producto__acciones">
+                        <a class="boton" href="producto.html?id=2">Ver producto</a>
+                        <button class="boton" onclick="agregarAlCarrito(2, 'Brillo Llavero', 15000, 'img/brilloLlavero.jpeg')">
+                            Agregar al Carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PRODUCTO ID: 3 -->
+            <div class="producto">
+                <a href="producto.html?id=3">
+                    <img class="producto__imagen" src="img/gelcejas.jpeg" alt="Gel para cejas">
+                </a>
+                <div class="producto__informacion">
+                    <p class="producto__nombre">Gel para cejas</p>
+                    <p class="producto__precio">$ 20.000 COP</p>
+
+                    <div class="producto__acciones">
+                        <a class="boton" href="producto.html?id=3">Ver producto</a>
+                        <button class="boton" onclick="agregarAlCarrito(3, 'Gel para cejas', 20000, 'img/gelcejas.jpeg')">
+                            Agregar al Carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PRODUCTO ID: 4 -->
+            <div class="producto">
+                <a href="producto.html?id=4">
+                    <img class="producto__imagen" src="img/espuma.jpeg" alt="Esponja facial x 3">
+                </a>
+                <div class="producto__informacion">
+                    <p class="producto__nombre">Esponja facial x 3</p>
+                    <p class="producto__precio">$ 30.000 COP</p>
+
+                    <div class="producto__acciones">
+                        <a class="boton" href="producto.html?id=4">Ver producto</a>
+                        <button class="boton" onclick="agregarAlCarrito(4, 'Esponja facial x 3', 30000, 'img/espuma.jpeg')">
+                            Agregar al Carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PRODUCTO ID: 5 -->
+            <div class="producto">
+                <a href="producto.html?id=5">
+                    <img class="producto__imagen" src="img/lamaparaAstronauta.jpeg" alt="Lámpara astronauta">
+                </a>
+                <div class="producto__informacion">
+                    <p class="producto__nombre">Lámpara astronauta</p>
+                    <p class="producto__precio">$ 50.000 COP</p>
+
+                    <div class="producto__acciones">
+                        <a class="boton" href="producto.html?id=5">Ver producto</a>
+                        <button class="boton" onclick="agregarAlCarrito(5, 'Lámpara astronauta', 50000, 'img/lamaparaAstronauta.jpeg')">
+                            Agregar al Carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PRODUCTO ID: 6 -->
+            <div class="producto">
+                <a href="producto.html?id=6">
+                    <img class="producto__imagen" src="img/duchaManual.jpeg" alt="Ducha de mano">
+                </a>
+                <div class="producto__informacion">
+                    <p class="producto__nombre">Ducha de mano</p>
+                    <p class="producto__precio">$ 55.000 COP</p>
+
+                    <div class="producto__acciones">
+                        <a class="boton" href="producto.html?id=6">Ver producto</a>
+                        <button class="boton" onclick="agregarAlCarrito(6, 'Ducha de mano', 55000, 'img/duchaManual.jpeg')">
+                            Agregar al Carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PRODUCTO ID: 7 -->
+            <div class="producto">
+                <a href="producto.html?id=7">
+                    <img class="producto__imagen" src="img/mediasEmoticon.jpeg" alt="Par Medias Unisex">
+                </a>
+                <div class="producto__informacion">
+                    <p class="producto__nombre">Par Medias Unisex</p>
+                    <p class="producto__precio">$ 28.000 COP</p>
+
+                    <div class="producto__acciones">
+                        <a class="boton" href="producto.html?id=7">Ver producto</a>
+                        <button class="boton" onclick="agregarAlCarrito(7, 'Par Medias Unisex', 28000, 'img/mediasEmoticon.jpeg')">
+                            Agregar al Carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PRODUCTO ID: 8 -->
+            <div class="producto">
+                <a href="producto.html?id=8">
+                    <img class="producto__imagen" src="img/pelucheLabubu.jpeg" alt="Peluche Labubu variado">
+                </a>
+                <div class="producto__informacion">
+                    <p class="producto__nombre">Peluche Labubu variado</p>
+                    <p class="producto__precio">$ 55.000 COP</p>
+
+                    <div class="producto__acciones">
+                        <a class="boton" href="producto.html?id=8">Ver producto</a>
+                        <button class="boton" onclick="agregarAlCarrito(8, 'Peluche Labubu variado', 55000, 'img/pelucheLabubu.jpeg')">
+                            Agregar al Carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div> <!-- .grid -->
+    </main>
+
+    <footer class="footer">
+        <p class="footer__texto">Frontend store Lucimakeup - Todos los derechos reservados 2026</p>
+    </footer>
+
+    <!-- Scripts cargados correctamente al final -->
+    <script src="JS/productos.js"></script>
+    <script src="JS/carrito.js"></script>
+</body>
+</html>

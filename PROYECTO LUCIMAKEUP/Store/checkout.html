@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finalizar Compra - Lucimakeup Store</title>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap" rel="stylesheet">
+
+    <style>
+    :root { 
+        --blanco: #ffffff;
+        --oscuro: #212121;
+        --primario: #ffc107;
+        --gris: #757575;
+        --rosa-claro: #ffb6c1;
+        --rosa-fuerte: #ff69b4;
+        --Blanco-crema: #FFF8F5;
+        --morado: #9C27B0;
+        --morado-oscuro: #89119D;
+        --negro: #000;
+
+        --fuentePrincipal: "Staatliches", sans-serif;
+    }
+
+    html { 
+        box-sizing: border-box;
+        font-size: 62.5%;
+    }
+        
+    *, *:before, *::after {
+        box-sizing: inherit;
+    }
+
+    body { 
+        background-color: var(--rosa-fuerte);
+        font-size: 1.6rem;
+        line-height: 1.5;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .contenedor { 
+        max-width: 120rem;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+
+    h1 { 
+        text-align: center;
+        color: var(--oscuro);
+        font-family: var(--fuentePrincipal);
+        font-size: 4rem;
+        margin-top: 2rem;
+    }
+
+    /* HEADER */
+    .header {
+        display: flex;
+        justify-content: center;
+    }
+
+    .header__logo { 
+        margin: 3rem 0;
+        max-width: 25rem;
+    }
+
+    /* NAVEGACION */
+    .navegacion {
+        background-color: var(--Blanco-crema);
+        padding: 1.5rem 0;
+        display: flex;
+        justify-content: center;
+        gap: 3rem;
+    }
+
+    .navegacion__enlace { 
+        font-family: var(--fuentePrincipal);
+        color: var(--negro);
+        font-size: 2rem;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .navegacion__enlace:hover { 
+        color: var(--morado);
+    }
+
+    /* CHECKOUT GRID */
+    .checkout-grid { 
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        margin-top: 3rem;
+    }
+
+    @media (min-width: 992px) {
+        .checkout-grid { 
+            grid-template-columns: 2fr 1fr;
+        }
+    }
+
+    /* FORMULARIO DE ENVÍO Y PAGO */
+    .checkout-form { 
+        background-color: var(--Blanco-crema);
+        border-radius: 1rem;
+        padding: 2.5rem;
+        box-shadow: 0px 5px 10px rgba(0,0,0,0.1);
+    }
+
+    .checkout-subtitulo {
+        font-family: var(--fuentePrincipal);
+        font-size: 2.5rem;
+        color: var(--morado-oscuro);
+        margin-top: 0;
+        border-bottom: 2px solid var(--rosa-claro);
+        padding-bottom: 0.5rem;
+    }
+
+    .campo {
+        margin-bottom: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .campo__label {
+        font-weight: bold;
+        color: var(--oscuro);
+    }
+
+    .campo__input, .campo__select {
+        padding: 1rem;
+        font-size: 1.6rem;
+        border: 1px solid var(--rosa-claro);
+        border-radius: 0.5rem;
+        outline: none;
+    }
+
+    .campo__input:focus, .campo__select:focus {
+        border-color: var(--morado);
+    }
+/**Focus: Estado activo de un elemento interactivo
+es la forma en la que el navegador sabe y le muestra al usuario que un
+elemento esta listo para recibir entradas de texto**/
+
+    .campos-dobles {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    @media (min-width: 768px) {
+        .campos-dobles {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+
+    /* RESUMEN DEL PEDIDO */
+    .resumen-pedido { 
+        background-color: var(--Blanco-crema);
+        border-radius: 1rem;
+        padding: 2.5rem;
+        box-shadow: 0px 5px 10px rgba(0,0,0,0.1);
+        height: fit-content;
+    }
+
+    .resumen-pedido__titulo { 
+        font-family: var(--fuentePrincipal);
+        font-size: 2.8rem;
+        margin-top: 0;
+        color: var(--morado-oscuro);
+        text-align: center;
+    }
+
+    .resumen-linea { 
+        display: flex;
+        justify-content: space-between;
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .resumen-linea--total { 
+        font-size: 2.2rem;
+        font-weight: bold;
+        border-top: 2px solid var(--rosa-claro);
+        padding-top: 1.5rem;
+        color: var(--oscuro);
+    }
+
+    .boton-finalizar { 
+        display: block;
+        width: 100%;
+        background-color: var(--primario);
+        color: var(--negro);
+        font-family: var(--fuentePrincipal);
+        font-size: 2.2rem;
+        padding: 1.5rem;
+        border: none;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        text-transform: uppercase;
+        margin-top: 2rem;
+        transition: background-color 0.3s ease;
+    }
+
+    .boton-finalizar:hover { 
+        background-color: var(--morado);
+        color: var(--blanco);
+    }
+
+    /* FOOTER */
+    .footer { 
+        background-color: var(--Blanco-crema);
+        padding: 1.5rem 0;
+        margin-top: 4rem;
+    }
+
+    .footer__texto { 
+        text-align: center;
+        font-family: var(--fuentePrincipal);
+        font-size: 2.2rem;
+        margin: 0;
+    }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <a href="index.html">
+            <img class="header__logo" src="img/logolucistore.png" alt="Logotipo Lucimakeup">
+        </a>
+    </header>
+
+    <nav class="navegacion">
+        <a class="navegacion__enlace" href="categorias.html">Categorías</a>
+        <a class="navegacion__enlace" href="cuidadoPersonal.html">Cuidado Personal</a>
+        <a class="navegacion__enlace" href="hogar.html">Estilo y Vida</a>
+        <a class="navegacion__enlace" href="papeleria.html">Papelería</a>
+        <a class="navegacion__enlace" href="Nosotros.html">Nosotros</a>
+    </nav>
+
+    <main class="contenedor">
+        <h1>Finalizar Pedido</h1>
+
+        <div class="checkout-grid">
+
+            <!-- FORMULARIO DE ENVÍO -->
+            <form class="checkout-form">
+                
+                <h2 class="checkout-subtitulo">1. Datos de Entrega</h2>
+                
+                <div class="campos-dobles">
+                    <div class="campo">
+                        <label class="campo__label" for="nombre">Nombre Completo</label>
+                        <input class="campo__input" type="text" id="nombre" placeholder="Ej: Adriana María" required>
+                    </div>
+
+                    <div class="campo">
+                        <label class="campo__label" for="telefono">Teléfono / WhatsApp</label>
+                        <input class="campo__input" type="tel" id="telefono" placeholder="Ej: 300 123 4567" required>
+                    </div>
+                </div>
+
+                <div class="campo">
+                    <label class="campo__label" for="direccion">Dirección de Envío</label>
+                    <input class="campo__input" type="text" id="direccion" placeholder="Calle, Carrera, Número, Barrio, Apto" required>
+                </div>
+
+                <div class="campos-dobles">
+                    <div class="campo">
+                        <label class="campo__label" for="ciudad">Ciudad</label>
+                        <input class="campo__input" type="text" id="ciudad" placeholder="Ej: Cali" required>
+                    </div>
+
+                    <div class="campo">
+                        <label class="campo__label" for="departamento">Departamento</label>
+                        <input class="campo__input" type="text" id="departamento" placeholder="Ej: Valle del Cauca" required>
+                    </div>
+                </div>
+
+                <h2 class="checkout-subtitulo" style="margin-top: 3rem;">2. Método de Pago</h2>
+
+                <div class="campo">
+                    <label class="campo__label" for="metodo-pago">Selecciona cómo deseas pagar</label>
+                    <select class="campo__select" id="metodo-pago" required>
+                        <option value="" disabled selected>-- Seleccione una opción --</option>
+                        <option value="nequi">Nequi / Daviplata</option>
+                        <option value="pse">Transferencia Bancaria (PSE)</option>
+                        <option value="tarjeta">Tarjeta de Crédito / Débito</option>
+                        <option value="contraentrega">Pago Contra Entrega</option>
+                    </select>
+                </div>
+            </form>
+<!--disabled: atributo par inactivar un elemento de formulario o control interactivo-->
+
+            <!-- RESUMEN DEL PEDIDO -->
+            <aside class="resumen-pedido">
+                <h2 class="resumen-pedido__titulo">Tu Orden</h2>
+
+                <div class="resumen-linea">
+                    <span>Productos (3):</span>
+                    <span>$30.000 COP</span>
+                </div>
+
+                <div class="resumen-linea">
+                    <span>Envío:</span>
+                    <span>$8.000 COP</span>
+                </div>
+
+                <div class="resumen-linea resumen-linea--total">
+                    <span>Total a Pagar:</span>
+                    <span>$38.000 COP</span>
+                </div>
+
+                <button type="button" class="boton-finalizar" onclick="window.location.href='confirmacion.html';">Confirmar Compra</button>            </aside>
+                <!--Onclick: atributo de evento que se ponen dentro de una etiqueta de un elemento
+                para indicarle al nevagdor que codigo de JS debe ejecutar cujando el usuario haga click sobre
+                el-->
+
+
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p class="footer__texto">Frontend store Lucimakeup - Todos los derechos reservados</p>
+    </footer>
+    <script src="JS/carrito.js"></script>
+</body>
+</html>

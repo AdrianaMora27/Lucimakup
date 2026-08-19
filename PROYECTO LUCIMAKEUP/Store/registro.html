@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro-Lucimakeup</title>
+
+<style>
+/*Para tener en cuenta:
+Unidades de medida: rem:Relativa al tamaño base del HTML, 1rem=10px si el font-size es del 62.5%
+px: pixeles Unidad fija de medida, %: relativo al elemento padre, 
+vh: viewport heigth: porcentaje de la altura de la pantalla (100vh=100% de la pantalla**/
+
+    :root {
+        --rosa-fuerte: #ff69b4;
+            --oscuro: #212121;
+            --blanco: #ffffff;
+    }
+    * { 
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+    }
+
+    body { 
+        background-color: var(--rosa-fuerte);
+        display: flex;
+        justify-content: center; /*Alinea los elementos horizontalmente dentro del FLEX, center: alinea los elementos**/
+        align-items: center; /*Alinea los elementos verticalmente dentro del FLEX, center: centra los elementos**/
+        min-height: 100vh;
+    }
+
+    .contenedor-registro { 
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+    .caja-registro { 
+        background-color: var(--blanco);
+        padding: 4rem;
+        border-radius: 2rem;
+        width: 40rem;
+        text-align: center; /*Alinea el texto dentro de un elemento**/
+
+    }
+
+    h1 { 
+        color: var(--rosa-fuerte);
+        font-size: 3rem;
+        margin-bottom: 3rem;
+
+    }
+
+    p { 
+        color: var(--oscuro);
+        margin-bottom: 2rem;
+
+    }
+
+    .campo { 
+        display: flex;
+        flex-direction: column; /*Define la direccion de los elementos dentro de un FLEX**/
+        text-align: left;
+        margin-bottom: 1.5rem;
+
+    }
+
+    label {
+        color: var(--oscuro);
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+
+    }
+
+    input { 
+        padding: 1rem;
+        border: 2px solid var(--rosa-fuerte);
+        border-radius: 0.5rem;
+        font-size: 1.4rem;
+
+    }
+
+    button {
+        background-color: var(--rosa-fuerte);
+        color: var(--blanco);
+        border: none;
+        padding: 1rem 3rem;
+        border-radius: 0.5rem;
+        font-size: 1.6rem;
+        font-weight: bold;
+        width: 100%;
+        margin-top: 1rem;
+        cursor: pointer;
+
+    }
+
+    a { 
+        display: block;
+        margin-top: 1rem;
+        color: var(--oscuro);
+        text-decoration: none; /*Decoracion del texto**/
+        font-size: 1.3rem;
+
+    }
+
+</style>
+
+
+</head>
+<body>
+   <div class="contenedor-registro">
+    <div class="caja-registro">
+        <h1>Lucimakeup</h1>
+        <p>Crea tu cuenta</p>
+
+    <form>
+        <div class="campo">
+            <label for="nombres">Nombre</label>
+            <input type="text" id="nombres" placeholder="Ingresa tus nombres">
+
+        </div>
+
+        <div class="campo">
+            <label for="apellido">Apellidos</label>
+            <input type="text" id="apellido" placeholder="Ingresa tus apellidos">
+
+        </div>
+
+    <div class="campo">
+        <label for="cedula">Cédula</label>
+        <input type="number" id="cedula" placeholder="Ingresa tu numero de cedula">
+    </div>
+
+    <div class="campo">
+        <label for="fecha">Fecha de nacimiento</label>
+        <input type="date" id="fecha">
+
+    </div>
+
+    <button type="submit">Registrarse</button>
+
+    <a href="login.html"> ¿Ya tienes cuenta? Inicia sesion</a>
+
+
+    </form>
+    </div>
+   </div> 
+<script src="JS/carrito.js"></script>
+</body>
+</html>

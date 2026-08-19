@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo - Lucimakeup Store</title>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link href="https://fonts.googleapis.com/css2?family=Akt:wght@100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Krub:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Staatliches&display=swap" rel="stylesheet">
+
+    <style>
+    :root { 
+        --blanco: #ffffff;
+        --oscuro: #212121;
+        --primario: #ffc107;
+        --gris: #757575;
+        --rosa-claro: #ffb6c1;
+        --rosa-fuerte: #ff69b4;
+        --rojo-oscuro: #880e2f;
+        --Gris-claro: #dfe9f3;
+        --Blanco-crema: #FFF8F5;
+        --Gris-arena: #F4F4F2;
+        --Beige-calido: #F9F5EB;
+        --Azul-lavanda: #D6E4F0;
+        --Verde-menta: #E2F0D9;
+        --Rosa-sutil: #FCE4EC;
+        --morado: #9C27B0;
+        --morado-oscuro: #89119D;
+        --secundario-oscuro: #e0a800;
+        --negro: #000;
+
+        --fuentePrincipal: "Staatliches", sans-serif;
+    }
+html { 
+            box-sizing: border-box;
+            font-size: 62.5%;
+        }
+            
+        *, *:before, *::after {
+            box-sizing: inherit;
+        }
+
+        /* GLOBALES */
+        body { 
+            background-color: var(--rosa-fuerte, #ff69b4);
+            font-size: 1.6rem;
+            line-height: 1.5;
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+        }
+
+        p { 
+            font-size: 1.8rem;
+            color: var(--negro, #000);
+        }
+
+        a { 
+            text-decoration: none;
+        }
+
+        img { 
+            width: 100%;
+            display: block;
+        }
+
+        .contenedor { 
+            max-width: 120rem;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        h1, h2, h3 { 
+            text-align: center;
+            color: var(--oscuro, #333);
+            font-family: var(--fuentePrincipal, sans-serif);
+        }
+
+        h1 { 
+            font-size: 4rem;
+            margin-top: 2rem;
+        }
+        
+        h2 { 
+            font-size: 3.2rem;
+        }
+
+        h3 { 
+            font-size: 2.4rem;
+        }
+
+        /* HEADER */
+        .header { 
+            display: flex;
+            justify-content: center;
+        }
+
+        .header__logo { 
+            margin: 3rem 0;
+            max-width: 25rem;
+        }
+
+        /* NAVEGACION */
+        .navegacion { 
+            background-color: var(--Blanco-crema, #fffdd0);
+            padding: 1.5rem 0;
+            display: flex;
+            justify-content: center; 
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .navegacion__enlace {
+            font-family: var(--fuentePrincipal, sans-serif);
+            color: var(--negro, #000);
+            font-size: 2.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .navegacion__enlace:hover,
+        .navegacion__enlace--activo {
+            color: var(--morado, #800080);
+        }
+
+        /* CATEGORIAS */
+        .categoria { 
+            margin: 4rem 0;
+        }
+
+        .categoria__titulo-contenedor { 
+            text-align: center;
+        }
+
+        .categoria__titulo {
+            background-color: var(--Blanco-crema, #fffdd0);
+            color: var(--morado-oscuro, #4b0082);
+            display: inline-block;
+            padding: 1.5rem 4rem;
+            border-radius: 2rem;
+            margin: 0 auto 3rem auto;
+        }
+
+        /* GRID DE PRODUCTOS */
+        .grid-productos { 
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 3rem;
+        }
+
+        @media (min-width: 768px) {
+            .grid-productos {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .tarjeta-producto { 
+            background-color: var(--Blanco-crema, #fffdd0);
+            border-radius: 1rem;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform .3s ease, box-shadow .3s ease;
+            box-shadow: 0px 5px 10px rgba(0,0,0,0.1);
+        }
+
+        .tarjeta-producto:hover { 
+            transform: translateY(-.5rem);
+            box-shadow: 0px 8px 15px rgba(0,0,0,0.15);
+        }
+
+        .tarjeta-producto__imagen { 
+            height: 25rem;
+            object-fit: cover;
+            background-color: var(--Rosa-sutil, #ffe4e1);
+        }
+
+        .tarjeta-producto__info {
+            padding: 2rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            flex-grow: 1;
+            justify-content: space-between;
+        }
+
+        .tarjeta-producto__nombre { 
+            font-family: var(--fuentePrincipal, sans-serif);
+            font-size: 2.2rem;
+            color: var(--oscuro, #333);
+            margin: 0;
+        }
+
+        .tarjeta-producto__boton { 
+            display: inline-block;
+            background-color: var(--primario, #ffc0cb);
+            color: var(--negro, #000);
+            font-family: var(--fuentePrincipal, sans-serif);
+            font-size: 1.8rem;
+            padding: 1rem 2rem;
+            border-radius: .5rem;
+            transition: background-color .3s ease;
+            width: 100%;
+            text-align: center;
+        }
+
+        .tarjeta-producto__boton:hover { 
+            background-color: var(--morado, #800080);
+            color: var(--blanco, #fff);
+        }
+
+        /* FOOTER */
+        .footer { 
+            background-color: var(--Blanco-crema, #fffdd0);
+            padding: 1.5rem 0;
+            margin-top: 4rem;
+        }
+
+        .footer__texto { 
+            text-align: center;
+            font-family: var(--fuentePrincipal, sans-serif);
+            font-size: 2.2rem;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <a href="indexstore.html">
+            <img class="header__logo" src="img/logolucistore.png" alt="Logotipo Lucimakeup">
+        </a>
+    </header>
+
+    <nav class="navegacion">
+        <a class="navegacion__enlace navegacion__enlace--activo" href="Catalogo.html">Catálogo</a>
+        <a class="navegacion__enlace" href="cuidadoPersonal.html">Cuidado Personal</a>
+        <a class="navegacion__enlace" href="hogar.html">Hogar</a>
+        <a class="navegacion__enlace" href="papeleria.html">Papelería</a>
+        <a class="navegacion__enlace" href="Nosotros.html">Nosotros</a>
+    </nav>
+
+    <main class="contenedor">
+        <h1>Nuestro Catálogo General</h1>
+    
+        <!-- SECCION MAQUILLAJE -->
+        <section class="categoria" id="maquillaje">
+            <div class="categoria__titulo-contenedor">
+                <h2 class="categoria__titulo">Maquillaje</h2>
+            </div>
+
+            <div class="grid-productos">
+                <!-- ID 201 -->
+                <a href="producto.html?id=201" class="tarjeta-producto" data-id="201">
+                    <img class="tarjeta-producto__imagen" src="img/brilloGloss.jpeg" alt="Brillo Gloss">
+                    <div class="tarjeta-producto__info">
+                        <h3 class="tarjeta-producto__nombre">Brillo Gloss</h3>
+                        <span class="tarjeta-producto__boton">Ver producto</span>
+                    </div>
+                </a>
+
+                <!-- ID 202 -->
+                <a href="producto.html?id=202" class="tarjeta-producto" data-id="202">
+                    <img class="tarjeta-producto__imagen" src="img/brilloLlavero.jpeg" alt="Brillo Llavero">
+                    <div class="tarjeta-producto__info">
+                        <h3 class="tarjeta-producto__nombre">Brillo Llavero</h3>
+                        <span class="tarjeta-producto__boton">Ver producto</span>
+                    </div>
+                </a>
+
+                <!-- ID 203 -->
+                <a href="producto.html?id=203" class="tarjeta-producto" data-id="203">
+                    <img class="tarjeta-producto__imagen" src="img/gelcejas.jpeg" alt="Gel para cejas">
+                    <div class="tarjeta-producto__info">
+                        <h3 class="tarjeta-producto__nombre">Gel para cejas</h3>
+                        <span class="tarjeta-producto__boton">Ver producto</span>
+                    </div>
+                </a>
+
+                <!-- ID 204 -->
+                <a href="producto.html?id=204" class="tarjeta-producto" data-id="204">
+                    <img class="tarjeta-producto__imagen" src="img/sombras.jpeg" alt="Sombras matte">
+                    <div class="tarjeta-producto__info">
+                        <h3 class="tarjeta-producto__nombre">Sombras Matte</h3>
+                        <span class="tarjeta-producto__boton">Ver producto</span>
+                    </div>
+                </a>
+
+                <!-- ID 205 -->
+                <a href="producto.html?id=205" class="tarjeta-producto" data-id="205">
+                    <img class="tarjeta-producto__imagen" src="img/sombrasConGlitter.jpeg" alt="Sombras con glitter">
+                    <div class="tarjeta-producto__info">
+                        <h3 class="tarjeta-producto__nombre">Sombras con Glitter</h3>
+                        <span class="tarjeta-producto__boton">Ver producto</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- SECCION CUIDADO FACIAL -->
+        <section class="categoria" id="cuidadoFacial">
+            <div class="categoria__titulo-contenedor">
+                <h2 class="categoria__titulo">Cuidado Facial</h2>
+            </div>
+
+            <div class="grid-productos">
+                <!-- ID 206 -->
+                <a href="producto.html?id=206" class="tarjeta-producto" data-id="206">
+                    <img class="tarjeta-producto__imagen" src="img/MascarillasHidratantes.jpeg" alt="Mascarilla facial">
+                    <div class="tarjeta-producto__info">
+                        <h3 class="tarjeta-producto__nombre">Mascarilla Facial</h3>
+                        <span class="tarjeta-producto__boton">Ver producto</span>
+                    </div>
+                </a>
+
+                <!-- ID 207 -->
+                <a href="producto.html?id=207" class="tarjeta-producto" data-id="207">
+                    <img class="tarjeta-producto__imagen" src="img/Skincare.jpeg" alt="Kit BioAqua">
+                    <div class="tarjeta-producto__info">
+                        <h3 class="tarjeta-producto__nombre">Kit BioAqua</h3>
+                        <span class="tarjeta-producto__boton">Ver producto</span>
+                    </div>
+                </a>
+
+                <!-- ID 208 -->
+                <a href="producto.html?id=208" class="tarjeta-producto" data-id="208">
+                    <img class="tarjeta-producto__imagen" src="img/KitSkincareKaba.jpeg" alt="Kit Kaba">
+                    <div class="tarjeta-producto__info">
+                        <h3 class="tarjeta-producto__nombre">Kit Kaba Hidratación</h3>
+                        <span class="tarjeta-producto__boton">Ver producto</span>
+                    </div>
+                </a>
+
+                <!-- ID 209 -->
+                <a href="producto.html?id=209" class="tarjeta-producto" data-id="209">
+                    <img class="tarjeta-producto__imagen" src="img/ProtectorSolar.jpeg" alt="Protector Solar Ana Maria">
+                    <div class="tarjeta-producto__info">
+                        <h3 class="tarjeta-producto__nombre">Protector Solar Ana María</h3>
+                        <span class="tarjeta-producto__boton">Ver producto</span>
+                    </div>
+                </a>
+
+                <!-- ID 210 -->
+                <a href="producto.html?id=210" class="tarjeta-producto" data-id="210">
+                    <img class="tarjeta-producto__imagen" src="img/KitdeViaje.jpeg" alt="Kit viajero">
+                    <div class="tarjeta-producto__info">
+                        <h3 class="tarjeta-producto__nombre">Kit Viajero</h3>
+                        <span class="tarjeta-producto__boton">Ver producto</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- SECCION COMPLEMENTOS -->
+        <section class="categoria" id="complementos">
+            <div class="categoria__titulo-contenedor">
+                <h2 class="categoria__titulo">Complementos</h2>
+            </div>
+
+            <div class="grid-productos">
+                <!-- ID 211 -->
+                <a href="producto.html?id=211" class="tarjeta-producto" data-id="211">
+                    <img class="tarjeta-producto__imagen" src="img/KitparaCejas.jpeg" alt="Kit de cejas">
+                    <div class="tarjeta-producto__info">
+                        <h3 class="tarjeta-producto__nombre">Kit de Cejas</h3>
+                        <span class="tarjeta-producto__boton">Ver producto</span>
+                    </div>
+                </a>
+
+                <!-- ID 212 -->
+                <a href="producto.html?id=212" class="tarjeta-producto" data-id="212">
+                    <img class="tarjeta-producto__imagen" src="img/LimpiadorFacial.jpeg" alt="Limpiador facial">
+                    <div class="tarjeta-producto__info">
+                        <h3 class="tarjeta-producto__nombre">Limpiador Facial Recargable</h3>
+                        <span class="tarjeta-producto__boton">Ver producto</span>
+                    </div>
+                </a>
+
+                <!-- ID 213 -->
+                <a href="producto.html?id=213" class="tarjeta-producto" data-id="213">
+                    <img class="tarjeta-producto__imagen" src="img/Rizador de pestañas.jpeg" alt="Rizador">
+                    <div class="tarjeta-producto__info">
+                        <h3 class="tarjeta-producto__nombre">Rizador de Pestañas</h3>
+                        <span class="tarjeta-producto__boton">Ver producto</span>
+                    </div>
+                </a>
+
+                <!-- ID 214 -->
+                <a href="producto.html?id=214" class="tarjeta-producto" data-id="214">
+                    <img class="tarjeta-producto__imagen" src="img/RodilloenFrio.jpeg" alt="Rodillo facial">
+                    <div class="tarjeta-producto__info">
+                        <h3 class="tarjeta-producto__nombre">Rodillo Facial</h3>
+                        <span class="tarjeta-producto__boton">Ver producto</span>
+                    </div>
+                </a>
+
+                <!-- ID 215 -->
+                <a href="producto.html?id=215" class="tarjeta-producto" data-id="215">
+                    <img class="tarjeta-producto__imagen" src="img/SetdeBrochas.jpeg" alt="Set de brochas">
+                    <div class="tarjeta-producto__info">
+                        <h3 class="tarjeta-producto__nombre">Set de Brochas</h3>
+                        <span class="tarjeta-producto__boton">Ver producto</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <p class="footer__texto">Frontend store Lucimakeup - Todos los derechos reservados 2026</p>
+    </footer>
+
+    <!-- Scripts del proyecto -->
+    <script src="JS/productos.js"></script>
+    <script src="JS/detalleproducto.js"></script>
+    <script src="JS/carrito.js"></script>
+
+</body>
+</html>

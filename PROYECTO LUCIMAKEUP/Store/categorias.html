@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FrontEnd Store Lucimakeup</title>
+    <link rel="stylesheet" href="css/normalize.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=Akt:wght@100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Krub:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Staatliches&display=swap" rel="stylesheet">
+
+
+<style>
+    :root { 
+            --blanco: #ffffff;
+            --oscuro: #212121;
+            --primario: #ffc107;
+            --gris: #757575;
+            --rosa-claro: #ffb6c1;
+            --rosa-fuerte: #ff69b4;
+            --rojo-oscuro: #880e2f;
+            --Gris-claro: #dfe9f3;
+            --Blanco-crema: #FFF8F5;
+            --Gris-arena: #F4F4F2;
+            --Beige-calido: #F9F5EB;
+            --Azul-lavanda: #D6E4F0;
+            --Verde-menta: #E2F0D9;
+            --Rosa-sutil: #FCE4EC;
+            --morado: #9C27B0;
+            --morado-oscuro: #89119D;
+            --secundario-oscuro: rgb(255,287,2);
+            --negro: #000;
+
+            --fuentePrincipal: "Staatliches", sans-serif;
+
+            }
+        html { 
+            box-sizing: border-box;
+            font-size: 62.5%;
+
+        }
+        
+        *, *:before, *::after {
+            box-sizing: inherit;
+        }
+
+    /*GLOBALES**/
+    body { 
+        background-color: var(--rosa-fuerte);
+        font-size: 1.6rem;
+        line-height: 1.5;
+    }
+
+    p { 
+        font-size: 1.8rem;
+        font-family: Arial, Helvetica, sans-serif;
+        color: var(--negro);
+
+    }
+
+    a { 
+        text-decoration: none;
+       
+    }
+
+    img { 
+        width: 100%;
+
+    }
+
+    .contenedor { 
+        max-width: 120rem;
+        margin: 0 auto;
+    }
+    h1, h2, h3 { 
+        text-align: center;
+        color: var(--oscuro);
+        font-family: var(--fuentePrincipal);
+    }
+
+    h1 { 
+        font-size: 4rem;
+    }
+    
+    h2 { 
+        font-size: 3.2rem;
+    }
+
+    h3 { 
+        font-size: 2.4rem;
+    }
+    /**HEADER**/
+    .header { 
+        display: flex;
+        justify-content: center;
+    }
+
+    .header__logo { 
+            margin: 3rem 0;
+
+    }
+/**FOOTER**/
+    .footer { 
+        background-color: var(--Blanco-crema);
+        padding: 1rem 0;
+        margin-top: 2rem;
+
+    }
+
+    .footer__texto { 
+        text-align: center;
+        font-family: var(--fuentePrincipal);
+        font-size: 2.2rem;
+    }
+
+    /**NAVEGACION**/
+.navegacion { 
+    background-color: var(--Blanco-crema);
+    padding: 1rem 0;
+    display: flex;
+    justify-content: center; 
+    gap: 2rem;
+}
+
+.navegacion__enlace {
+    font-family: var(--fuentePrincipal);
+    color: var(--negro);
+    font-size: 2.5rem;
+}
+
+.navegacion__enlace--activo:hover { 
+    color: var(--morado);
+}
+
+.navegacion__enlace:hover {
+    color: var(--morado);
+
+}
+
+/**VITRINA DE CATEGORIAS**/
+@media (min-width: 768px) {
+    .vitrina-categorias { 
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 3rem;
+    margin: 4rem 0;
+}
+}
+
+.tarjeta-categoria {
+    position: relative;
+    display: block;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    height: 35rem;
+    box-shadow: 0px 5px 5px 5px rgba(0,0,0,0.1);
+}
+
+.tarjeta-categoria__imagen { 
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .4s ease;
+}
+
+.tarjeta-categoria:hover .tarjeta-categoria__imagen {
+    transform: scale(1.08);
+}
+
+.tarjeta-categoria__overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgb(0 0 0 / 55%);
+    padding: 2rem 1rem;
+    text-align: center;
+}
+
+.tarjeta-categoria__nombre { 
+    font-family: var(--fuentePrincipal);
+    color: var(--blanco);
+    font-size: 2.8rem;
+    margin: 0;
+}
+
+</style>
+</head>
+
+<body>
+    <header class="header">
+        <a href="indexstore.html">
+            <img class="header__logo" src="img/logolucistore.png" alt="Logoipo">
+
+        </a>
+    </header>
+
+    <nav class="navegacion">
+        <a class="navegacion__enlace navegacion__enlace--activo" href="categorias.html">Categorias</a>
+        <a class="navegacion__enlace navegacion__enlace--activo" href="Nosotros.html">Nosotros</a> 
+        
+    </nav>
+
+    <main class="contenedor">
+        <h1>Nuestro catalogo</h1>
+        <p style="text-align: center;">Explora nuestras categorias</p>
+        <div class="vitrina-categorias">
+            <a href="cuidadoPersonal.html" class="tarjeta-categoria">
+            
+                <img class="tarjeta-categoria__imagen" src="img/CuidadoPersonal.jpeg">
+                <div class="tarjeta-categoria__overlay">
+                    <h2 class="tarjeta-categoria__nombre">Cuidado personal</h2>
+                </div>
+            </a> <!---CUIDADO PERSONAL-->
+
+            <a href="hogar.html" class="tarjeta-categoria">
+                <img class="tarjeta-categoria__imagen" src="img/estilo y vida.jpeg">
+                <div class="tarjeta-categoria__overlay">
+                    <h2 class="tarjeta-categoria__nombre">Estilo y vida</h2>
+                </div>
+            </a> <!--ESTILO Y VIDA-->
+
+            <a href="papeleria.html" class="tarjeta-categoria">
+                <img class="tarjeta-categoria__imagen" src="img/papeleria.jpeg">
+                <div class="tarjeta-categoria__overlay">
+                    <h2 class="tarjeta-categoria__nombre">Papeleria</h2>
+                </div>
+            </a> <!--PAPELERIA-->
+            
+            
+
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p class="footer__texto">Tienda Virtual Lucimakeup - Todos los
+            derechos reservados</p>
+    </footer>
+    <script src="JS/carrito.js"></script>
+</body>
+
+</html>

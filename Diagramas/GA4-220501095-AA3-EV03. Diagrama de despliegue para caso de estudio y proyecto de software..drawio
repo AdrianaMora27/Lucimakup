@@ -1,0 +1,135 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/27.0.9 Chrome/134.0.6998.205 Electron/35.4.0 Safari/537.36" version="27.0.9">
+  <diagram name="Página-1" id="-Iuu9E7JRDJ4jMA0EgML">
+    <mxGraphModel dx="1900" dy="804" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="yF0XAI55N52k8dOQD2gN-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="yF0XAI55N52k8dOQD2gN-1" target="yF0XAI55N52k8dOQD2gN-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="yF0XAI55N52k8dOQD2gN-1" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="30" width="650" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="yF0XAI55N52k8dOQD2gN-2" value="&lt;font style=&quot;font-size: 12px;&quot; face=&quot;Lucida Console&quot;&gt;&amp;lt;artifact&amp;gt;Interfaz React.js&lt;/font&gt;&lt;div&gt;&lt;font size=&quot;3&quot; face=&quot;Lucida Console&quot;&gt;SPA responsive (HTML/CSS/JS)&lt;/font&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="230" y="90" width="230" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="yF0XAI55N52k8dOQD2gN-3" value="&lt;font face=&quot;Lucida Console&quot; style=&quot;font-size: 14px;&quot;&gt;&amp;lt;artifact&amp;gt; Panel administrador&lt;/font&gt;&lt;div&gt;&lt;font face=&quot;Lucida Console&quot; size=&quot;3&quot;&gt;Acceso protegido por JWT&lt;/font&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="570" y="90" width="250" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="yF0XAI55N52k8dOQD2gN-5" value="&lt;span style=&quot;font-family: &amp;quot;Lucida Console&amp;quot;; font-size: 24px;&quot;&gt;&amp;lt;nodo&amp;gt;Dispositivos Clientes&amp;nbsp;&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="310" y="30" width="420" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="yF0XAI55N52k8dOQD2gN-6" value="&lt;font face=&quot;Lucida Console&quot;&gt;Pc/Movil/Tablet-navegador Chrome, Firefix, Edge, Safari&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="305" y="70" width="430" as="geometry" />
+        </mxCell>
+        <mxCell id="yF0XAI55N52k8dOQD2gN-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="yF0XAI55N52k8dOQD2gN-8">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="525" y="430" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="yF0XAI55N52k8dOQD2gN-8" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="220" width="650" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="yF0XAI55N52k8dOQD2gN-9" value="&lt;font style=&quot;font-size: 12px;&quot; face=&quot;Lucida Console&quot;&gt;&amp;lt;artifact&amp;gt;Nginx&lt;br&gt;&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot; face=&quot;Lucida Console&quot;&gt;Balaneo de carga&lt;/font&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="220" y="300" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="yF0XAI55N52k8dOQD2gN-11" value="&lt;span style=&quot;font-family: &amp;quot;Lucida Console&amp;quot;; font-size: 24px;&quot;&gt;&amp;lt;nodo&amp;gt;Servidor proxy inverso&amp;nbsp;&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="300" y="230" width="480" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="yF0XAI55N52k8dOQD2gN-12" value="&lt;font style=&quot;font-size: 12px;&quot; face=&quot;Lucida Console&quot;&gt;Ubuntu server- Nginx 1.x&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="410" y="260" width="200" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="yF0XAI55N52k8dOQD2gN-13" value="&lt;font style=&quot;font-size: 12px;&quot; face=&quot;Lucida Console&quot;&gt;&amp;lt;artifact&amp;gt;SSL/TLS&lt;br&gt;&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot; face=&quot;Lucida Console&quot;&gt;Certificado HTTPS&lt;/font&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="430" y="300" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="yF0XAI55N52k8dOQD2gN-14" value="&lt;font style=&quot;font-size: 12px;&quot; face=&quot;Lucida Console&quot;&gt;&amp;lt;artifact&amp;gt;Firewall&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot; face=&quot;Lucida Console&quot;&gt;XSS, CSRF, SQLi&lt;/font&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="660" y="300" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="yF0XAI55N52k8dOQD2gN-15" value="HTTPS/SSL/TLS" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="550" y="178" width="110" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="yF0XAI55N52k8dOQD2gN-16" value="HTTP interno (puerto 3000)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="530" y="380" width="170" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="yF0XAI55N52k8dOQD2gN-20" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="435" width="650" height="235" as="geometry" />
+        </mxCell>
+        <mxCell id="yF0XAI55N52k8dOQD2gN-21" value="&lt;span style=&quot;font-family: &amp;quot;Lucida Console&amp;quot;; font-size: 24px;&quot;&gt;&amp;lt;nodo&amp;gt;Servidor de aplicaciones&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="297" y="440" width="480" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="yF0XAI55N52k8dOQD2gN-22" value="&lt;font style=&quot;font-size: 12px;&quot; face=&quot;Lucida Console&quot;&gt;Ubuntu server-Node.js+Express-Patrón FACHADA(TiendaFacade)&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="310" y="470" width="453" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="yF0XAI55N52k8dOQD2gN-23" value="&lt;font style=&quot;font-size: 12px;&quot; face=&quot;Lucida Console&quot;&gt;&amp;lt;artifact&amp;gt;API REST&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot; face=&quot;Lucida Console&quot;&gt;Rutas Express-Controladores&lt;/font&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="220" y="500" width="230" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="yF0XAI55N52k8dOQD2gN-24" value="&lt;font style=&quot;font-size: 12px;&quot; face=&quot;Lucida Console&quot;&gt;&amp;lt;artifact&amp;gt;TiendaFacade&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot; face=&quot;Lucida Console&quot;&gt;Patrón FACHADA-Auth JWT&lt;/font&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="590" y="500" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="yF0XAI55N52k8dOQD2gN-25" value="&lt;font face=&quot;Lucida Console&quot;&gt;Catálogo&lt;/font&gt;&lt;div&gt;&lt;font face=&quot;Lucida Console&quot;&gt;Productos&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font face=&quot;Lucida Console&quot;&gt;RF-01, RF-02, RF-09&lt;/font&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="230" y="590" width="140" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="yF0XAI55N52k8dOQD2gN-26" value="&lt;font face=&quot;Lucida Console&quot;&gt;Carrito&lt;/font&gt;&lt;div&gt;&lt;font face=&quot;Lucida Console&quot;&gt;Compras&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font face=&quot;Lucida Console&quot;&gt;RF-03, RF-04, RF-05&lt;/font&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="590" width="120" height="62.5" as="geometry" />
+        </mxCell>
+        <mxCell id="yF0XAI55N52k8dOQD2gN-27" value="&lt;font face=&quot;Lucida Console&quot;&gt;Pedidos&lt;/font&gt;&lt;div&gt;&lt;font face=&quot;Lucida Console&quot;&gt;Gestión&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font face=&quot;Lucida Console&quot;&gt;RF-06, RF-07, RF-10, RF-11&lt;/font&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="560" y="587.5" width="110" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="yF0XAI55N52k8dOQD2gN-28" value="&lt;font face=&quot;Lucida Console&quot;&gt;Impuesto&lt;/font&gt;&lt;div&gt;&lt;font face=&quot;Lucida Console&quot;&gt;Envio&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font face=&quot;Lucida Console&quot;&gt;RF-04&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font face=&quot;Lucida Console&quot;&gt;Lógica PseInt&lt;/font&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="687" y="587.5" width="133" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="yF0XAI55N52k8dOQD2gN-29" value="TCP 3306" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="380" y="680" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="yF0XAI55N52k8dOQD2gN-30" value="HTTPS API" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="730" y="680" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="yF0XAI55N52k8dOQD2gN-33" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="380" y="670" as="sourcePoint" />
+            <mxPoint x="380" y="729" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="yF0XAI55N52k8dOQD2gN-34" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="710" y="670" as="sourcePoint" />
+            <mxPoint x="710" y="729" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="yF0XAI55N52k8dOQD2gN-36" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="730" width="480" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="yF0XAI55N52k8dOQD2gN-37" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="650" y="730" width="310" height="320" as="geometry" />
+        </mxCell>
+        <mxCell id="yF0XAI55N52k8dOQD2gN-38" value="&lt;span style=&quot;font-family: &amp;quot;Lucida Console&amp;quot;; font-size: 24px;&quot;&gt;&amp;lt;nodo&amp;gt;Servidor de base de datos&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="57.5" y="740" width="462.5" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="yF0XAI55N52k8dOQD2gN-39" value="&lt;font style=&quot;font-size: 12px;&quot; face=&quot;Lucida Console&quot;&gt;Ubuntu server-MySQL 8- SSD dedicado&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="77" y="780" width="453" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="yF0XAI55N52k8dOQD2gN-40" value="&lt;font face=&quot;Lucida Console&quot;&gt;Esquema&lt;/font&gt;&lt;div&gt;&lt;font face=&quot;Lucida Console&quot;&gt;usuario&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font face=&quot;Lucida Console&quot;&gt;productos&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font face=&quot;Lucida Console&quot;&gt;pedidos&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font face=&quot;Lucida Console&quot;&gt;categorias&lt;/font&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="70" y="830" width="180" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="yF0XAI55N52k8dOQD2gN-41" value="&lt;font face=&quot;Lucida Console&quot;&gt;Seguridad&lt;/font&gt;&lt;div&gt;&lt;font face=&quot;Lucida Console&quot;&gt;Cifrado de datos&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font face=&quot;Lucida Console&quot;&gt;Backups SSD&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font face=&quot;Lucida Console&quot;&gt;Alta disponibilidad&lt;/font&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="332.5" y="830" width="175" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="yF0XAI55N52k8dOQD2gN-42" value="&lt;span style=&quot;font-family: &amp;quot;Lucida Console&amp;quot;; font-size: 24px;&quot;&gt;&amp;lt;nodo&amp;gt;Servidor nube&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="590" y="740" width="400" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="yF0XAI55N52k8dOQD2gN-43" value="&lt;font style=&quot;font-size: 12px;&quot; face=&quot;Lucida Console&quot;&gt;APIs externas-CDN&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="570" y="770" width="453" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="yF0XAI55N52k8dOQD2gN-44" value="&lt;font face=&quot;Lucida Console&quot;&gt;WOMPI/PSE&lt;/font&gt;&lt;div&gt;&lt;font face=&quot;Lucida Console&quot;&gt;Pasarela de pago-RF-06&lt;/font&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="721.88" y="800" width="136.25" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="yF0XAI55N52k8dOQD2gN-45" value="&lt;font face=&quot;Lucida Console&quot;&gt;SendGrid&lt;/font&gt;&lt;div&gt;&lt;font face=&quot;Lucida Console&quot;&gt;Notificaciones&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font face=&quot;Lucida Console&quot;&gt;RF-08&lt;/font&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="722.51" y="880" width="135.62" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="yF0XAI55N52k8dOQD2gN-46" value="&lt;font face=&quot;Lucida Console&quot;&gt;Cloudinary&lt;/font&gt;&lt;div&gt;&lt;font face=&quot;Lucida Console&quot;&gt;CDN imágenes productos&lt;/font&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="722.51" y="960" width="137.25" height="70" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
