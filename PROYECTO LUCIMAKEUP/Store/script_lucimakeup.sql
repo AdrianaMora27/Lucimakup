@@ -1,7 +1,7 @@
 -- ============================================================
 -- PROYECTO FORMATIVO SENA: LUCIMAKEUP STORE
 -- EVIDENCIA: GA6-220501096-AA2-EV03 - Script base de datos
--- Versión: Actualizada con desglose de pedido (Subtotal, Impuestos, Envío)
+-- Versión: Compatible con MariaDB / XAMPP
 -- ============================================================
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `lucimakeup_db`.`Cliente` (
   `Password` VARCHAR(255) NOT NULL,
   `fecha_registro` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`idCliente`),
-  UNIQUE INDEX `Email_UNIQUE` (`Email` ASC) VISIBLE)
+  UNIQUE INDEX `Email_UNIQUE` (`Email` ASC))
 ENGINE = InnoDB;
 
 -- -----------------------------------------------------
@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `lucimakeup_db`.`Producto` (
   `Stock_Producto` INT NOT NULL,
   `Categoria_idCategoria` INT NOT NULL,
   PRIMARY KEY (`idProducto`),
-  INDEX `fk_Producto_Categoria1_idx` (`Categoria_idCategoria` ASC) VISIBLE,
+  INDEX `fk_Producto_Categoria1_idx` (`Categoria_idCategoria` ASC),
   CONSTRAINT `fk_Producto_Categoria1`
     FOREIGN KEY (`Categoria_idCategoria`)
     REFERENCES `lucimakeup_db`.`Categoria` (`idCategoria`)
@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `lucimakeup_db`.`Producto` (
 ENGINE = InnoDB;
 
 -- -----------------------------------------------------
--- Table `lucimakeup_db`.`Pedido` (Campos de subtotal, impuesto y envío añadidos)
+-- Table `lucimakeup_db`.`Pedido`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `lucimakeup_db`.`Pedido` (
   `idPedido` INT NOT NULL AUTO_INCREMENT,
@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS `lucimakeup_db`.`Pedido` (
   `Estado` VARCHAR(70) NOT NULL,
   `Cliente_idCliente` INT NOT NULL,
   PRIMARY KEY (`idPedido`),
-  INDEX `fk_Pedido_Cliente1_idx` (`Cliente_idCliente` ASC) VISIBLE,
+  INDEX `fk_Pedido_Cliente1_idx` (`Cliente_idCliente` ASC),
   CONSTRAINT `fk_Pedido_Cliente1`
     FOREIGN KEY (`Cliente_idCliente`)
     REFERENCES `lucimakeup_db`.`Cliente` (`idCliente`)
@@ -91,8 +91,8 @@ CREATE TABLE IF NOT EXISTS `lucimakeup_db`.`DetallePedido` (
   `cantidad` INT NOT NULL,
   `SubTotal` DECIMAL(10,2) NOT NULL,
   PRIMARY KEY (`idDetallePedido`),
-  INDEX `fk_DetallePedido_Pedido1_idx` (`Pedido_idPedido` ASC) VISIBLE,
-  INDEX `fk_DetallePedido_Producto1_idx` (`Producto_idProducto` ASC) VISIBLE,
+  INDEX `fk_DetallePedido_Pedido1_idx` (`Pedido_idPedido` ASC),
+  INDEX `fk_DetallePedido_Producto1_idx` (`Producto_idProducto` ASC),
   CONSTRAINT `fk_DetallePedido_Pedido1`
     FOREIGN KEY (`Pedido_idPedido`)
     REFERENCES `lucimakeup_db`.`Pedido` (`idPedido`)
@@ -116,7 +116,7 @@ CREATE TABLE IF NOT EXISTS `lucimakeup_db`.`Pago` (
   `estado_Pago` VARCHAR(20) NOT NULL,
   `fecha_Pago` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_Pago`),
-  INDEX `fk_Pago_Pedido1_idx` (`id_Pedido` ASC) VISIBLE,
+  INDEX `fk_Pago_Pedido1_idx` (`id_Pedido` ASC),
   CONSTRAINT `fk_Pago_Pedido1`
     FOREIGN KEY (`id_Pedido`)
     REFERENCES `lucimakeup_db`.`Pedido` (`idPedido`)
@@ -124,42 +124,34 @@ CREATE TABLE IF NOT EXISTS `lucimakeup_db`.`Pago` (
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
-
 -- ============================================================
--- INSERCIÓN DE DATOS DE PRUEBA (POBLADO DE LA BASE DE DATOS)
+-- INSERCIÓN DE DATOS DE PRUEBA
 -- ============================================================
 
--- 1. Insertar Categorías
 INSERT INTO `Categoria` (`idCategoria`, `nombre_Categ`, `descripcion`) VALUES
 (1, 'Maquillaje', 'Productos de maquillaje y cosmética'),
 (2, 'Cuidado Personal', 'Productos para el cuidado de la piel y personal'),
 (3, 'Estilo y Vida', 'Velas aromáticas y accesorios de hogar'),
 (4, 'Papelería', 'Cuadernos, blocks y útiles de escritorio');
 
--- 2. Insertar Cliente de prueba
 INSERT INTO `Cliente` (`idCliente`, `Nombre`, `Apellido`, `telefono`, `Email`, `Password`, `fecha_registro`) VALUES
 (1, 'Adriana', 'María', '3001234567', 'adriana@gmail.com', '123456', NOW());
 
--- 3. Insertar Productos de Lucimakeup Store
 INSERT INTO `Producto` (`idProducto`, `Nombre_Producto`, `descripcion_producto`, `Precio_Producto`, `Stock_Producto`, `Categoria_idCategoria`) VALUES
 (1, 'Brillo Gloss', 'Brillo labial hidratante', 12000.00, 50, 1),
 (2, 'Block 100 hojas', 'Block iris escolar hojas de colores', 8000.00, 100, 4),
 (3, 'Vela con aroma', 'Vela aromática ecológica relajante', 10000.00, 30, 3);
 
--- 4. Insertar Pedido (Coincide con el checkout: $30.000 productos + $8.000 envío = $38.000 COP)
 INSERT INTO `Pedido` (`idPedido`, `fecha`, `subtotal`, `impuesto`, `costo_envio`, `total`, `Estado`, `Cliente_idCliente`) VALUES
 (1, NOW(), 30000.00, 0.00, 8000.00, 38000.00, 'Procesando', 1);
 
--- 5. Insertar Detalle del Pedido #1 (3 items que suman $30.000 COP)
 INSERT INTO `DetallePedido` (`idDetallePedido`, `Producto_idProducto`, `Pedido_idPedido`, `precio_Unitario`, `cantidad`, `SubTotal`) VALUES
 (1, 1, 1, 12000.00, 1, 12000.00),
 (2, 2, 1, 8000.00, 1, 8000.00),
 (3, 3, 1, 10000.00, 1, 10000.00);
 
--- 6. Insertar Registro de Pago
 INSERT INTO `Pago` (`id_Pago`, `id_Pedido`, `monto`, `metodo_Pago`, `estado_Pago`, `fecha_Pago`) VALUES
 (1, 1, 38000.00, 'Nequi', 'Aprobado', NOW());
-
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
