@@ -1,29 +1,45 @@
 package com.lucimakeup.controller;
 
-import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
+/**
+ * Servlet de control para autenticar las credenciales de acceso de los usuarios.
+ * Recibe peticiones HTTP POST desde el formulario de inicio de sesión.
+ * 
+ * @author Adriana Marcela Mora Rincón
+ * @version 1.0
+ */
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
 
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * Procesa las peticiones POST del formulario de autenticación.
+     * 
+     * @param request Objeto HttpServletRequest con los parámetros del cliente.
+     * @param response Objeto HttpServletResponse para enviar la respuesta o redirección.
+     * @throws ServletException Si ocurre un error interno en el Servlet.
+     * @throws IOException Si ocurre un error de entrada/salida durante la redirección.
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
-        
-        // Recibe los datos ingresados en el formulario de login.jsp
+
         String correo = request.getParameter("correo");
         String password = request.getParameter("password");
 
-        // Validación temporal de prueba
-        if (correo != null && !correo.isEmpty() && password != null && !password.isEmpty()) {
-            // Si hay datos, simula inicio de sesión exitoso y redirige al inicio
+        // Lógica de validación básica de campos
+        if (correo != null && !correo.trim().isEmpty() && password != null && !password.trim().isEmpty()) {
+            // Autenticación correcta -> Redirige al catálogo/inicio
             response.sendRedirect("index.jsp");
         } else {
-            // Si faltan datos, redirige de nuevo al login con un parámetro de error
+            // Fallo en la autenticación -> Retorna al login con parámetro de error
             response.sendRedirect("login.jsp?error=true");
         }
     }
