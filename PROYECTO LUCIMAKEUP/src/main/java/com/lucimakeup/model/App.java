@@ -1,4 +1,5 @@
 package com.lucimakeup.model;
+import com.lucimakeup.model.ProductoDAO;
 public class App {
     public static void main(String[] args) {
         ProductoDAO dao = new ProductoDAO();
