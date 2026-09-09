@@ -24,7 +24,7 @@ public class ProductoDAO {
      */
     public List<Producto> listarProductos() {
         List<Producto> lista = new ArrayList<>();
-        String sql = "SELECT * FROM productos";
+        String sql = "SELECT * FROM producto";
 
         try (Connection con = ConexionBD.obtenerConexion();
              PreparedStatement ps = con.prepareStatement(sql);
@@ -32,10 +32,12 @@ public class ProductoDAO {
 
             while (rs.next()) {
                 Producto p = new Producto();
-                p.setIdProducto(rs.getInt("id_producto"));
-                p.setNombreProducto(rs.getString("nombre"));
-                p.setPrecioProducto(rs.getDouble("precio"));
-                p.setStockProducto(rs.getInt("stock"));
+                p.setIdProducto(rs.getInt("idProducto"));
+                p.setNombreProducto(rs.getString("Nombre_Producto"));
+                p.setDescripcionProducto(rs.getString("descripcion_producto"));
+                p.setPrecioProducto(rs.getDouble("Precio_Producto"));
+                p.setStockProducto(rs.getInt("Stock_Producto"));
+                p.setCategoriaIdCategoria(rs.getInt("Categoria_idCategoria"));
                 lista.add(p);
                 
                 System.out.println("ID: " + p.getIdProducto() + 
@@ -60,7 +62,7 @@ public class ProductoDAO {
      * @param idCategoria Identificador de la categoría.
      */
     public void insertarProducto(String nombre, String descripcion, double precio, int stock, int idCategoria) {
-        String sql = "INSERT INTO productos (nombre, descripcion, precio, stock, id_categoria) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO producto (Nombre_Producto, descripcion_producto, Precio_Producto, Stock_Producto, Categoria_idCategoria) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection con = ConexionBD.obtenerConexion();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -86,7 +88,7 @@ public class ProductoDAO {
      * @param nuevoStock Nueva cantidad de stock.
      */
     public void actualizarStock(int idProducto, int nuevoStock) {
-        String sql = "UPDATE productos SET stock = ? WHERE id_producto = ?";
+        String sql = "UPDATE producto SET Stock_Producto = ? WHERE idProducto = ?";
 
         try (Connection con = ConexionBD.obtenerConexion();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -108,7 +110,7 @@ public class ProductoDAO {
      * @param idProducto Identificador del producto a eliminar.
      */
     public void eliminarProducto(int idProducto) {
-        String sql = "DELETE FROM productos WHERE id_producto = ?";
+        String sql = "DELETE FROM producto WHERE idProducto = ?";
 
         try (Connection con = ConexionBD.obtenerConexion();
              PreparedStatement ps = con.prepareStatement(sql)) {

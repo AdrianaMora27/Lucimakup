@@ -1,12 +1,14 @@
-
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%><!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalle de Producto - Lucimakeup</title>
+    <title>${not empty producto ? producto.nombre : 'Detalle de Producto'} - Lucimakeup</title>
     <link rel="stylesheet" href="css/normalize.css"> 
-    <link href="https://fonts.googleapis.com/css2?family=Akt:wght@100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Krub:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Staatliches&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Staatliches&display=swap" rel="stylesheet">
 
 <style>
     :root { 
@@ -26,7 +28,7 @@
         --Rosa-sutil: #FCE4EC;
         --morado: #9C27B0;
         --morado-oscuro: #89119D;
-        --secundario-oscuro: rgb(255,287,2);
+        --secundario-oscuro: rgb(255,187,2);
         --negro: #000;
         --fuentePrincipal: "Staatliches", sans-serif;
     }
@@ -70,6 +72,7 @@
         display: flex;
         justify-content: center;
         gap: 2rem;
+        flex-wrap: wrap;
     }
 
     .navegacion__enlace { 
@@ -111,7 +114,7 @@
     .detalle-producto__info { 
         display: flex;
         flex-direction: column;
-        justify-content: center; /* Corregido typo */
+        justify-content: center;
     }
 
     .detalle-producto__nombre { 
@@ -178,55 +181,70 @@
         color: var(--blanco);
         margin-top: 4rem;
     }
+    
+    .footer__texto {
+        font-family: var(--fuentePrincipal);
+        font-size: 2rem;
+    }
 </style>
 </head>
 
 <body>
 
     <header class="header">
-        <a href="index.html">
+        <a href="index.jsp">
             <img class="header__logo" src="img/logolucistore.png" alt="Logotipo LuciMakeup">
         </a>
     </header>
 
-    <!-- Barra de navegación completa -->
+    <!-- Navegación con rutas dinámicas hacia JSP/Servlets -->
     <nav class="navegacion">
-        <a class="navegacion__enlace" href="index.html">Inicio</a>
-        <a class="navegacion__enlace" href="categorias.html">Categorías</a>
-        <a class="navegacion__enlace" href="cuidadoPersonal.html">Cuidado Personal</a>
-        <a class="navegacion__enlace" href="hogar.html">Hogar y Estilo de Vida</a>
-        <a class="navegacion__enlace" href="papeleria.html">Papelería</a>
-        <a class="navegacion__enlace" href="Nosotros.html">Nosotros</a>
+        <a class="navegacion__enlace" href="index.jsp">Inicio</a>
+        <a class="navegacion__enlace" href="CategoriasServlet">Categorías</a>
+        <a class="navegacion__enlace" href="CuidadoPersonalServlet">Cuidado Personal</a>
+        <a class="navegacion__enlace" href="HogarServlet">Hogar y Estilo de Vida</a>
+        <a class="navegacion__enlace" href="PapeleriaServlet">Papelería</a>
+        <a class="navegacion__enlace" href="nosotros.jsp">Nosotros</a>
     </nav>
 
     <main class="contenedor">
-        <!--MAQUETADO ESTATICO VISIBLE POR DEFECTO-->
-    
-    
         <div id="detalle-producto" class="detalle-producto">
             <div class="detalle-producto__imagen">
-                <img src="img/cremaPeinar.jpeg" alt="crema para peinar">
+                <img src="img/${not empty producto.imagen ? producto.imagen : 'cremaPeinar.jpeg'}" 
+                     alt="${not empty producto.nombre ? producto.nombre : 'Producto LuciMakeup'}">
             </div>
 
             <div class="detalle-producto__info">
-                <h1 class="detalle-producto__nombre">Crema para peinar</h1>
-                <p class="detalle-producto__precio">$45.000 COP</p>
-                <p class="detalle-producto__descripcion">Crema para peinar marca Anyeluz, ideal para todo tipo de cabello
-                    Con delicioso aroma a coco </p>
+                <h1 class="detalle-producto__nombre">${not empty producto.nombre ? producto.nombre : 'Crema para peinar'}</h1>
+                
+                <p class="detalle-producto__precio">
+                    <c:choose>
+                        <c:when test="${not empty producto.precio}">
+                            $<fmt:formatNumber value="${producto.precio}" pattern="#,##0" /> COP
+                        </c:when>
+                        <c:otherwise>
+                            $45.000 COP
+                        </c:otherwise>
+                    </c:choose>
+                </p>
 
-                    <!--FORMULARIO POST HACIA EL SERVLET DEL CARRITO-->
+                <p class="detalle-producto__descripcion">
+                    ${not empty producto.descripcion ? producto.descripcion : 'Crema para peinar marca Anyeluz, ideal para todo tipo de cabello con delicioso aroma a coco.'}
+                </p>
 
+                <!-- FORMULARIO POST HACIA EL SERVLET DEL CARRITO -->
                 <form action="CarritoServlet" method="POST">
-                    <input type="hidden" name="productoId" value="101">
+                    <!-- Asegúrate de cambiar 'idProducto' por 'id' si así está en tu clase Java -->
+                    <input type="hidden" name="productoId" value="${not empty producto.idProducto ? producto.idProducto : (not empty producto.id ? producto.id : '101')}">
+                    <input type="hidden" name="accion" value="agregar">
+                    
                     <div class="formulario-cantidad">
                         <label for="cantidad" style="font-size: 1.8rem; font-weight: bold;">Cantidad</label>
-                        <input class="formualrio-cantidad__campo" type="number" id="cantidad" name="cantidad" min="1" value="1">
-
+                        <input class="formulario-cantidad__campo" type="number" id="cantidad" name="cantidad" min="1" value="1">
                     </div>
 
                     <button type="submit" class="boton">Añadir al carrito</button>
                 </form>
-               
             </div>
         </div>
     </main>
@@ -235,9 +253,6 @@
         <p class="footer__texto">Tienda Virtual LuciMakeup - Todos los derechos reservados &copy;</p>
     </footer>
 
-    <!-- Scripts obligatorios en este orden exacto -->
-    <script src="JS/productos.js"></script>
-    <script src="JS/detalleProducto.js"></script>
     <script src="JS/carrito.js"></script>
 </body>
 </html>

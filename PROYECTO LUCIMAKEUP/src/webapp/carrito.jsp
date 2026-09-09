@@ -39,6 +39,7 @@
         font-size: 1.6rem;
         line-height: 1.5;
         font-family: Arial, Helvetica, sans-serif;
+        margin: 0;
     }
 
     .contenedor { 
@@ -82,7 +83,6 @@
         font-size: 1.5rem;
         text-decoration: none;
         transition: color 0.3s ease;
-
     }
 
     .navegacion__enlace:hover { 
@@ -111,7 +111,6 @@
         border-radius: 1rem;
         padding: 2.5rem;
         box-shadow: 0px 5px 10px rgba(0,0,0,0.1);
-
     }
 
     .carrito-item {
@@ -123,7 +122,7 @@
         border-bottom: 1px solid var(--rosa-claro);
     }
 
-    .carrito-item:last-child {  /**se le quita solo al ultimo**/
+    .carrito-item:last-child {
         border-bottom: none;
     }
 
@@ -132,8 +131,7 @@
         border-radius: 0.5rem;
         height: 8rem;
         display: block;
-        object-fit: cover; /**como ajustar o redimensionar una imagen o video**/
-        
+        object-fit: cover;
     }
 
     .carrito-item__detalles { 
@@ -169,7 +167,6 @@
         font-size: 1.6rem;
         border: 1px solid var(--rosa-claro);
         border-radius: 0.5rem;
-
     }
 
     .carrito-item__eliminar {
@@ -179,7 +176,6 @@
         font-size: 1.4rem;
         cursor: pointer;
         text-decoration: underline;
-    
     }
 
     /**RESUMEN DEL PEDIDO**/
@@ -187,20 +183,17 @@
     .resumen-pedido { 
         background-color: var(--Blanco-crema);
         border-radius: 1rem;
-        padding: 2.5rem; /**Espacio interior de un elemento**/
+        padding: 2.5rem;
         box-shadow: 0px 5px 10px rgba(0,0,0,0.1);
-        height: fit-content; /**altura exacta y rigida de un elemento**/
-        /**fit-content: la caja crece a medida que agregan pero se detiene al llegar donde termina el ultimo elemento**/
-
-
+        height: fit-content;
     }
 
     .resumen-pedido__titulo { 
-    font-family: var(--fuentePrincipal);
-    font-size: 2.8rem;
-    margin-top: 0;
-    color: var(--morado-oscuro);
-    text-align: center;
+        font-family: var(--fuentePrincipal);
+        font-size: 2.8rem;
+        margin-top: 0;
+        color: var(--morado-oscuro);
+        text-align: center;
     }
 
     .resumen-linea { 
@@ -234,7 +227,6 @@
         text-transform: uppercase;
         margin-top: 2rem;
         transition: background-color 0.3s ease;
-
     }
 
     .boton-checkout:hover { 
@@ -248,7 +240,6 @@
         background-color: var(--Blanco-crema);
         padding: 1.5rem 0;
         margin-top: 4rem;
-
     }
 
     .footer__texto { 
@@ -257,118 +248,103 @@
         font-size: 2.2rem;
         margin: 0;
     }
-
     </style>
+</head>
 
-    </head>
+<body>
+    <header class="header">
+        <a href="index.jsp">
+            <img class="header__logo" src="img/logolucistore.png" alt="Logotipo Lucimakeup">
+        </a>
+    </header>
 
-    <body>
-        <header class="header">
-            <a href="index.html">
-                <img class="header__logo" src="img/logolucistore.png" alt="Logotipo Lucimakeup">
-            </a>
-        </header>
+    <nav class="navegacion">
+        <a class="navegacion__enlace" href="categorias.jsp">Categorías</a>
+        <a class="navegacion__enlace" href="cuidadoPersonal.jsp">Cuidado Personal</a>
+        <a class="navegacion__enlace" href="hogar.jsp">Estilo y Vida</a>
+        <a class="navegacion__enlace" href="papeleria.jsp">Papelería</a>
+        <a class="navegacion__enlace" href="Nosotros.jsp">Nosotros</a>
+    </nav>
 
-        <nav class="navegacion">
-            <a class="navegacion__enlace" href="categorias.html">categorias</a>
-            <a class="navegacion__enlace" href="cuidadoPersonal.html">Cuidado Personal</a>
-            <a class="navegacion__enlace" href="hogar.html">Estilo y vida</a>
-            <a class="navegacion__enlace" href="papeleria.html">Papeleria</a>
-            <a class="navegacion__enlace" href="Nosotros.html">Nosotros</a>
-            <!-- En tu carrito.html -->
-            <a href="checkout.html" class="btn-primario">Proceder al pago</a>
+    <main class="contenedor">
+        <h1>Tu carrito de compras</h1>
 
-        </nav>
-<main class="contenedor">
-    <h1>Tu carrito de compras</h1>
+        <div class="carrito-grid">
 
-    <div class="carrito-grid">
+            <!-- Lista de productos agregados -->
+            <section class="carrito-contenido">
 
-        <!-- Lista de productos agregados -->
-
-         <section class="carrito-contenido">
-
-            <!-- Inicio producto 1 -->
-            <div class="carrito-item">
-                <img src="img/brilloGloss.jpeg" alt="Brillo Gloss" class="carrito-item__imagen">
-                <div class="carrito-item__detalles">
-                    <h3 class="carrito-item__nombre">Brillo Gloss</h3>
-                    <span class="carrito-item__precio">$12.000 COP</span>
+                <!-- Producto 1 -->
+                <div class="carrito-item">
+                    <img src="img/brilloGloss.jpeg" alt="Brillo Gloss" class="carrito-item__imagen">
+                    <div class="carrito-item__detalles">
+                        <h3 class="carrito-item__nombre">Brillo Gloss</h3>
+                        <span class="carrito-item__precio">$12.000 COP</span>
+                    </div>
+                    <div class="carrito-item__controles">
+                        <input type="number" value="2" min="1" class="carrito-item__cantidad">
+                        <button class="carrito-item__eliminar">Eliminar</button>
+                    </div>
                 </div>
-                <div class="carrito-item__controles">
-                    <input type="number" value="2" min="1" class="carrito-item__cantidad">
-                    <button class="carrito-item__eliminar">Eliminar</button>
+
+                <!-- Producto 2 -->
+                <div class="carrito-item">
+                    <img src="img/block.jpeg" alt="block" class="carrito-item__imagen">
+                    <div class="carrito-item__detalles">
+                        <h3 class="carrito-item__nombre">Block 100 hojas</h3>
+                        <span class="carrito-item__precio">$8.000 COP</span>
+                    </div>
+                    <div class="carrito-item__controles">
+                        <input type="number" value="2" min="1" class="carrito-item__cantidad">
+                        <button class="carrito-item__eliminar">Eliminar</button>
+                    </div>
                 </div>
+
+                <!-- Producto 3 -->
+                <div class="carrito-item">
+                    <img src="img/velaAromatica.jpeg" alt="velaAromatica" class="carrito-item__imagen">
+                    <div class="carrito-item__detalles">
+                        <h3 class="carrito-item__nombre">Vela con aroma</h3>
+                        <span class="carrito-item__precio">$10.000 COP</span>
+                    </div>
+                    <div class="carrito-item__controles">
+                        <input type="number" value="2" min="1" class="carrito-item__cantidad">
+                        <button class="carrito-item__eliminar">Eliminar</button>
+                    </div>
                 </div>
-            <!--FIN PRODUCTO 1 -->
 
-            <!-- Inicio producto 2-->
-            <div class="carrito-item">
-                <img src="img/block.jpeg" alt="block" class="carrito-item__imagen">
-                <div class="carrito-item__detalles">
-                    <h3 class="carrito-item__nombre">Block 100 hojas</h3>
-                    <span class="carrito-item__precio">$8.000 COP</span>
+            </section>
+
+            <!-- Resumen Financiero -->
+            <aside class="resumen-pedido">
+                <h2 class="resumen-pedido__titulo">Resumen de la compra</h2>
+
+                <div class="resumen-linea">
+                    <span>Subtotal:</span>
+                    <span>$30.000 COP</span>
                 </div>
-                <div class="carrito-item__controles">
-                    <input type="number" value="2" min="1" class="carrito-item__cantidad">
-                    <button class="carrito-item__eliminar">Eliminar</button>
+
+                <div class="resumen-linea">
+                    <span>Envío:</span>
+                    <span>$8.000 COP</span>
                 </div>
+
+                <div class="resumen-linea resumen-linea--total">
+                    <span>Total:</span>
+                    <span>$38.000 COP</span>
                 </div>
-            <!--FIN PRODUCTO 2 -->
 
-            <!-- Inicio producto 3 -->
-            <div class="carrito-item">
-                <img src="img/velaAromatica.jpeg" alt="velaAromatica" class="carrito-item__imagen">
-                <div class="carrito-item__detalles">
-                    <h3 class="carrito-item__nombre">Vela con aroma</h3>
-                    <span class="carrito-item__precio">$10.000 COP</span>
-                </div>
-                <div class="carrito-item__controles">
-                    <input type="number" value="2" min="1" class="carrito-item__cantidad">
-                    <button class="carrito-item__eliminar">Eliminar</button>
-                
-                </div>
-             </div>
-            <!--FIN PRODUCTO 3 -->
+                <!-- Redirección correcta a checkout.jsp -->
+                <a href="${pageContext.request.contextPath}/checkout.jsp" class="boton-checkout">Pagar</a>
+            </aside>
 
-
-         </section>
-
-         <!-- RESUMEN FINANCIERO -->
-          <aside class="resumen-pedido">
-            <h2 class="resumen-pedido__titulo">Resumen de la compra</h2>
-
-            <div class="resumen-linea">
-                <span>Subtotal:</span>
-                <span>$30.000 COP</span>
-            </div>
-
-            <div class="resumen-linea">
-                <span>Envio:</span>
-                <span>$8.000 COP</span>
-            </div>
-
-            <div class="resumen-linea resumen-linea--total">
-                <span>Total:</span>
-                <span>$38.000 COP</span>
-            </div>
-
-        <a href="checkout.html" class="boton-checkout">Pagar</a>
-
-          </aside>
-
-   
-   
-   
         </div>
-</main>
+    </main>
 
+    <footer class="footer">
+        <p class="footer__texto">Frontend store Lucimakeup - Todos los derechos reservados</p>
+    </footer>
 
-<footer class="footer">
-    <p class="footer__texto">Frontend store Lucimakeup - Todos los derechos reservador</p>
-</footer>
-
-<script src="JS/carrito.js"></script>
-    </body>
-
-    </html>
+    <script src="JS/carrito.js"></script>
+</body>
+</html>
