@@ -1,4 +1,12 @@
 package com.lucimakeup.model;
+
+/**
+ * Clase que representa el modelo de datos para los productos de Lucimakeup Store.
+ * Funciona como un objeto POJO (Plain Old Java Object) para el transporte de información.
+ * 
+ * @author Adriana Mora
+ * @version 1.0
+ */
 public class Producto {
     private int idProducto;
     private String nombreProducto;
@@ -7,8 +15,14 @@ public class Producto {
     private int stockProducto;
     private int categoriaIdCategoria;
 
+    /**
+     * Constructor vacio por defecto.
+     */
     public Producto() {}
 
+    /**
+     * Constructor con parametros para inicializar un producto completo.
+     */
     public Producto(int idProducto, String nombreProducto, String descripcionProducto, double precioProducto, int stockProducto, int categoriaIdCategoria) {
         this.idProducto = idProducto;
         this.nombreProducto = nombreProducto;
@@ -18,6 +32,7 @@ public class Producto {
         this.categoriaIdCategoria = categoriaIdCategoria;
     }
 
+    // Getters y Setters
     public int getIdProducto() { return idProducto; }
     public void setIdProducto(int idProducto) { this.idProducto = idProducto; }
 
