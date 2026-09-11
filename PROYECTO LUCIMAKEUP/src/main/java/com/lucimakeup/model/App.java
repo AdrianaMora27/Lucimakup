@@ -1,27 +1,38 @@
 package com.lucimakeup.model;
-import com.lucimakeup.model.ProductoDAO;
+
 public class App {
     public static void main(String[] args) {
         ProductoDAO dao = new ProductoDAO();
 
-        System.out.println("=== PRUEBA DE FUNCIONALIDADES CRUD LUCIMAKEUP STORE ===");
+        System.out.println("=== INICIO DE PRUEBAS CRUD - LUCIMAKEUP STORE ===\n");
 
-        // 1. Mostrar estado inicial
-        dao.listarProductos();
+        // 1. LECTURA (HU-01: Listar inventario inicial)
+        //System.out.println("[1] Consultando listado inicial de productos:");
+        //dao.listarProductos();
 
-        // 2. Insertar un nuevo producto
-        System.out.println("\n--- probando INSERCIÓN ---");
-        dao.insertarProducto("Tónico Facial", "Tónico hidratante de agua de rosas", 15000.00, 40, 2);
-        dao.listarProductos();
+        // 2. CREACIÓN (HU-02: Insertar nuevo producto de prueba)
+        //System.out.println("\n[2] Insertando un nuevo producto al inventario:");
+        //dao.insertarProducto("Tónico Facial", "Tónico hidratante de agua de rosas", 15000.00, 40, 2);
+        
+        // Verificamos listado tras la inserción
+        //System.out.println("--- Listado después de insertar ---");
+        //dao.listarProductos();
 
-        // 3. Actualizar stock
-        System.out.println("\n--- probando ACTUALIZACIÓN ---");
-        dao.actualizarStock(1, 45); // Cambia stock del Brillo Gloss
-        dao.listarProductos();
+        // 3. ACTUALIZACIÓN (HU-02: Modificar stock de un producto existente, ej: ID 1)
+        //System.out.println("\n[3] Actualizando el stock de un producto:");
+        //dao.actualizarStock(1, 45); 
 
-        // 4. Eliminar un registro
-        System.out.println("\n--- probando ELIMINACIÓN ---");
-        dao.eliminarProducto(3); // Elimina la Vela con aroma
+        // ==========================================
+        // PASO 4: PROBAR LA ELIMINACIÓN (DELETE)
+        // ==========================================
+       
+        //System.out.println("\n=== 4. PROBANDO ELIMINACIÓN DE UN PRODUCTO ===");
+        //dao.eliminarProducto(3); // Borra el producto con ID 3 de prueba
+        
+        //System.out.println("--- Verificando listado tras eliminar ---");
         dao.listarProductos();
+        
+
+        System.out.println("\n=== FIN DE LA PRUEBA DE FUNCIONALIDAD ===");
     }
 }
