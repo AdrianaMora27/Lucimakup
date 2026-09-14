@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="css/normalize.css">
     <link href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap" rel="stylesheet">
     <style>
+        /* ==========================================
+           VARIABLES DE DISEÑO Y PALETA DE COLORES
+           ========================================== */
         :root {
             --blanco: #ffffff;
             --oscuro: #212121;
@@ -18,6 +21,10 @@
             --rosa-fuerte: #ff69b4;
             --fuentePrincipal: "Staatliches", sans-serif;
         }
+
+        /* ==========================================
+           ESTILOS GENERALES DEL CUERPO
+           ========================================== */
         body {
             font-family: Arial, sans-serif;
             background-color: var(--rosa-fuerte);
@@ -26,6 +33,10 @@
             flex-direction: column;
             min-height: 100vh;
         }
+
+        /* ==========================================
+           CONTENEDOR PRINCIPAL DEL FORMULARIO
+           ========================================== */
         .contenedor-registro {
             max-width: 50rem;
             margin: 4rem auto;
@@ -35,6 +46,7 @@
             box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
             width: 90%;
         }
+
         h1 {
             font-family: var(--fuentePrincipal);
             color: var(--morado-oscuro);
@@ -42,15 +54,21 @@
             font-size: 3.5rem;
             margin-bottom: 2rem;
         }
+
+        /* ==========================================
+           ESTILOS DE CAMPOS Y ENTRADAS DE DATOS
+           ========================================== */
         .campo {
             margin-bottom: 1.5rem;
         }
+
         .campo label {
             display: block;
             margin-bottom: .5rem;
             font-weight: bold;
             color: var(--oscuro);
         }
+
         .campo input {
             width: 100%;
             padding: 1.2rem;
@@ -59,6 +77,10 @@
             font-size: 1.5rem;
             box-sizing: border-box;
         }
+
+        /* ==========================================
+           ESTILOS DE BOTONES Y ENLACES
+           ========================================== */
         .boton {
             width: 100%;
             background-color: var(--morado);
@@ -71,27 +93,34 @@
             cursor: pointer;
             transition: background-color 0.3s;
         }
+
         .boton:hover {
             background-color: var(--morado-oscuro);
         }
+
         .enlace-login {
             text-align: center;
             margin-top: 2rem;
             font-size: 1.5rem;
         }
+
         .enlace-login a {
             color: var(--morado-oscuro);
             font-weight: bold;
             text-decoration: none;
         }
+
         .enlace-login a:hover {
             text-decoration: underline;
         }
     </style>
 </head>
-<body> <!--CREACION DE CUENTA-->
+<body> 
+    <!-- CONTENEDOR DE LA VISTA DE REGISTRO DE CLIENTES -->
     <div class="contenedor-registro">
         <h1>Crear Cuenta de Cliente</h1>
+        
+        <!-- Formulario de registro con campos requeridos -->
         <form action="login.html" method="GET">
             <div class="campo">
                 <label for="nombre">Nombre Completo</label>
@@ -111,6 +140,8 @@
             </div>
             <button type="submit" class="boton">Registrarme</button>
         </form>
+
+        <!-- Enlaces de navegación secundarios -->
         <div class="enlace-login">
             <p>¿Ya tienes una cuenta? <a href="login.html">Inicia sesión aquí</a></p>
             <p><a href="index.html">← Volver al inicio</a></p>

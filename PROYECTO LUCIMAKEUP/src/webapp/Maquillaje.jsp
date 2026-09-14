@@ -6,10 +6,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Maquillaje - Lucimakeup</title>
-    <link rel="stylesheet" href="css/normalize.css"> 
+    <link rel="stylesheet" href="<c:url value='/css/normalize.css'/>"> 
     <link href="https://fonts.googleapis.com/css2?family=Akt:wght@100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Krub:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Staatliches&display=swap" rel="stylesheet">
 
     <style>
+        /* ==========================================
+            VARIABLES DE DISEÑO Y PALETA DE COLORES
+            ========================================== */
         :root { 
             --blanco: #ffffff;
             --oscuro: #212121;
@@ -29,10 +32,12 @@
             --morado-oscuro: #89119D;
             --secundario-oscuro: rgb(255,187,2);
             --negro: #000;
-
             --fuentePrincipal: "Staatliches", sans-serif;
         }
 
+        /* ==========================================
+            CONFIGURACIÓN GLOBAL Y RESET
+            ========================================== */
         html { 
             box-sizing: border-box;
             font-size: 62.5%;
@@ -42,11 +47,11 @@
             box-sizing: inherit;
         }
 
-        /* GLOBALES */
         body { 
             background-color: var(--rosa-fuerte);
             font-size: 1.6rem;
             line-height: 1.5;
+            margin: 0;
         }
 
         p { 
@@ -61,11 +66,13 @@
 
         img { 
             width: 100%;
+            display: block;
         }
 
         .contenedor { 
             max-width: 120rem;
             margin: 0 auto;
+            padding: 0 2rem;
         }
 
         h1, h2, h3 { 
@@ -74,19 +81,13 @@
             font-family: var(--fuentePrincipal);
         }
 
-        h1 { 
-            font-size: 4rem;
-        }
-        
-        h2 { 
-            font-size: 3.2rem;
-        }
+        h1 { font-size: 4rem; }
+        h2 { font-size: 3.2rem; }
+        h3 { font-size: 2.4rem; }
 
-        h3 { 
-            font-size: 2.4rem;
-        }
-
-        /* HEADER */
+        /* ==========================================
+            ESTILOS DE CABECERA Y NAVEGACIÓN
+            ========================================== */
         .header { 
             display: flex;
             justify-content: center;
@@ -96,26 +97,13 @@
             margin: 3rem 0;
         }
 
-        /* FOOTER */
-        .footer { 
-            background-color: var(--Blanco-crema);
-            padding: 1rem 0;
-            margin-top: 2rem;
-        }
-
-        .footer__texto { 
-            text-align: center;
-            font-family: var(--fuentePrincipal);
-            font-size: 2.2rem;
-        }
-
-        /* NAVEGACION */
         .navegacion { 
             background-color: var(--Blanco-crema);
             padding: 1rem 0;
             display: flex;
             justify-content: center; 
             gap: 2rem;
+            flex-wrap: wrap;
         }
 
         .navegacion__enlace {
@@ -124,15 +112,13 @@
             font-size: 2.5rem;
         }
 
-        .navegacion__enlace--activo:hover { 
-            color: var(--morado);
-        }
-
         .navegacion__enlace:hover {
             color: var(--morado);
         }
 
-        /* SUBCATEGORIAS */
+        /* ==========================================
+            SECCIONES Y TARJETAS DE PRODUCTOS DINÁMICOS
+            ========================================== */
         .subcategoria__titulo { 
             font-family: var(--fuentePrincipal);
             color: var(--morado);
@@ -143,12 +129,12 @@
             padding-bottom: .5rem;
         }
 
-        /* GRID DE PRODUCTOS */
         .grid-productos { 
             display: grid;
             grid-template-columns: repeat(1, 1fr);
             gap: 3rem;
             margin-bottom: 3rem;
+            align-items: stretch;
         }
 
         @media (min-width: 768px) {
@@ -161,16 +147,18 @@
             background-color: var(--Blanco-crema);
             border-radius: 1rem;
             overflow: hidden;
-            display: block;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
             transition: transform .3s ease;
-            box-shadow: 0px 5px 5px 5px rgb(0,0,0,0.08);
+            box-shadow: 0px 5px 10px rgba(0,0,0,0.08);
         }
 
         .tarjeta-producto:hover {
             transform: translateY(-.5rem);
         }
 
-        .tarjeta-producto__imagen { 
+        .tarjeta-producto__imagen img { 
             height: 22rem;
             object-fit: cover;
             background-color: var(--Rosa-sutil);
@@ -179,20 +167,24 @@
         .tarjeta-producto__info { 
             padding: 1.5rem;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            flex-grow: 1;
         }
 
         .tarjeta-producto__nombre { 
             font-family: var(--fuentePrincipal);
             font-size: 2rem;
             color: var(--oscuro);
-            margin-bottom: 1rem;
+            margin-bottom: .5rem;
         }
 
         .tarjeta-producto__precio {
             font-family: var(--fuentePrincipal);
             font-size: 2.2rem;
             color: var(--morado-oscuro);
-            margin: 0.5rem 0 1rem 0;
+            margin: 0.5rem 0 1.5rem 0;
         }
 
         .tarjeta-producto__boton { 
@@ -201,61 +193,82 @@
             color: var(--negro);
             font-family: var(--fuentePrincipal);
             font-size: 1.6rem;
-            padding: .8rem 2rem;
+            padding: 1rem 2rem;
             border-radius: .5rem;
-            transition: background-color .3s ease;
+            transition: background-color .3s ease, transform .2s ease;
+            text-transform: uppercase;
         }
 
         .tarjeta-producto__boton:hover { 
             background-color: var(--secundario-oscuro);
+            color: var(--blanco);
             transform: scale(1.03);
+        }
+
+        /* ==========================================
+            PIE DE PÁGINA (FOOTER)
+            ========================================== */
+        .footer { 
+            background-color: var(--Blanco-crema);
+            padding: 1.5rem 0;
+            margin-top: 4rem;
+        }
+
+        .footer__texto { 
+            text-align: center;
+            font-family: var(--fuentePrincipal);
+            font-size: 2.2rem;
         }
     </style>
 </head>
 
 <body>
+    <!-- CABECERA INSTITUCIONAL -->
     <header class="header">
-        <a href="index.jsp">
-            <img class="header__logo" src="img/logolucistore.png" alt="Logotipo">
+        <a href="<c:url value='/index.jsp'/>">
+            <img class="header__logo" src="<c:url value='/img/logolucistore.png'/>" alt="Logotipo Lucimakeup">
         </a>
     </header>
 
+    <!-- NAVEGACIÓN PRINCIPAL -->
     <nav class="navegacion">
-        <a class="navegacion__enlace navegacion__enlace--activo" href="CategoriasServlet">Catálogo</a>
-        <a class="navegacion__enlace navegacion__enlace--activo" href="nosotros.jsp">Nosotros</a>
+        <a class="navegacion__enlace" href="<c:url value='/index.jsp'/>">Inicio</a>
+        <a class="navegacion__enlace" href="<c:url value='/CategoriasServlet'/>">Catálogo</a>
+        <a class="navegacion__enlace" href="<c:url value='/nosotros.jsp'/>">Nosotros</a>
     </nav>
 
+    <!-- CONTENEDOR PRINCIPAL: MAQUILLAJE -->
     <main class="contenedor">
         <h1>Maquillaje</h1>
 
-        <!-- RECORRIDO DINÁMICO DE SUBCATEGORÍAS DESDE EL SERVLET -->
+        <!-- RECORRIDO DINÁMICO DE SUBCATEGORÍAS DESDE EL SERVLET (JSTL) -->
         <c:forEach var="subcategoria" items="${listaSubcategorias}">
             <h2 class="subcategoria__titulo">${subcategoria.nombre}</h2>
             
             <div class="grid-productos">
-                <!-- RECORRIDO DINÁMICO DE PRODUCTOS DE LA BASE DE DATOS -->
+                <!-- RECORRIDO DINÁMICO DE PRODUCTOS ASOCIADOS -->
                 <c:forEach var="producto" items="${subcategoria.productos}">
                     <div class="tarjeta-producto">
-                        <div class="tarjeta-producto__imagen">
-                            <img src="img/${producto.imagen}" alt="${producto.nombre}">
-                        </div>
+                        <a href="<c:url value='/ProductoController?id=${producto.idProducto}'/>" class="tarjeta-producto__imagen">
+                            <img src="<c:url value='/img/${producto.imagen}'/>" alt="${producto.nombre}">
+                        </a>
                         <div class="tarjeta-producto__info">
                             <h3 class="tarjeta-producto__nombre">${producto.nombre}</h3>
                             <p class="tarjeta-producto__precio">$${producto.precio}</p>
-                            <a href="ProductoController?id=${producto.idProducto}" class="tarjeta-producto__boton">Ver producto</a>
+                            <a href="<c:url value='/ProductoController?id=${producto.idProducto}'/>" class="tarjeta-producto__boton">Ver producto</a>
                         </div>
                     </div>
                 </c:forEach>
             </div>
         </c:forEach>
-
     </main>
 
+    <!-- PIE DE PÁGINA -->
     <footer class="footer">
-        <p class="footer__texto">Frontend store Lucimakeup - Todos los derechos reservados</p>
+        <p class="footer__texto">Tienda Virtual Lucimakeup - Todos los derechos reservados &copy; 2026</p>
     </footer>
 
-    <script src="JS/carrito.js"></script>
-
+    <!-- SCRIPTS DE LA APLICACIÓN -->
+    <script src="<c:url value='/JS/carrito.js'/>"></script>
 </body>
 </html>

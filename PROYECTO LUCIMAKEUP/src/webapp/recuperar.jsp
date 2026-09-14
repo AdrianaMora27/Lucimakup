@@ -8,16 +8,23 @@
     <link rel="stylesheet" href="css/normalize.css">
     <link href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap" rel="stylesheet">
     <style>
+        /* ==========================================
+           VARIABLES DE DISEÑO Y PALETA DE COLORES
+           ========================================== */
         :root {
             --blanco: #ffffff;
             --oscuro: #212121;
             --morado: #9C27B0;
             --morado-oscuro: #89119D;
             --Rosa-sutil: #FCE4EC;
-             --rosa-fuerte: #ff69b4;
+            --rosa-fuerte: #ff69b4;
             --Blanco-crema: #FFF8F5;
             --fuentePrincipal: "Staatliches", sans-serif;
         }
+
+        /* ==========================================
+           ESTILOS GENERALES DEL CUERPO
+           ========================================== */
         body {
             font-family: Arial, sans-serif;
             background-color: var(--rosa-fuerte);
@@ -26,6 +33,10 @@
             flex-direction: column;
             min-height: 100vh;
         }
+
+        /* ==========================================
+           CONTENEDOR PRINCIPAL DE RECUPERACIÓN
+           ========================================== */
         .contenedor-recuperar {
             max-width: 45rem;
             margin: 5rem auto;
@@ -35,6 +46,7 @@
             box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
             width: 90%;
         }
+
         h1 {
             font-family: var(--fuentePrincipal);
             color: var(--morado-oscuro);
@@ -42,6 +54,7 @@
             font-size: 3.5rem;
             margin-bottom: 1rem;
         }
+
         .instrucciones {
             text-align: center;
             color: var(--oscuro);
@@ -49,15 +62,21 @@
             margin-bottom: 2rem;
             line-height: 1.4;
         }
+
+        /* ==========================================
+           ESTILOS DE CAMPOS Y ENTRADAS DE DATOS
+           ========================================== */
         .campo {
             margin-bottom: 1.5rem;
         }
+
         .campo label {
             display: block;
             margin-bottom: .5rem;
             font-weight: bold;
             color: var(--oscuro);
         }
+
         .campo input {
             width: 100%;
             padding: 1.2rem;
@@ -66,6 +85,10 @@
             font-size: 1.5rem;
             box-sizing: border-box;
         }
+
+        /* ==========================================
+           ESTILOS DE BOTONES Y ENLACES DE RETORNO
+           ========================================== */
         .boton {
             width: 100%;
             background-color: var(--morado);
@@ -78,14 +101,17 @@
             cursor: pointer;
             transition: background-color 0.3s;
         }
+
         .boton:hover {
             background-color: var(--morado-oscuro);
         }
+
         .enlaces-retorno {
             text-align: center;
             margin-top: 2rem;
             font-size: 1.5rem;
         }
+
         .enlaces-retorno a {
             color: var(--morado-oscuro);
             font-weight: bold;
@@ -93,16 +119,19 @@
             display: block;
             margin-top: 0.8rem;
         }
+
         .enlaces-retorno a:hover {
             text-decoration: underline;
         }
     </style>
 </head>
 <body>
+    <!-- CONTENEDOR DE LA VISTA DE RECUPERACIÓN DE CONTRASEÑA -->
     <div class="contenedor-recuperar">
         <h1>Recuperar Contraseña</h1>
         <p class="instrucciones">Ingresa el correo electrónico asociado a tu cuenta y te enviaremos las instrucciones para restablecer tu contraseña.</p>
         
+        <!-- Formulario para captura del correo de recuperación -->
         <form action="login.html" method="GET">
             <div class="campo">
                 <label for="correo">Correo Electrónico</label>
@@ -111,6 +140,7 @@
             <button type="submit" class="boton">Enviar Instrucciones</button>
         </form>
 
+        <!-- Enlaces para regresar al inicio de sesión o página principal -->
         <div class="enlaces-retorno">
             <a href="login.html">← Regresar a Iniciar Sesión</a>
             <a href="index.html">← Volver al Inicio</a>

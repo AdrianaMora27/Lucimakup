@@ -1,10 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>errores-Lucimakeup</title>
+    <title>Errores - Lucimakeup</title>
+    
+    <!-- Archivo de Normalización CSS -->
+    <link rel="stylesheet" href="<c:url value='/Normalize.css'/>"> 
+
     <style>
         :root {
             --blanco: #ffffff;
@@ -14,137 +19,141 @@
             --rosa-claro: #ffb6c1;
             --rosa-fuerte: #ff69b4;
             --rojo-oscuro: #880e2f;
-            --Gris-claro: #dfe9f3;
             --Blanco-crema: #FFF8F5;
-            --Gris-arena: #F4F4F2;
-            --Beige-calido: #F9F5EB;
-            --Azul-lavanda: #D6E4F0;
-            --Verde-menta: #E2F0D9;
-            --Rosa-sutil: #FCE4EC;
         }
 
         * { 
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: Verdana, Geneva, Tahoma, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
         }
 
         body { 
-        background-color: var(--rosa-fuerte);
-        display: flex;
-        justify-content: center; /*Alinea los elementos horizontalmente dentro del FLEX, center: alinea los elementos**/
-        align-items: center; /*Alinea los elementos verticalmente dentro del FLEX, center: centra los elementos**/
-        min-height: 100vh;
-    }
+            background-color: var(--rosa-fuerte);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
 
-    .contenedor-error { 
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        .contenedor-error { 
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
 
-    }
+        .caja-error { 
+            background-color: var(--Blanco-crema);
+            padding: 4rem;
+            border-radius: 1rem;
+            width: 45rem;
+            text-align: center;
+            border-top: 6px solid var(--rojo-oscuro);
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
+        }
 
-    .caja-error { 
-        background-color: var(--Blanco-crema);
-        padding: 4rem;
-        border-radius: 1rem;
-        width: 45rem;
-        text-align: center;
-        border-top: 6px solid var(--rojo-oscuro);
+        .icono-error { 
+            margin-bottom: 2rem;
+            color: var(--rojo-oscuro);
+        }
 
-    }
+        h1 { 
+            color: var(--rojo-oscuro);
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            font-family: "Staatliches", sans-serif;
+            letter-spacing: 0.1rem;
+        }
 
-    .icono-error { 
-        margin-bottom: 2rem;
+        .mensajes { 
+            margin-bottom: 2rem;
+            text-align: left;
+        }
 
-    }
+        .error-item { 
+            color: var(--oscuro);
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            padding: 0.8rem 1.2rem;
+            background-color: rgba(136, 14, 47, 0.05);
+            border-left: 4px solid var(--rojo-oscuro);
+            border-radius: 0.4rem;
+        }
 
-    h1 { 
-        color: var(--rojo-oscuro);
-        font-size: 2.5rem;
-        margin-bottom: 2rem;
+        .botones { 
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
 
-    }
+        .boton-volver { 
+            background-color: var(--oscuro);
+            color: var(--blanco);
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-size: 1.4rem;
+            transition: background-color 0.3s ease;
+        }
 
-    .mensajes { 
-        margin-bottom: 2rem;
+        .boton-volver:hover {
+            background-color: var(--gris);
+        }
 
-    }
+        .boton-intentar { 
+            background-color: var(--rojo-oscuro);
+            color: var(--blanco);
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-size: 1.4rem;
+            transition: background-color 0.3s ease;
+        }
 
-    .error-item { 
-        color: var(--oscuro);
-        font-size: 1rem;
-        margin-bottom: 1rem;
-        text-align: left;
-    }
-
-    .botones { 
-        display: flex;
-        gap: 2rem;
-        justify-content: center;
-
-    }
-
-    .boton-volver { 
-        background-color: var(--oscuro);
-        color: var(--blanco);
-        padding: 1rem 2rem;
-        border-radius: 0.5rem;
-        text-decoration: none;
-        font-size: 1.4rem;
-    }
-
-    .boton-intentar { 
-        background-color: var(--rojo-oscuro);
-        color: var(--blanco);
-        padding: 1rem 2rem;
-        border-radius: 0.5rem;
-        text-decoration: none;
-        font-size: 1.4rem;
-
-    }
+        .boton-intentar:hover {
+            background-color: #600a1f;
+        }
     </style>
 </head>
 <body>
     <div class="contenedor-error">
         <div class="caja-error">
-            <!--ICONO DE ADVERTENCIA-->
+            <!-- ICONO DE ADVERTENCIA -->
             <div class="icono-error">
-                <p><!--
-                        version: "2.3"
-                        unicode: "f6f0"
-                        -->
-                        <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="92"
-                        height="92"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        >
-                        <path d="M12 1.67c.955 0 1.845 .467 2.39 1.247l.105 .16l8.114 13.548a2.914 2.914 0 0 1 -2.307 4.363l-.195 .008h-16.225a2.914 2.914 0 0 1 -2.582 -4.2l.099 -.185l8.11 -13.538a2.914 2.914 0 0 1 2.491 -1.403zm.01 13.33l-.127 .007a1 1 0 0 0 0 1.986l.117 .007l.127 -.007a1 1 0 0 0 0 -1.986l-.117 -.007zm-.01 -7a1 1 0 0 0 -.993 .883l-.007 .117v4l.007 .117a1 1 0 0 0 1.986 0l.007 -.117v-4l-.007 -.117a1 1 0 0 0 -.993 -.883z" />
-                        </svg></p>
+                <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 1.67c.955 0 1.845 .467 2.39 1.247l.105 .16l8.114 13.548a2.914 2.914 0 0 1 -2.307 4.363l-.195 .008h-16.225a2.914 2.914 0 0 1 -2.582 -4.2l.099 -.185l8.11 -13.538a2.914 2.914 0 0 1 2.491 -1.403zm.01 13.33l-.127 .007a1 1 0 0 0 0 1.986l.117 .007l.127 -.007a1 1 0 0 0 0 -1.986l-.117 -.007zm-.01 -7a1 1 0 0 0 -.993 .883l-.007 .117v4l.007 .117a1 1 0 0 0 1.986 0l.007 -.117v-4l-.007 -.117a1 1 0 0 0 -.993 -.883z" />
+                </svg>
             </div>
-            <h1>¡Ups! Algo salió mal</h1>
-        <!--MENSAJE DE ERROR-->
-
-            <div class="mensajes">
-                <p class="error-item">Usuario o contraseña incorrectos</p>
-                <p class="error-item">El campo nombre es obligatorio</p>
-                <p class="error-item">La fecha de nacimiento no es válida</p>
-                <p class="error-item">El correo eléctronico no es válido</p>
             
+            <h1>¡Ups! Algo salió mal</h1>
+
+            <!-- LISTA DINÁMICA DE ERRORES RECIBIDOS DEL SERVLET -->
+            <div class="mensajes">
+                <c:choose>
+                    <c:when test="${not empty listaErrores}">
+                        <c:forEach var="error" items="${listaErrores}">
+                            <p class="error-item">${error}</p>
+                        </c:forEach>
+                    </c:when>
+                    <c:when test="${not empty mensajeError}">
+                        <p class="error-item">${mensajeError}</p>
+                    </c:when>
+                    <c:otherwise>
+                        <p class="error-item">Se ha producido un error inesperado en el sistema. Por favor, intenta nuevamente.</p>
+                    </c:otherwise>
+                </c:choose>
             </div>
 
-        <!--BOTONES-->
+            <!-- BOTONES DE NAVEGACIÓN -->
             <div class="botones">
-                <a href="login.html" class="boton-volver">Volver al Login</a>
-                <a href="registro.html" class="boton-intentar">Intentar nuevamente</a>
-
+                <a href="<c:url value='/login.jsp'/>" class="boton-volver">Volver al Login</a>
+                <a href="javascript:history.back()" class="boton-intentar">Intentar nuevamente</a>
             </div>
         </div>
     </div>
-    <script src="JS/carrito.js"></script>
 </body>
 </html>

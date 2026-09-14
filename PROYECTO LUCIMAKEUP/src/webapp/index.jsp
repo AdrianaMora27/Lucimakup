@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tienda Virtual LuciMakeup</title>
+    <title>Tienda Virtual Lucimakeup</title>
     
     <!-- Archivo de Normalización CSS -->
     <link rel="stylesheet" href="<c:url value='/Normalize.css'/>"> 
@@ -13,9 +13,12 @@
     <!-- Fuentes de Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Krub:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Roboto+Condensed:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Krub:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Roboto+Condensed:wght@100..900&family=Staatliches&display=swap" rel="stylesheet">
 
     <style>
+        /* ==========================================
+           VARIABLES DE DISEÑO Y PALETA DE COLORES
+           ========================================== */
         :root {
             --blanco: #ffffff;
             --oscuro: #212121;
@@ -25,11 +28,15 @@
             --rosa-fuerte: #ff69b4;
             --rojo-oscuro: #880e2f;
             --Blanco-crema: #FFF8F5;
-
-            --fuente-principal: 3.8rem;
+            --morado: #9C27B0;
+            --secundario-oscuro: rgb(255,187,2);
+            --fuentePrincipal: "Staatliches", sans-serif;
+            --fuente-principal-tamano: 3.8rem;
         }
 
-        /* Reglas Globales */
+        /* ==========================================
+           CONFIGURACIÓN GLOBAL Y RESET
+           ========================================== */
         html {
             font-size: 62.5%;
             box-sizing: border-box;
@@ -61,7 +68,9 @@
             margin-bottom: 3rem;
         }
 
-        /* Header con Carrito de Compras */
+        /* ==========================================
+           CABECERA Y CARRITO DE COMPRAS
+           ========================================== */
         .header-top {
             display: flex;
             justify-content: space-between;
@@ -73,21 +82,18 @@
 
         .titulo {
             text-align: center;
-            font-size: var(--fuente-principal);
+            font-size: var(--fuente-principal-tamano);
             color: var(--oscuro);
             text-transform: uppercase;
-            font-family: "Krub", sans-serif;
+            font-family: var(--fuentePrincipal);
             font-weight: 700;
-            font-style: italic;
             margin: 0;
         }
 
         .titulo span {
             font-size: 2rem;
             color: var(--oscuro);
-            font-family: "Krub", sans-serif;
-            font-weight: 600;
-            font-style: normal;
+            font-family: var(--fuentePrincipal);
         }
 
         .carrito-container {
@@ -121,7 +127,9 @@
             padding: 0.2rem 0.6rem;
         }
 
-        /* Barra de Navegación */
+        /* ==========================================
+           BARRA DE NAVEGACIÓN
+           ========================================== */
         .nav-bg { 
             background-color: var(--rosa-claro);
         }
@@ -131,6 +139,7 @@
             justify-content: center;
             align-items: center;
             gap: 2rem;
+            flex-wrap: wrap;
         }
 
         .navegacion-principal a, .dropdown-btn {
@@ -141,7 +150,7 @@
             color: var(--oscuro);
             text-decoration: none;
             font-size: 1.8rem;
-            font-weight: bold;
+            font-family: var(--fuentePrincipal);
             border: none;
             cursor: pointer;
             transition: background-color 0.3s ease, color 0.3s ease;
@@ -177,6 +186,7 @@
             font-weight: normal;
             background-color: var(--blanco);
             border-bottom: 1px solid var(--rosa-claro);
+            font-family: Arial, sans-serif;
         }
 
         .dropdown-content a:hover {
@@ -188,7 +198,9 @@
             display: block;
         }
 
-        /* Banner Hero */
+        /* ==========================================
+           BANNER HERO
+           ========================================== */
         .lucimakeupimg { 
             background-image: url('<c:url value="/img/Lucimakeup.jpg"/>');
             background-repeat: no-repeat;
@@ -216,7 +228,9 @@
             margin: 0;
         }
 
-        /* Grid Servicios */
+        /* ==========================================
+           GRID DE SERVICIOS / CATEGORÍAS PRINCIPALES
+           ========================================== */
         .Servicios {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -237,20 +251,22 @@
 
         .servicio-card:hover {
             background-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-.3rem);
         }
 
         .servicio-card h3 {
             color: var(--oscuro);
-            font-weight: bold;
+            font-family: var(--fuentePrincipal);
             margin-bottom: 1rem;
-            font-size: 2rem;
+            font-size: 2.2rem;
         }
 
         .servicio-card p { 
             line-height: 1.6;
             text-align: center;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             margin: 0;
+            font-family: Arial, sans-serif;
         }
 
         .servicio-card .iconos {
@@ -269,7 +285,9 @@
             transform: scale(1.08);
         }
 
-        /* Formulario Contacto */
+        /* ==========================================
+           FORMULARIO DE CONTACTO
+           ========================================== */
         .formulario {
             background-color: var(--gris);
             width: min(65rem, 100%);
@@ -286,9 +304,9 @@
 
         .formulario legend { 
             text-align: center;
-            font-size: 1.8rem;
+            font-size: 2rem;
             text-transform: uppercase;
-            font-weight: 700;
+            font-family: var(--fuentePrincipal);
             margin-bottom: 2rem;
             color: var(--primario);
         }
@@ -331,8 +349,8 @@
             padding: 1rem 3.5rem;
             margin-top: 2rem;
             font-size: 1.8rem;
+            font-family: var(--fuentePrincipal);
             text-transform: uppercase;
-            font-weight: bold;
             border-radius: .5rem;
             border: none;
             cursor: pointer;
@@ -344,7 +362,9 @@
             color: var(--blanco);
         }
 
-        /* Footer con Redes Sociales */
+        /* ==========================================
+           PIE DE PÁGINA Y REDES SOCIALES
+           ========================================== */
         .footer {
             background-color: rgba(255, 255, 255, 0.4);
             padding: 3rem 0;
@@ -363,6 +383,8 @@
             display: flex;
             gap: 2.5rem;
             align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
         .red-link {
@@ -390,17 +412,18 @@
             font-size: 1.4rem;
             color: var(--oscuro);
             margin: 0;
+            font-family: var(--fuentePrincipal);
         }
     </style>
 </head>
 
 <body>
-    <!-- Header con Título y Carrito de Compras -->
+    <!-- CABECERA INSTITUCIONAL Y CARRITO -->
     <header class="header-top">
         <div style="width: 3.5rem;"></div>
-        <h1 class="titulo">LuciMakeup<span>23</span></h1>
+        <h1 class="titulo">Lucimakeup<span>Store</span></h1>
         
-        <!-- Icono Carrito -->
+        <!-- Enlace al Carrito de Compras -->
         <a href="<c:url value='/carrito.jsp'/>" class="carrito-container" title="Ver carrito de compras">
             <svg class="carrito-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="9" cy="21" r="1"></circle>
@@ -411,7 +434,7 @@
         </a>
     </header>
 
-    <!-- Barra de Navegación Principal -->
+    <!-- BARRA DE NAVEGACIÓN PRINCIPAL -->
     <div class="nav-bg">
         <nav class="navegacion-principal contenedor">
             <a href="<c:url value='/index.jsp'/>">Inicio</a>
@@ -420,6 +443,7 @@
             <div class="dropdown">
                 <button class="dropdown-btn">Categorías &#9662;</button>
                 <div class="dropdown-content">
+                    <a href="<c:url value='/CategoriasServlet?cat=maquillaje'/>">Maquillaje</a>
                     <a href="<c:url value='/cuidadopersonal.jsp'/>">Cuidado Personal</a>
                     <a href="<c:url value='/hogar.jsp'/>">Hogar</a>
                     <a href="<c:url value='/papeleria.jsp'/>">Papelería</a>
@@ -431,16 +455,16 @@
         </nav>
     </div>
 
-    <!-- Banner Hero -->
+    <!-- BANNER HERO -->
     <section class="lucimakeupimg">
         <div class="contenido-lucimakeupimg">
             <h2 class="titulo">Bienvenidos</h2>
         </div>
     </section>
 
-    <!-- Contenido Principal / Servicios -->
+    <!-- CONTENIDO PRINCIPAL / SERVICIOS -->
     <main class="contenedor sombra">
-        <h2 style="text-align: center; font-size: 2.8rem; margin-bottom: 2rem;">Nuestros Servicios</h2>
+        <h2 style="text-align: center; font-size: 2.8rem; margin-bottom: 2rem; font-family: var(--fuentePrincipal);">Nuestros Servicios</h2>
 
         <div class="Servicios">
             <!-- Tarjeta Cuidado Personal -->
@@ -471,7 +495,7 @@
 
             <!-- Tarjeta Papelería -->
             <a href="<c:url value='/papeleria.jsp'/>" class="servicio-card">
-                <h3>Papeleria</h3>
+                <h3>Papelería</h3>
                 <div class="iconos">
                     <svg xmlns="http://www.w3.org/2000/svg" width="75" height="75" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M17 3l4 4l-14 14l-4 -4z" />
@@ -485,45 +509,45 @@
             </a>
         </div>
 
-        <!-- Formulario de Contacto -->
+        <!-- FORMULARIO DE CONTACTO -->
         <section id="contacto">
-            <h2 style="text-align: center; font-size: 2.8rem;">Escribenos</h2>
+            <h2 style="text-align: center; font-size: 2.8rem; font-family: var(--fuentePrincipal);">Escríbenos</h2>
 
             <form class="formulario" action="<c:url value='/ContactoServlet'/>" method="POST">
                 <fieldset>
-                    <legend>Contactanos</legend>
+                    <legend>Contáctanos</legend>
                     
                     <div class="contenedor-campos">
                         <div class="campo">
                             <label for="nombre">Nombre</label>
-                            <input class="input-text" type="text" id="nombre" name="nombre" placeholder="Tu nombre">
+                            <input class="input-text" type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
                         </div>
                         
                         <div class="campo">
-                            <label for="telefono">Telefono</label>
-                            <input class="input-text" type="tel" id="telefono" name="telefono" placeholder="Tu numero">
+                            <label for="telefono">Teléfono</label>
+                            <input class="input-text" type="tel" id="telefono" name="telefono" placeholder="Tu número">
                         </div>
                         
                         <div class="campo">
-                            <label for="email">Correo Electronico</label>
-                            <input class="input-text" type="email" id="email" name="email" placeholder="correo electronico">
+                            <label for="email">Correo Electrónico</label>
+                            <input class="input-text" type="email" id="email" name="email" placeholder="Correo electrónico" required>
                         </div>
                         
                         <div class="campo">
                             <label for="mensaje">Mensaje</label>
-                            <textarea class="input-text" id="mensaje" name="mensaje"></textarea>
+                            <textarea class="input-text" id="mensaje" name="mensaje" required></textarea>
                         </div>
                     </div>
 
                     <div>
-                        <input class="boton" type="submit" value="ENVIAR">
+                        <input class="boton" type="submit" value="Enviar">
                     </div>
                 </fieldset>
             </form>
         </section>
     </main>
 
-    <!-- Footer con Redes Sociales -->
+    <!-- PIE DE PÁGINA Y REDES SOCIALES -->
     <footer class="footer">
         <div class="contenedor footer-contenido">
             <div class="redes-sociales">
@@ -544,10 +568,11 @@
                 </a>
             </div>
 
-            <p class="footer-derechos">Todos los derechos reservados LuciMakeup</p>
+            <p class="footer-derechos">Todos los derechos reservados Lucimakeup &copy; 2026</p>
         </div>
     </footer>
 
+    <!-- Script Principal de la Tienda -->
     <script src="<c:url value='/main.js'/>"></script>
 </body>
 </html>

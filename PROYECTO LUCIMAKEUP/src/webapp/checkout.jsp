@@ -140,9 +140,6 @@
     .campo__input:focus, .campo__select:focus {
         border-color: var(--morado);
     }
-/**Focus: Estado activo de un elemento interactivo
-es la forma en la que el navegador sabe y le muestra al usuario que un
-elemento esta listo para recibir entradas de texto**/
 
     .campos-dobles {
         display: grid;
@@ -236,7 +233,7 @@ elemento esta listo para recibir entradas de texto**/
 
     <nav class="navegacion">
         <a class="navegacion__enlace" href="categorias.html">Categorías</a>
-        <a class="navegacion__enlace" href="cuidadoPersonal.html">Cuidado Personal</a>
+        <a class="navegacion__enlace" href="cuidadoPersonal.jsp">Cuidado Personal</a>
         <a class="navegacion__enlace" href="hogar.html">Estilo y Vida</a>
         <a class="navegacion__enlace" href="papeleria.html">Papelería</a>
         <a class="navegacion__enlace" href="Nosotros.html">Nosotros</a>
@@ -294,7 +291,6 @@ elemento esta listo para recibir entradas de texto**/
                     </select>
                 </div>
             </form>
-<!--disabled: atributo par inactivar un elemento de formulario o control interactivo-->
 
             <!-- RESUMEN DEL PEDIDO -->
             <aside class="resumen-pedido">
@@ -315,11 +311,9 @@ elemento esta listo para recibir entradas de texto**/
                     <span>$38.000 COP</span>
                 </div>
 
-                <button type="button" class="boton-finalizar" onclick="window.location.href='confirmacion.html';">Confirmar Compra</button>            </aside>
-                <!--Onclick: atributo de evento que se ponen dentro de una etiqueta de un elemento
-                para indicarle al nevagdor que codigo de JS debe ejecutar cujando el usuario haga click sobre
-                el-->
-
+                <!-- CORRECCIÓN AQUÍ: Apunta a confirmacion.jsp -->
+                <button type="button" class="boton-finalizar" onclick="window.location.href='confirmacion.jsp';">Confirmar Compra</button>
+            </aside>
 
         </div>
     </main>

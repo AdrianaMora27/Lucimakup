@@ -11,6 +11,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Staatliches&display=swap" rel="stylesheet">
 
 <style>
+    /* ==========================================
+       VARIABLES DE DISEÑO Y PALETA DE COLORES
+       ========================================== */
     :root { 
         --blanco: #ffffff;
         --oscuro: #212121;
@@ -33,6 +36,9 @@
         --fuentePrincipal: "Staatliches", sans-serif;
     }
 
+    /* ==========================================
+       CONFIGURACIÓN GLOBAL Y RESET DE ESTILOS
+       ========================================== */
     html { 
         box-sizing: border-box;
         font-size: 62.5%;
@@ -55,7 +61,9 @@
         padding: 2rem;
     }
 
-    /* HEADER */
+    /* ==========================================
+       ESTILOS DE CABECERA Y NAVEGACIÓN
+       ========================================== */
     .header { 
         display: flex;
         justify-content: center;
@@ -65,7 +73,6 @@
         margin: 3rem 0;
     }
 
-    /* NAVEGACIÓN */
     .navegacion { 
         background-color: var(--Blanco-crema);
         padding: 1rem 0;
@@ -86,7 +93,9 @@
         color: var(--morado);
     }
 
-    /* CONTENEDOR DEL DETALLE DEL PRODUCTO */
+    /* ==========================================
+       SECCIÓN DE DETALLE DEL PRODUCTO (GRID)
+       ========================================== */
     .detalle-producto { 
         background-color: var(--Blanco-crema);
         border-radius: 1rem;
@@ -139,6 +148,9 @@
         margin-bottom: 3rem;
     }
 
+    /* ==========================================
+       ESTILOS DEL FORMULARIO Y BOTONES
+       ========================================== */
     .formulario-cantidad {
         display: flex;
         gap: 1.5rem;
@@ -154,7 +166,6 @@
         border-radius: 0.5rem;
     }
 
-    /* BOTÓN AÑADIR AL CARRITO */
     .boton { 
         background-color: var(--primario);
         color: var(--negro);
@@ -176,6 +187,9 @@
         transform: scale(1.02);
     }
 
+    /* ==========================================
+       ESTILOS DEL PIE DE PÁGINA (FOOTER)
+       ========================================== */
     .footer {
         text-align: center;
         color: var(--blanco);
@@ -191,13 +205,14 @@
 
 <body>
 
+    <!-- CABECERA CON LOGOTIPO INSTITUCIONAL -->
     <header class="header">
         <a href="index.jsp">
             <img class="header__logo" src="img/logolucistore.png" alt="Logotipo LuciMakeup">
         </a>
     </header>
 
-    <!-- Navegación con rutas dinámicas hacia JSP/Servlets -->
+    <!-- BARRA DE NAVEGACIÓN DINÁMICA HACIA SERVLETS Y VISTAS -->
     <nav class="navegacion">
         <a class="navegacion__enlace" href="index.jsp">Inicio</a>
         <a class="navegacion__enlace" href="CategoriasServlet">Categorías</a>
@@ -207,16 +222,20 @@
         <a class="navegacion__enlace" href="nosotros.jsp">Nosotros</a>
     </nav>
 
+    <!-- CONTENEDOR PRINCIPAL DE DETALLE DE PRODUCTO -->
     <main class="contenedor">
         <div id="detalle-producto" class="detalle-producto">
+            <!-- Imagen del producto evaluada de forma dinámica -->
             <div class="detalle-producto__imagen">
                 <img src="img/${not empty producto.imagen ? producto.imagen : 'cremaPeinar.jpeg'}" 
                      alt="${not empty producto.nombre ? producto.nombre : 'Producto LuciMakeup'}">
             </div>
 
+            <!-- Información detallada del producto -->
             <div class="detalle-producto__info">
                 <h1 class="detalle-producto__nombre">${not empty producto.nombre ? producto.nombre : 'Crema para peinar'}</h1>
                 
+                <!-- Renderizado de precio con formato numérico seguro -->
                 <p class="detalle-producto__precio">
                     <c:choose>
                         <c:when test="${not empty producto.precio}">
@@ -228,16 +247,17 @@
                     </c:choose>
                 </p>
 
+                <!-- Descripción del producto -->
                 <p class="detalle-producto__descripcion">
                     ${not empty producto.descripcion ? producto.descripcion : 'Crema para peinar marca Anyeluz, ideal para todo tipo de cabello con delicioso aroma a coco.'}
                 </p>
 
                 <!-- FORMULARIO POST HACIA EL SERVLET DEL CARRITO -->
                 <form action="CarritoServlet" method="POST">
-                    <!-- Asegúrate de cambiar 'idProducto' por 'id' si así está en tu clase Java -->
                     <input type="hidden" name="productoId" value="${not empty producto.idProducto ? producto.idProducto : (not empty producto.id ? producto.id : '101')}">
                     <input type="hidden" name="accion" value="agregar">
                     
+                    <!-- Control de selección de cantidad de unidades -->
                     <div class="formulario-cantidad">
                         <label for="cantidad" style="font-size: 1.8rem; font-weight: bold;">Cantidad</label>
                         <input class="formulario-cantidad__campo" type="number" id="cantidad" name="cantidad" min="1" value="1">
@@ -249,10 +269,12 @@
         </div>
     </main>
 
+    <!-- PIE DE PÁGINA -->
     <footer class="footer">
         <p class="footer__texto">Tienda Virtual LuciMakeup - Todos los derechos reservados &copy;</p>
     </footer>
 
+    <!-- SCRIPT JS PARA INTERACTIVIDAD DEL CARRITO -->
     <script src="JS/carrito.js"></script>
 </body>
 </html>

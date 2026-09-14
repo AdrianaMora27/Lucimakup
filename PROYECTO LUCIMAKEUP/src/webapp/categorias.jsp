@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catálogo - Lucimakeup Store</title>
-    <link rel="stylesheet" href="css/normalize.css"> 
+    <link rel="stylesheet" href="<c:url value='/css/normalize.css'/>"> 
     <link href="https://fonts.googleapis.com/css2?family=Akt:wght@100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Krub:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Staatliches&display=swap" rel="stylesheet">
 
     <style>
@@ -26,7 +27,7 @@
             --Rosa-sutil: #FCE4EC;
             --morado: #9C27B0;
             --morado-oscuro: #89119D;
-            --secundario-oscuro: rgb(255,287,2);
+            --secundario-oscuro: rgb(255,187,2);
             --negro: #000;
 
             --fuentePrincipal: "Staatliches", sans-serif;
@@ -41,7 +42,6 @@
             box-sizing: inherit;
         }
 
-        /* GLOBALES */
         body { 
             background-color: var(--rosa-fuerte);
             font-size: 1.6rem;
@@ -80,7 +80,6 @@
         h2 { font-size: 3.2rem; }
         h3 { font-size: 2.4rem; }
 
-        /** HEADER **/
         .header { 
             display: flex;
             justify-content: center;
@@ -90,7 +89,6 @@
             margin: 3rem 0;
         }
 
-        /** FOOTER **/
         .footer { 
             background-color: var(--Blanco-crema);
             padding: 1rem 0;
@@ -103,7 +101,6 @@
             font-size: 2.2rem;
         }
 
-        /** NAVEGACION **/
         .navegacion { 
             background-color: var(--Blanco-crema);
             padding: 1rem 0;
@@ -122,7 +119,6 @@
             color: var(--morado);
         }
 
-        /** VITRINA DE CATEGORIAS **/
         .vitrina-categorias { 
             display: grid;
             grid-template-columns: repeat(1, 1fr);
@@ -173,7 +169,6 @@
             margin: 0;
         }
 
-        /** TITULOS Y SECCIONES DE PRODUCTOS **/
         .seccion-titulo {
             font-family: var(--fuentePrincipal);
             color: var(--morado);
@@ -257,14 +252,14 @@
 
 <body>
     <header class="header">
-        <a href="indexstore.html">
-            <img class="header__logo" src="img/logolucistore.png" alt="Logotipo Lucimakeup">
+        <a href="<c:url value='/index.jsp'/>">
+            <img class="header__logo" src="<c:url value='/img/logolucistore.png'/>" alt="Logotipo Lucimakeup">
         </a>
     </header>
 
     <nav class="navegacion">
-        <a class="navegacion__enlace" href="categorias.html">Catálogo</a>
-        <a class="navegacion__enlace" href="Nosotros.html">Nosotros</a> 
+        <a class="navegacion__enlace" href="<c:url value='/CategoriasServlet'/>">Catálogo</a>
+        <a class="navegacion__enlace" href="<c:url value='/nosotros.jsp'/>">Nosotros</a> 
     </nav>
 
     <main class="contenedor">
@@ -273,22 +268,22 @@
 
         <!-- CATEGORÍAS PRINCIPALES -->
         <div class="vitrina-categorias">
-            <a href="cuidadoPersonal.html" class="tarjeta-categoria">
-                <img class="tarjeta-categoria__imagen" src="img/CuidadoPersonal.jpeg" alt="Cuidado Personal">
+            <a href="<c:url value='/cuidadopersonal.jsp'/>" class="tarjeta-categoria">
+                <img class="tarjeta-categoria__imagen" src="<c:url value='/img/CuidadoPersonal.jpeg'/>" alt="Cuidado Personal">
                 <div class="tarjeta-categoria__overlay">
                     <h2 class="tarjeta-categoria__nombre">Cuidado Personal</h2>
                 </div>
             </a>
 
-            <a href="hogar.html" class="tarjeta-categoria">
-                <img class="tarjeta-categoria__imagen" src="img/estilo y vida.jpeg" alt="Estilo y Vida">
+            <a href="<c:url value='/hogar.jsp'/>" class="tarjeta-categoria">
+                <img class="tarjeta-categoria__imagen" src="<c:url value='/img/estilo y vida.jpeg'/>" alt="Estilo y Vida">
                 <div class="tarjeta-categoria__overlay">
                     <h2 class="tarjeta-categoria__nombre">Estilo y Vida / Hogar</h2>
                 </div>
             </a>
 
-            <a href="papeleria.html" class="tarjeta-categoria">
-                <img class="tarjeta-categoria__imagen" src="img/papeleria.jpeg" alt="Papelería">
+            <a href="<c:url value='/papeleria.jsp'/>" class="tarjeta-categoria">
+                <img class="tarjeta-categoria__imagen" src="<c:url value='/img/papeleria.jpeg'/>" alt="Papelería">
                 <div class="tarjeta-categoria__overlay">
                     <h2 class="tarjeta-categoria__nombre">Papelería</h2>
                 </div>
@@ -301,34 +296,34 @@
 
             <!-- PRODUCTO 101 (PAPELERÍA) -->
             <div class="tarjeta-producto" data-id="101">
-                <a href="productos.html?id=101" class="tarjeta-producto__imagen">
-                    <img src="img/lapicerosDiseños.jpeg" alt="Lapicero con diseño">
+                <a href="<c:url value='/ProductoController?id=101'/>" class="tarjeta-producto__imagen">
+                    <img src="<c:url value='/img/lapicerosDiseños.jpeg'/>" alt="Lapicero con diseño">
                 </a>
                 <div class="tarjeta-producto__info">
                     <h3 class="tarjeta-producto__nombre">Lapicero con diseño</h3>
-                    <a href="productos.html?id=101" class="tarjeta-producto__boton">Ver producto</a>
+                    <a href="<c:url value='/ProductoController?id=101'/>" class="tarjeta-producto__boton">Ver producto</a>
                 </div>
             </div>
 
             <!-- PRODUCTO 201 (CUIDADO PERSONAL) -->
             <div class="tarjeta-producto" data-id="201">
-                <a href="productos.html?id=201" class="tarjeta-producto__imagen">
-                    <img src="img/MascarillasHidratantes.jpeg" alt="Mascarilla Facial Bioaqua">
+                <a href="<c:url value='/ProductoController?id=201'/>" class="tarjeta-producto__imagen">
+                    <img src="<c:url value='/img/MascarillasHidratantes.jpeg'/>" alt="Mascarilla Facial Bioaqua">
                 </a>
                 <div class="tarjeta-producto__info">
                     <h3 class="tarjeta-producto__nombre">Mascarilla Facial Bioaqua</h3>
-                    <a href="productos.html?id=201" class="tarjeta-producto__boton">Ver producto</a>
+                    <a href="<c:url value='/ProductoController?id=201'/>" class="tarjeta-producto__boton">Ver producto</a>
                 </div>
             </div>
 
             <!-- PRODUCTO 301 (HOGAR / ESTILO Y VIDA) -->
             <div class="tarjeta-producto" data-id="301">
-                <a href="productos.html?id=301" class="tarjeta-producto__imagen">
-                    <img src="img/termo.jpg" alt="Termo térmico de acero">
+                <a href="<c:url value='/ProductoController?id=301'/>" class="tarjeta-producto__imagen">
+                    <img src="<c:url value='/img/termo.jpg'/>" alt="Termo térmico de acero">
                 </a>
                 <div class="tarjeta-producto__info">
                     <h3 class="tarjeta-producto__nombre">Termo térmico de acero</h3>
-                    <a href="productos.html?id=301" class="tarjeta-producto__boton">Ver producto</a>
+                    <a href="<c:url value='/ProductoController?id=301'/>" class="tarjeta-producto__boton">Ver producto</a>
                 </div>
             </div>
 
@@ -340,8 +335,8 @@
     </footer>
 
     <!-- Scripts de la tienda -->
-    <script src="JS/productos.js"></script>
-    <script src="JS/detalleproducto.js"></script>
-    <script src="JS/carrito.js"></script>
+    <script src="<c:url value='/JS/productos.js'/>"></script>
+    <script src="<c:url value='/JS/detalleproducto.js'/>"></script>
+    <script src="<c:url value='/JS/carrito.js'/>"></script>
 </body>
 </html>

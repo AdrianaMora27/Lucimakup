@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carrito de Compras - Lucimakeup Store</title>
-    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="<c:url value='/css/normalize.css'/>">
     <link href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap" rel="stylesheet">
 
     <style>
@@ -253,17 +254,17 @@
 
 <body>
     <header class="header">
-        <a href="index.jsp">
-            <img class="header__logo" src="img/logolucistore.png" alt="Logotipo Lucimakeup">
+        <a href="<c:url value='/index.jsp'/>">
+            <img class="header__logo" src="<c:url value='/img/logolucistore.png'/>" alt="Logotipo Lucimakeup">
         </a>
     </header>
 
     <nav class="navegacion">
-        <a class="navegacion__enlace" href="categorias.jsp">Categorías</a>
-        <a class="navegacion__enlace" href="cuidadoPersonal.jsp">Cuidado Personal</a>
-        <a class="navegacion__enlace" href="hogar.jsp">Estilo y Vida</a>
-        <a class="navegacion__enlace" href="papeleria.jsp">Papelería</a>
-        <a class="navegacion__enlace" href="Nosotros.jsp">Nosotros</a>
+        <a class="navegacion__enlace" href="<c:url value='/categorias.jsp'/>">Categorías</a>
+        <a class="navegacion__enlace" href="<c:url value='/cuidadoPersonal.jsp'/>">Cuidado Personal</a>
+        <a class="navegacion__enlace" href="<c:url value='/hogar.jsp'/>">Estilo y Vida</a>
+        <a class="navegacion__enlace" href="<c:url value='/papeleria.jsp'/>">Papelería</a>
+        <a class="navegacion__enlace" href="<c:url value='/Nosotros.jsp'/>">Nosotros</a>
     </nav>
 
     <main class="contenedor">
@@ -276,7 +277,7 @@
 
                 <!-- Producto 1 -->
                 <div class="carrito-item">
-                    <img src="img/brilloGloss.jpeg" alt="Brillo Gloss" class="carrito-item__imagen">
+                    <img src="<c:url value='/img/brilloGloss.jpeg'/>" alt="Brillo Gloss" class="carrito-item__imagen">
                     <div class="carrito-item__detalles">
                         <h3 class="carrito-item__nombre">Brillo Gloss</h3>
                         <span class="carrito-item__precio">$12.000 COP</span>
@@ -289,7 +290,7 @@
 
                 <!-- Producto 2 -->
                 <div class="carrito-item">
-                    <img src="img/block.jpeg" alt="block" class="carrito-item__imagen">
+                    <img src="<c:url value='/img/block.jpeg'/>" alt="block" class="carrito-item__imagen">
                     <div class="carrito-item__detalles">
                         <h3 class="carrito-item__nombre">Block 100 hojas</h3>
                         <span class="carrito-item__precio">$8.000 COP</span>
@@ -302,7 +303,7 @@
 
                 <!-- Producto 3 -->
                 <div class="carrito-item">
-                    <img src="img/velaAromatica.jpeg" alt="velaAromatica" class="carrito-item__imagen">
+                    <img src="<c:url value='/img/velaAromatica.jpeg'/>" alt="velaAromatica" class="carrito-item__imagen">
                     <div class="carrito-item__detalles">
                         <h3 class="carrito-item__nombre">Vela con aroma</h3>
                         <span class="carrito-item__precio">$10.000 COP</span>
@@ -334,7 +335,7 @@
                     <span>$38.000 COP</span>
                 </div>
 
-                <!-- Redirección correcta a checkout.jsp -->
+                <!-- Redirección correcta usando contextPath -->
                 <a href="${pageContext.request.contextPath}/checkout.jsp" class="boton-checkout">Pagar</a>
             </aside>
 
@@ -345,6 +346,6 @@
         <p class="footer__texto">Frontend store Lucimakeup - Todos los derechos reservados</p>
     </footer>
 
-    <script src="JS/carrito.js"></script>
+    <script src="<c:url value='/JS/carrito.js'/>"></script>
 </body>
 </html>

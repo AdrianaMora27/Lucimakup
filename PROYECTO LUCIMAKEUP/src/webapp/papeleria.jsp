@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +9,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Akt:wght@100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Krub:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Staatliches&display=swap" rel="stylesheet">
 
     <style>
+        /* ==========================================
+           VARIABLES DE DISEÑO Y PALETA DE COLORES
+           ========================================== */
         :root { 
             --blanco: #ffffff;
             --oscuro: #212121;
@@ -26,12 +29,14 @@
             --Rosa-sutil: #FCE4EC;
             --morado: #9C27B0;
             --morado-oscuro: #89119D;
-            --secundario-oscuro: rgb(255,287,2);
+            --secundario-oscuro: rgb(255,187,2);
             --negro: #000;
-
             --fuentePrincipal: "Staatliches", sans-serif;
         }
 
+        /* ==========================================
+           CONFIGURACIÓN GLOBAL Y RESET
+           ========================================== */
         html { 
             box-sizing: border-box;
             font-size: 62.5%;
@@ -41,7 +46,6 @@
             box-sizing: inherit;
         }
 
-        /* GLOBALES */
         body { 
             background-color: var(--rosa-fuerte, #ff69b4);
             font-size: 1.6rem;
@@ -80,7 +84,9 @@
         h2 { font-size: 3.2rem; }
         h3 { font-size: 2.4rem; }
 
-        /** HEADER **/
+        /* ==========================================
+           ESTILOS DE CABECERA Y NAVEGACIÓN
+           ========================================== */
         .header { 
             display: flex;
             justify-content: center;
@@ -90,20 +96,6 @@
             margin: 3rem 0;
         }
 
-        /** FOOTER **/
-        .footer { 
-            background-color: var(--Blanco-crema, #fffdd0);
-            padding: 1rem 0;
-            margin-top: 4rem;
-        }
-
-        .footer__texto { 
-            text-align: center;
-            font-family: var(--fuentePrincipal, sans-serif);
-            font-size: 2.2rem;
-        }
-
-        /** NAVEGACION **/
         .navegacion { 
             background-color: var(--Blanco-crema, #fffdd0);
             padding: 1rem 0;
@@ -123,7 +115,9 @@
             color: var(--morado, #800080);
         }
 
-        /** SUBCATEGORIAS **/
+        /* ==========================================
+           SECCIONES Y TARJETAS DE PRODUCTOS
+           ========================================== */
         .subcategoria__titulo { 
             font-family: var(--fuentePrincipal, sans-serif);
             color: var(--morado, #800080);
@@ -134,7 +128,6 @@
             padding-bottom: .5rem;
         }
 
-        /** GRID DE PRODUCTOS **/
         .grid-productos { 
             display: grid;
             grid-template-columns: repeat(1, 1fr);
@@ -164,7 +157,6 @@
             transform: translateY(-.5rem);
         }
 
-        /* Ajuste de imagen para evitar deformaciones */
         .tarjeta-producto__imagen img { 
             height: 22rem;
             object-fit: cover;
@@ -205,21 +197,39 @@
             transform: scale(1.03);
         }
 
+        /* ==========================================
+           PIE DE PÁGINA (FOOTER)
+           ========================================== */
+        .footer { 
+            background-color: var(--Blanco-crema, #fffdd0);
+            padding: 1rem 0;
+            margin-top: 4rem;
+        }
+
+        .footer__texto { 
+            text-align: center;
+            font-family: var(--fuentePrincipal, sans-serif);
+            font-size: 2.2rem;
+        }
     </style>
 </head>
 
 <body>
+    <!-- CABECERA INSTITUCIONAL -->
     <header class="header">
-        <a href="indexstore.html">
-            <img class="header__logo" src="img/logolucistore.png" alt="Logotipo">
+        <a href="index.jsp">
+            <img class="header__logo" src="img/logolucistore.png" alt="Logotipo Lucimakeup">
         </a>
     </header>
 
+    <!-- NAVEGACIÓN PRINCIPAL -->
     <nav class="navegacion">
-        <a class="navegacion__enlace" href="categorias.html">Catálogo</a>
-        <a class="navegacion__enlace" href="Nosotros.html">Nosotros</a>
+        <a class="navegacion__enlace" href="index.jsp">Inicio</a>
+        <a class="navegacion__enlace" href="CategoriasServlet">Categorías</a>
+        <a class="navegacion__enlace" href="nosotros.jsp">Nosotros</a>
     </nav>
 
+    <!-- CONTENEDOR PRINCIPAL DE PAPELERÍA -->
     <main class="contenedor">
         <h1>Papelería</h1>
 
@@ -229,48 +239,47 @@
         
             <!-- PRODUCTO 101 -->
             <div class="tarjeta-producto" data-id="101">
-                <a href="productos.html?id=101" class="tarjeta-producto__imagen">
+                <a href="productos.jsp?id=101" class="tarjeta-producto__imagen">
                     <img src="img/lapicerosDiseños.jpeg" alt="Lapicero con diseño">
                 </a>
                 <div class="tarjeta-producto__info">
                     <h3 class="tarjeta-producto__nombre">Lapicero con diseño</h3>
-                    <a href="productos.html?id=101" class="tarjeta-producto__boton">Ver producto</a>
+                    <a href="productos.jsp?id=101" class="tarjeta-producto__boton">Ver producto</a>
                 </div>
             </div>
 
             <!-- PRODUCTO 102 -->
             <div class="tarjeta-producto" data-id="102">
-                <a href="productos.html?id=102" class="tarjeta-producto__imagen">
+                <a href="productos.jsp?id=102" class="tarjeta-producto__imagen">
                     <img src="img/lapizMina.jpeg" alt="Lápiz porta mina">
                 </a>
                 <div class="tarjeta-producto__info">
                     <h3 class="tarjeta-producto__nombre">Lápiz porta mina</h3>
-                    <a href="productos.html?id=102" class="tarjeta-producto__boton">Ver producto</a>
+                    <a href="productos.jsp?id=102" class="tarjeta-producto__boton">Ver producto</a>
                 </div>
             </div>
 
             <!-- PRODUCTO 103 -->
             <div class="tarjeta-producto" data-id="103">
-                <a href="productos.html?id=103" class="tarjeta-producto__imagen">
+                <a href="productos.jsp?id=103" class="tarjeta-producto__imagen">
                     <img src="img/cartuchera.jpeg" alt="Cartuchera con diseño">
                 </a>
                 <div class="tarjeta-producto__info">
                     <h3 class="tarjeta-producto__nombre">Cartuchera con diseño</h3>
-                    <a href="productos.html?id=103" class="tarjeta-producto__boton">Ver producto</a>
+                    <a href="productos.jsp?id=103" class="tarjeta-producto__boton">Ver producto</a>
                 </div>
             </div>
 
             <!-- PRODUCTO 104 -->
             <div class="tarjeta-producto" data-id="104">
-                <a href="productos.html?id=104" class="tarjeta-producto__imagen">
+                <a href="productos.jsp?id=104" class="tarjeta-producto__imagen">
                     <img src="img/resaltadores.jpeg" alt="Resaltadores con diseño">
                 </a>
                 <div class="tarjeta-producto__info">
                     <h3 class="tarjeta-producto__nombre">Resaltadores con diseño</h3>
-                    <a href="productos.html?id=104" class="tarjeta-producto__boton">Ver producto</a>
+                    <a href="productos.jsp?id=104" class="tarjeta-producto__boton">Ver producto</a>
                 </div>
             </div>
-        
         </div>
 
         <!-- SUBCATEGORIA: CUADERNOS -->
@@ -279,48 +288,47 @@
 
             <!-- PRODUCTO 105 -->
             <div class="tarjeta-producto" data-id="105">
-                <a href="productos.html?id=105" class="tarjeta-producto__imagen">
+                <a href="productos.jsp?id=105" class="tarjeta-producto__imagen">
                     <img src="img/cuadernos.jpeg" alt="Cuadernos surtidos">
                 </a>
                 <div class="tarjeta-producto__info">
                     <h3 class="tarjeta-producto__nombre">Cuadernos surtidos</h3>
-                    <a href="productos.html?id=105" class="tarjeta-producto__boton">Ver producto</a>
+                    <a href="productos.jsp?id=105" class="tarjeta-producto__boton">Ver producto</a>
                 </div>
             </div>
 
             <!-- PRODUCTO 106 -->
             <div class="tarjeta-producto" data-id="106">
-                <a href="productos.html?id=106" class="tarjeta-producto__imagen">
+                <a href="productos.jsp?id=106" class="tarjeta-producto__imagen">
                     <img src="img/carpeta.jpeg" alt="Carpeta plástica">
                 </a>
                 <div class="tarjeta-producto__info">
                     <h3 class="tarjeta-producto__nombre">Carpeta plástica</h3>
-                    <a href="productos.html?id=106" class="tarjeta-producto__boton">Ver producto</a>
+                    <a href="productos.jsp?id=106" class="tarjeta-producto__boton">Ver producto</a>
                 </div>
             </div>
 
             <!-- PRODUCTO 107 -->
             <div class="tarjeta-producto" data-id="107">
-                <a href="productos.html?id=107" class="tarjeta-producto__imagen">
+                <a href="productos.jsp?id=107" class="tarjeta-producto__imagen">
                     <img src="img/cuadernoZootopia.jpeg" alt="Cuaderno Zootopia">
                 </a>
                 <div class="tarjeta-producto__info">
                     <h3 class="tarjeta-producto__nombre">Cuaderno Zootopia</h3>
-                    <a href="productos.html?id=107" class="tarjeta-producto__boton">Ver producto</a>
+                    <a href="productos.jsp?id=107" class="tarjeta-producto__boton">Ver producto</a>
                 </div>
             </div>
 
             <!-- PRODUCTO 108 -->
             <div class="tarjeta-producto" data-id="108">
-                <a href="productos.html?id=108" class="tarjeta-producto__imagen">
+                <a href="productos.jsp?id=108" class="tarjeta-producto__imagen">
                     <img src="img/block.jpeg" alt="Block iris">
                 </a>
                 <div class="tarjeta-producto__info">
                     <h3 class="tarjeta-producto__nombre">Block iris</h3>
-                    <a href="productos.html?id=108" class="tarjeta-producto__boton">Ver producto</a>
+                    <a href="productos.jsp?id=108" class="tarjeta-producto__boton">Ver producto</a>
                 </div>
             </div>
-
         </div>
 
         <!-- SUBCATEGORIA: ACCESORIOS Y ESTILO -->
@@ -329,49 +337,47 @@
 
             <!-- PRODUCTO 109 -->
             <div class="tarjeta-producto" data-id="109">
-                <a href="productos.html?id=109" class="tarjeta-producto__imagen">
+                <a href="productos.jsp?id=109" class="tarjeta-producto__imagen">
                     <img src="img/morrales.jpeg" alt="Morral unisex">
                 </a>
                 <div class="tarjeta-producto__info">
                     <h3 class="tarjeta-producto__nombre">Morral unisex</h3>
-                    <a href="productos.html?id=109" class="tarjeta-producto__boton">Ver producto</a>
+                    <a href="productos.jsp?id=109" class="tarjeta-producto__boton">Ver producto</a>
                 </div>
             </div>
             
             <!-- PRODUCTO 110 -->
             <div class="tarjeta-producto" data-id="110">
-                <a href="productos.html?id=110" class="tarjeta-producto__imagen">
+                <a href="productos.jsp?id=110" class="tarjeta-producto__imagen">
                     <img src="img/llavero.jpeg" alt="Llavero surtido">
                 </a>
                 <div class="tarjeta-producto__info">
                     <h3 class="tarjeta-producto__nombre">Llavero surtido</h3>
-                    <a href="productos.html?id=110" class="tarjeta-producto__boton">Ver producto</a>
+                    <a href="productos.jsp?id=110" class="tarjeta-producto__boton">Ver producto</a>
                 </div>
             </div>
 
             <!-- PRODUCTO 111 -->
             <div class="tarjeta-producto" data-id="111">
-                <a href="productos.html?id=111" class="tarjeta-producto__imagen">
+                <a href="productos.jsp?id=111" class="tarjeta-producto__imagen">
                     <img src="img/llaveroGato.jpeg" alt="Llavero gato">
                 </a>
                 <div class="tarjeta-producto__info">
                     <h3 class="tarjeta-producto__nombre">Llavero gato</h3>
-                    <a href="productos.html?id=111" class="tarjeta-producto__boton">Ver producto</a>
+                    <a href="productos.jsp?id=111" class="tarjeta-producto__boton">Ver producto</a>
                 </div>
             </div>
-
         </div>
-
     </main>
 
+    <!-- PIE DE PÁGINA -->
     <footer class="footer">
-        <p class="footer__texto">Frontend store Lucimakeup - Todos los derechos reservados</p>
+        <p class="footer__texto">Tienda Virtual Lucimakeup - Todos los derechos reservados &copy;</p>
     </footer>
 
-    <!-- Scripts de la tienda -->
+    <!-- SCRIPTS DE LA TIENDA -->
     <script src="JS/productos.js"></script>
     <script src="JS/detalleproducto.js"></script>
     <script src="JS/carrito.js"></script>
-
 </body>
 </html>
