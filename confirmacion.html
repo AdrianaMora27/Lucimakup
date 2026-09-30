@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmación de Pedido - Lucimakeup Store</title>
+    <link rel="stylesheet" href="styles.css"> <!-- O tu archivo de estilos principal -->
+    <style>
+        body {
+            background-color: #fff0f5; /* Rosa muy suave */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .confirmacion-container {
+            background: #ffffff;
+            max-width: 600px;
+            width: 100%;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            text-align: center;
+            border-top: 6px solid #d81b60; /* Fucsia / Rosa marca */
+        }
+        .icono-exito {
+            font-size: 50px;
+            color: #2e7d32;
+            margin-bottom: 10px;
+        }
+        h1 {
+            color: #880e2f;
+            margin-bottom: 5px;
+            font-size: 26px;
+        }
+        .subtitulo {
+            color: #666;
+            font-size: 15px;
+            margin-bottom: 25px;
+        }
+        .pedido-card {
+            background: #fdf2f4;
+            border: 1px dashed #d81b60;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            font-size: 16px;
+        }
+        .pedido-card strong {
+            color: #d81b60;
+        }
+        .seccion-info {
+            text-align: left;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+        }
+        .seccion-info h3 {
+            font-size: 16px;
+            color: #444;
+            margin-bottom: 10px;
+        }
+        .detalle-lista {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .detalle-lista li {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            font-size: 14px;
+            color: #555;
+        }
+        .total-pago {
+            display: flex;
+            justify-content: space-between;
+            font-size: 18px;
+            font-weight: bold;
+            color: #880e2f;
+            margin-top: 15px;
+            border-top: 2px solid #ddd;
+            padding-top: 10px;
+        }
+        .alerta-correo {
+            background: #e3f2fd;
+            color: #0d47a1;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .soporte-box {
+            font-size: 13px;
+            color: #666;
+            background: #fafafa;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 25px;
+        }
+        .soporte-box a {
+            color: #d81b60;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .btn-volver {
+            background-color: #d81b60;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 15px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-volver:hover {
+            background-color: #ad1457;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="confirmacion-container">
+        <div class="icono-exito">✅</div>
+        <h1>¡Pedido Confirmado con Éxito!</h1>
+        <p class="subtitulo">Gracias por tu compra en Lucimakeup Store.</p>
+
+        <div class="pedido-card">
+            Número de Pedido: <strong id="numero-pedido">#LUCI-78924</strong>
+        </div>
+
+        <div class="alerta-correo" id="mensaje-email-enviado">
+            📧 Hemos enviado un correo electrónico de confirmación a <strong>tu correo</strong> con los detalles del pedido.
+        </div>
+
+        <div class="seccion-info">
+            <h3>📦 Resumen de tu Compra</h3>
+            <ul id="lista-productos-confirmacion" class="detalle-lista">
+                <!-- Se llena dinámicamente con JS -->
+            </ul>
+            <div class="total-pago">
+                <span>Total Pagado:</span>
+                <span id="total-confirmacion">$98.000 COP</span>
+            </div>
+        </div>
+
+        <div class="seccion-info" style="border: none;">
+            <h3>📍 Datos de Envío</h3>
+            <ul class="detalle-lista">
+                <li><span>Destinatario:</span> <strong id="conf-nombre">Adriana</strong></li>
+                <li><span>Dirección:</span> <span id="conf-direccion">Calle 20 # 45, Cali</span></li>
+                <li><span>Teléfono:</span> <span id="conf-telefono">3112224455</span></li>
+            </ul>
+        </div>
+
+        <div class="soporte-box">
+            ¿Tienes alguna inquietud o detectaste un error en tu compra? Escríbenos de inmediato a nuestro WhatsApp de soporte o al correo <a href="mailto:soporte@lucimakeupstore.com">soporte@lucimakeupstore.com</a> indicando tu número de pedido.
+        </div>
+
+        <a href="index.html" class="btn-volver">Volver a la Tienda</a>
+    </div>
+
+    <!-- Archivo de lógica de confirmación -->
+    <script src="confirmacion.js"></script>
+</body>
+</html>

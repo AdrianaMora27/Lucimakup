@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Lucimakeup Store</title>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link href="https://fonts.googleapis.com/css2?family=Akt:wght@100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Krub:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Staatliches&display=swap" rel="stylesheet">
+
+    <style>
+        :root { 
+            --blanco: #ffffff;
+            --oscuro: #212121;
+            --primario: #ffc107;
+            --gris: #757575;
+            --rosa-claro: #ffb6c1;
+            --rosa-fuerte: #ff69b4;
+            --rojo-oscuro: #880e2f;
+            --Gris-claro: #dfe9f3;
+            --Blanco-crema: #FFF8F5;
+            --Gris-arena: #F4F4F2;
+            --Beige-calido: #F9F5EB;
+            --Azul-lavanda: #D6E4F0;
+            --Verde-menta: #E2F0D9;
+            --Rosa-sutil: #FCE4EC;
+            --morado: #9C27B0;
+            --morado-oscuro: #89119D;
+            --secundario-oscuro: rgb(255,187,2);
+            --negro: #000;
+
+            --fuentePrincipal: "Staatliches", sans-serif;
+        }
+
+        html { 
+            box-sizing: border-box;
+            font-size: 62.5%;
+        }
+        
+        *, *:before, *::after {
+            box-sizing: inherit;
+        }
+
+        body { 
+            background-color: var(--rosa-fuerte);
+            font-size: 1.6rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        p { 
+            font-size: 1.8rem;
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--negro);
+        }
+
+        a { 
+            text-decoration: none;
+        }
+
+        img { 
+            width: 100%;
+            display: block;
+        }
+
+        .contenedor { 
+            max-width: 120rem;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        h1, h2, h3 { 
+            text-align: center;
+            color: var(--oscuro);
+            font-family: var(--fuentePrincipal);
+        }
+
+        h1 { font-size: 4rem; }
+        h2 { font-size: 3.2rem; }
+        h3 { font-size: 2.4rem; }
+
+        .header { 
+            display: flex;
+            justify-content: center;
+        }
+
+        .header__logo { 
+            margin: 3rem 0;
+            max-width: 25rem;
+        }
+
+        .footer { 
+            background-color: var(--Blanco-crema);
+            padding: 1rem 0;
+            margin-top: 4rem;
+        }
+
+        .footer__texto { 
+            text-align: center;
+            font-family: var(--fuentePrincipal);
+            font-size: 2.2rem;
+        }
+
+        .navegacion { 
+            background-color: var(--Blanco-crema);
+            padding: 1.5rem 0;
+            display: flex;
+            justify-content: center; 
+            gap: 3rem;
+        }
+
+        .navegacion__enlace {
+            font-family: var(--fuentePrincipal);
+            color: var(--negro);
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .navegacion__enlace:hover {
+            color: var(--morado);
+        }
+
+        .seccion-titulo {
+            font-family: var(--fuentePrincipal);
+            color: var(--morado);
+            font-size: 2.8rem;
+            text-align: left;
+            margin: 4rem 0 2rem 0;
+            border-bottom: .2rem solid var(--rosa-claro);
+            padding-bottom: .5rem;
+        }
+
+        /* Estilos específicos para Checkout */
+        .checkout-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        @media (min-width: 768px) {
+            .checkout-grid {
+                grid-template-columns: 2fr 1fr;
+            }
+        }
+
+        .formulario-checkout, .resumen-orden {
+            background-color: var(--Blanco-crema);
+            padding: 3rem;
+            border-radius: 1rem;
+            box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.08);
+        }
+
+        .campo {
+            margin-bottom: 2rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .campo label {
+            font-family: var(--fuentePrincipal);
+            font-size: 1.8rem;
+            color: var(--oscuro);
+            margin-bottom: .5rem;
+        }
+
+        .campo input, .campo select, .campo textarea {
+            padding: 1.2rem;
+            border: 1px solid var(--gris);
+            border-radius: .5rem;
+            font-size: 1.6rem;
+            background-color: var(--blanco);
+        }
+
+        .campo input:focus, .campo select:focus {
+            outline: none;
+            border-color: var(--morado);
+        }
+
+        .resumen-orden__productos {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 2rem 0;
+            max-height: 25rem;
+            overflow-y: auto;
+        }
+
+        .resumen-orden__item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--Gris-arena);
+            font-size: 1.6rem;
+        }
+
+        .resumen-total {
+            display: flex;
+            justify-content: space-between;
+            font-family: var(--fuentePrincipal);
+            font-size: 2.4rem;
+            color: var(--oscuro);
+            margin: 2rem 0;
+            border-top: 2px solid var(--rosa-claro);
+            padding-top: 1rem;
+        }
+
+        .btn-pagar {
+            display: block;
+            width: 100%;
+            background-color: var(--primario);
+            color: var(--negro);
+            font-family: var(--fuentePrincipal);
+            font-size: 2rem;
+            text-align: center;
+            padding: 1.5rem;
+            border-radius: .5rem;
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: background-color .3s ease, transform .2s ease;
+        }
+
+        .btn-pagar:hover {
+            background-color: var(--morado-oscuro);
+            color: var(--blanco);
+            transform: scale(1.02);
+        }
+
+ /*MENSAJE JAVAS*/ /* Contenedor de notificaciones flotantes */
+#toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Estilo base de la notificación */
+.toast-lucimakeup {
+    min-width: 280px;
+    max-width: 380px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    color: #fff;
+    font-family: inherit;
+    font-size: 14px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    animation: entradaToast 0.3s ease-out forwards;
+    pointer-events: auto;
+}
+
+/* Variantes de color */
+.toast-error {
+    background-color: #d32f2f; /* Rojo elegante de alerta */
+    border-left: 5px solid #880e2f;
+}
+
+.toast-success {
+    background-color: #2e7d32; /* Verde éxito */
+    border-left: 5px solid #1b5e20;
+}
+
+/* Animación de aparición suave */
+@keyframes entradaToast {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Animación de salida */
+.toast-salida {
+    animation: salidaToast 0.3s ease-in forwards;
+}
+
+@keyframes salidaToast {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <a href="index.html">
+            <img class="header__logo" src="img/logolucistore.png" alt="Logotipo Lucimakeup">
+        </a>
+    </header>
+
+    <nav class="navegacion">
+        <a class="navegacion__enlace" href="categorias.html">Categorías</a>
+        <a class="navegacion__enlace" href="cuidadoPersonal.html">Cuidado Personal</a>
+        <a class="navegacion__enlace" href="hogar.html">Estilo y Vida</a>
+        <a class="navegacion__enlace" href="papeleria.html">Papelería</a>
+        <a class="navegacion__enlace" href="nosotros.html">Nosotros</a>
+    </nav>
+
+    <main class="contenedor">
+        <h1>Finalizar Compra</h1>
+        <p style="text-align: center;">Completa tus datos para procesar el pedido</p>
+
+        <div class="checkout-grid">
+           <!-- Formulario de Envío y Datos -->
+            <section class="formulario-checkout">
+                <h2 class="seccion-titulo" style="margin-top: 0;">Datos de Envío</h2>
+                <form id="form-checkout" action="confirmacion.html" method="GET">
+                    <div class="campo">
+                        <label for="nombre">Nombre Completo</label>
+                        <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre y apellidos">
+                    </div>
+
+                    <div class="campo">
+                        <label for="email">Correo Electrónico</label>
+                        <input type="email" id="email" name="email" required placeholder="correo@ejemplo.com">
+                    </div>
+
+                    <div class="campo">
+                        <label for="direccion">Dirección de Entrega</label>
+                        <input type="text" id="direccion" name="direccion" required placeholder="Calle, Barrio, Número de casa">
+                    </div>
+
+                    <div class="campo">
+                        <label for="ciudad">Ciudad</label>
+                        <input type="text" id="ciudad" name="ciudad" value="Cali" required>
+                    </div>
+
+                    <div class="campo">
+                        <label for="telefono">Teléfono / WhatsApp</label>
+                        <input type="tel" id="telefono" name="telefono" required placeholder="Número de contacto">
+                    </div>
+
+                    <div class="campo">
+                        <label for="pago">Método de Pago</label>
+                        <select id="pago" name="pago">
+                            <option value="transferencia">Transferencia Bancaria</option>
+                            <option value="nequi">Nequi / Daviplata</option>
+                            <option value="contraentrega">Pago Contra Entrega</option>
+                        </select>
+                    </div>
+                </form> <!-- AQUÍ CERRAMOS EL FORMULARIO -->
+            </section>
+
+            <!-- Resumen del Carrito / Compra -->
+            <aside class="resumen-orden">
+                <h2 class="seccion-titulo" style="margin-top: 0;">Tu Pedido</h2>
+                <ul class="resumen-orden__productos" id="lista-resumen-checkout">
+                    <li class="resumen-orden__item">
+                        <span>Lapicero con diseño (x1)</span>
+                        <strong>$15.000</strong>
+                    </li>
+                    <li class="resumen-orden__item">
+                        <span>Mascarilla Bioaqua (x2)</span>
+                        <strong>$10.000</strong>
+                    </li>
+                </ul>
+
+                <div class="resumen-total">
+                    <span>Total:</span>
+                    <strong id="total-checkout">$25.000</strong>
+                </div>
+
+                <!-- BOTÓN ASOCIADO AL FORMULARIO MEDIANTE EL ATRIBUTO "form" -->
+              <button class="btn-pagar" type="submit" id="btn-confirmar-pago">CONFIRMAR Y PAGAR</button>
+            </aside>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p class="footer__texto">Frontend store Lucimakeup - Todos los derechos reservados</p>
+    </footer>
+
+    <!-- Scripts de la tienda -->
+    <script src="js/productos.js"></script>
+    <script src="js/carrito.js"></script>
+    <!-- Script de Checkout -->
+    <script src="js/checkout.js"></script>
+</body>
+</html>
