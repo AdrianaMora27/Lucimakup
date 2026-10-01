@@ -1,0 +1,21 @@
+/* 
+Buenas noches: Mi nombre es Adriana Mora de la Ficha de ADSO : 3186631
+En esta evidencia vamos a realizar el testing de la API del proyecto de LucimakeupStore
+
+
+Para empezar modificamos todo el modelo del proyecto e implementamos Javascript, Node.js/Express
+Para que la prueba se llevara a cabo tuve que 
+descargar Node.js e iniciarlo en la terminal de VSCode node server.js , para que esto funcionara 
+levantamos un file "server.js", al iniciarlo se genero un archivo "package.json"
+
+con esto listo en el entorno de desarrollo, abrimos Postman (aplicaicon de escritorio)
+*se crea una nueva peticion 
+*Se selecciona el metodo GET
+*se agrega la ruta: http://localhost:3000/api/producto
+*se da en el boton SEND
+
+Aqui no tiene requisitos de entrada (como email y password)
+
+El resultado de la prueba arrojo 200 0K y en la parte inferior el listado de productos
+en formato JSON
+**//
