@@ -2,12 +2,12 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('Lucimakeup Store - Script principal cargado correctamente.');
 
     // ==========================================
-    // 1. GESTIÓN DEL FORMULARIO DE CONTACTO
+    // 1. GESTIÓN DEL FORMULARIO DE CONTACTO (CONEXIÓN BACKEND)
     // ==========================================
     const formulario = document.querySelector('.formulario');
 
     if (formulario) {
-        formulario.addEventListener('submit', function(e) {
+        formulario.addEventListener('submit', async function(e) {
             e.preventDefault(); // Evita que la página se recargue por defecto
 
             // Obtenemos los valores de los campos
@@ -22,11 +22,35 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Simulamos el envío exitoso
-            mostrarAlerta(`¡Gracias por escribirnos, ${nombre}! Hemos recibido tu mensaje con éxito.`, 'exito');
-            
-            // Limpiamos el formulario
-            formulario.reset();
+            try {
+                // Petición HTTP POST al servidor Node.js (phpMyAdmin)
+                const respuesta = await fetch('http://localhost:3000/api/contacto', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        nombre: nombre,
+                        telefono: telefono,
+                        correo: email,
+                        mensaje: mensaje
+                    })
+                });
+
+                const resultado = await respuesta.json();
+
+                if (resultado.exito) {
+                    // Mensaje de éxito integrado con la base de datos
+                    mostrarAlerta(`¡Gracias por escribirnos, ${nombre}! Tu mensaje se guardó con éxito.`, 'exito');
+                    formulario.reset(); // Limpiamos el formulario
+                } else {
+                    mostrarAlerta('Hubo un error al guardar el mensaje en el servidor.', 'error');
+                }
+
+            } catch (error) {
+                console.error("Error de red al conectar con el servidor:", error);
+                mostrarAlerta('No se pudo conectar con el servidor backend.', 'error');
+            }
         });
     }
 
@@ -79,13 +103,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const carritoContainer = document.querySelector('.carrito-container');
     if (carritoContainer) {
         carritoContainer.addEventListener('click', (e) => {
-            // Si el usuario hace clic en el icono del carrito (puedes expandir esto después para abrir un modal)
             const badge = carritoContainer.querySelector('.carrito-badge');
-            let cantidad = parseInt(badge.textContent);
-            
-            if (cantidad === 0) {
-                // Mensaje informativo si el carrito está vacío
-                console.log('Tu carrito está vacío por ahora.');
+            if (badge) {
+                let cantidad = parseInt(badge.textContent);
+                if (cantidad === 0) {
+                    console.log('Tu carrito está vacío por ahora.');
+                }
             }
         });
     }

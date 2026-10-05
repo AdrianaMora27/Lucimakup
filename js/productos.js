@@ -15,20 +15,21 @@ const productos = [
     { idProducto: 110, Nombre_Producto: "Llavero surtido", descripcion_producto: "Llaveros decorativos con figuras variadas.", Precio_Producto: 4000.00, Stock_Producto: 10, Categoria_idCategoria: 1, imagen: "img/llavero.jpeg" },
     { idProducto: 111, Nombre_Producto: "Llavero gato", descripcion_producto: "Llavero de silicona suave en forma de gato.", Precio_Producto: 5000.00, Stock_Producto: 10, Categoria_idCategoria: 1, imagen: "img/llaveroGato.jpeg" },
 
-    // Cuidado Personal y Maquillaje (IDs 201 - 205)
+    // Cuidado Personal y Maquillaje (IDs 201 - 206)
     { idProducto: 201, Nombre_Producto: "Mascarilla Facial Bioaqua", descripcion_producto: "Mascarilla facial hidratante para el cuidado de la piel y nutrición profunda.", Precio_Producto: 5000.00, Stock_Producto: 20, Categoria_idCategoria: 2, imagen: "img/MascarillasHidratantes.jpeg" },
     { idProducto: 202, Nombre_Producto: "Polvo Compacto Matte", descripcion_producto: "Polvo compacto con acabado matte de larga duración.", Precio_Producto: 38000.00, Stock_Producto: 10, Categoria_idCategoria: 2, imagen: "img/gelCejas.jpeg" },
     { idProducto: 203, Nombre_Producto: "Corrector Líquido de Ojeras", descripcion_producto: "Corrector líquido de alta cobertura para imperfecciones y ojeras.", Precio_Producto: 25000.00, Stock_Producto: 10, Categoria_idCategoria: 2, imagen: "img/sombras.jpeg" },
-    { idProducto: 204, Nombre_Producto: "Paleta de Sombras Nude", descripcion_producto: "Paleta de sombras de alta pigmentación con tonos versátiles.", Precio_Producto: 65000.00, Stock_Producto: 10, Categoria_idCategoria: 2, imagen: "img/sombrasGlitter.jpeg" },
-    { idProducto: 205, Nombre_Producto: "Pestañina Volumen Extremo", descripcion_producto: "Pestañina especializada para dar volumen y alargamiento extremo.", Precio_Producto: 30000.00, Stock_Producto: 10, Categoria_idCategoria: 2, imagen: "img/mascarilla.jpeg" },
+    { idProducto: 204, Nombre_Producto: "Paleta de Sombras Nude", descripcion_producto: "Paleta de sombras de alta pigmentación con tonos versátiles.", Precio_Producto: 65000.00, Stock_Producto: 10, Categoria_idCategoria: 2, imagen: "img/sombras.jpeg" },
+    { idProducto: 205, Nombre_Producto: "Pestañina Volumen Extremo", descripcion_producto: "Pestañina especializada para dar volumen y alargamiento extremo.", Precio_Producto: 30000.00, Stock_Producto: 10, Categoria_idCategoria: 2, imagen: "img/pestañinaExtra.jpeg" },
+    { idProducto: 206, Nombre_Producto: "Base Líquida Alta Cobertura", descripcion_producto: "Base líquida de alta cobertura - SAMY. Tres tonos ideales para unificar la piel.", Precio_Producto: 45000.00, Stock_Producto: 8, Categoria_idCategoria: 1, imagen: "img/baseLiquida.jpg" },
 
     // Estilo y Vida (IDs 301 - 306)
-    { idProducto: 301, Nombre_Producto: "Termo térmico de acero", descripcion_producto: "Termo de acero inoxidable para mantener bebidas frías o calientes.", Precio_Producto: 35000.00, Stock_Producto: 10, Categoria_idCategoria: 3, imagen: "img/termo.jpg" },
-    { idProducto: 302, Nombre_Producto: "Espejo con diseño", descripcion_producto: "Espejo decorativo con marco de diseño moderno y elegante.", Precio_Producto: 45000.00, Stock_Producto: 10, Categoria_idCategoria: 3, imagen: "img/espejo.jpeg" },
-    { idProducto: 303, Nombre_Producto: "Soporte para computador portátil", descripcion_producto: "Soporte ergonómico ajustable para laptop y mejora postural.", Precio_Producto: 55000.00, Stock_Producto: 10, Categoria_idCategoria: 3, imagen: "img/soporteLaptop.jpeg" },
-    { idProducto: 304, Nombre_Producto: "Difusor de aroma electrónico", descripcion_producto: "Difusor ultrasónico de aromas con iluminación LED ambiental.", Precio_Producto: 48000.00, Stock_Producto: 10, Categoria_idCategoria: 3, imagen: "img/difusor.jpeg" },
-    { idProducto: 305, Nombre_Producto: "Vela con aroma", descripcion_producto: "Vela aromática artesanal en recipiente protector.", Precio_Producto: 22000.00, Stock_Producto: 10, Categoria_idCategoria: 3, imagen: "img/vela.jpeg" },
-    { idProducto: 306, Nombre_Producto: "Aceite esencial Lavanda", descripcion_producto: "Aceite esencial concentrado con relajante aroma a lavanda.", Precio_Producto: 18000.00, Stock_Producto: 10, Categoria_idCategoria: 3, imagen: "img/aceiteLavanda.jpeg" },
+    { idProducto: 301, Nombre_Producto: "Cojines estampados", descripcion_producto: "Cojines 80% algodon 20% Poliester.", Precio_Producto: 25000.00, Stock_Producto: 10, Categoria_idCategoria: 3, imagen: "img/cojinesEstampados.jpeg" },
+    { idProducto: 302, Nombre_Producto: "Espejo con diseño", descripcion_producto: "Espejo decorativo con marco de diseño moderno y elegante.", Precio_Producto: 45000.00, Stock_Producto: 10, Categoria_idCategoria: 3, imagen: "img/espejoconDiseño.jpeg" },
+    { idProducto: 303, Nombre_Producto: "Soporte para computador portátil", descripcion_producto: "Soporte ergonómico ajustable para laptop y mejora postural.", Precio_Producto: 55000.00, Stock_Producto: 10, Categoria_idCategoria: 3, imagen: "img/soportePC.jpeg" },
+    { idProducto: 304, Nombre_Producto: "Difusor de aroma electrónico", descripcion_producto: "Difusor ultrasónico de aromas con iluminación LED ambiental.", Precio_Producto: 48000.00, Stock_Producto: 10, Categoria_idCategoria: 3, imagen: "img/difusorAroma.jpeg" },
+    { idProducto: 305, Nombre_Producto: "Vela con aroma", descripcion_producto: "Vela aromática artesanal en recipiente protector.", Precio_Producto: 22000.00, Stock_Producto: 10, Categoria_idCategoria: 3, imagen: "img/velaAromatica.jpeg" },
+    { idProducto: 306, Nombre_Producto: "Aceite esencial Lavanda", descripcion_producto: "Aceite esencial concentrado con relajante aroma a lavanda.", Precio_Producto: 18000.00, Stock_Producto: 10, Categoria_idCategoria: 3, imagen: "img/aceiteEscencial.jpeg" },
 
     // Productos adicionales / Capilares (IDs 400 - 408)
     { idProducto: 400, Nombre_Producto: "Acondicionador", descripcion_producto: "Acondicionador nutritivo para suavidad y brillo capilar.", Precio_Producto: 15000.00, Stock_Producto: 10, Categoria_idCategoria: 2, imagen: "img/cuidadocapilar.jpeg" },
@@ -37,13 +38,13 @@ const productos = [
     { idProducto: 403, Nombre_Producto: "Aceite de coco corporal", descripcion_producto: "Aceite de coco hidratante para nutrición corporal profunda.", Precio_Producto: 22000.00, Stock_Producto: 10, Categoria_idCategoria: 2, imagen: "img/cuidadocorporal.jpeg" },
     { idProducto: 404, Nombre_Producto: "Mantequilla corporal", descripcion_producto: "Mantequilla corporal hidratante con textura suave.", Precio_Producto: 25000.00, Stock_Producto: 10, Categoria_idCategoria: 2, imagen: "img/mantequilla.jpeg" },
     { idProducto: 405, Nombre_Producto: "Perfume con Glitter", descripcion_producto: "Perfume corporal con destellos brillantes de glitter.", Precio_Producto: 30000.00, Stock_Producto: 10, Categoria_idCategoria: 2, imagen: "img/perfumeGlitter.jpeg" },
-    { idProducto: 406, Nombre_Producto: "Gel de cejas", descripcion_producto: "Gel fijador transparente de larga duración para cejas perfectas.", Precio_Producto: 15000.00, Stock_Producto: 10, Categoria_idCategoria: 2, imagen: "img/gelcejas.jpeg" },
+    { idProducto: 406, Nombre_Producto: "Gel de cejas", descripcion_producto: "Gel fijador transparente de larga duración para cejas perfectas.", Precio_Producto: 15000.00, Stock_Producto: 10, Categoria_idCategoria: 2, imagen: "img/gelcejas.jpg" },
     { idProducto: 407, Nombre_Producto: "Rubor en barra", descripcion_producto: "Rubor en barra de fácil difuminado para un efecto natural.", Precio_Producto: 24000.00, Stock_Producto: 10, Categoria_idCategoria: 2, imagen: "img/ruborBarra.jpeg" },
     { idProducto: 408, Nombre_Producto: "Blush Líquido", descripcion_producto: "Rubor líquido de alta pigmentación y acabado fresco.", Precio_Producto: 22000.00, Stock_Producto: 10, Categoria_idCategoria: 2, imagen: "img/blushLiquido.jpeg" }
 ];
 
 // ==========================================
-// LÓGICA DE DETALLE (productos.html)
+// LÓGICA DE DETALLE (productos.html) compatible con ambos estilos de diseño
 // ==========================================
 document.addEventListener('DOMContentLoaded', () => {
     const parametrosURL = new URLSearchParams(window.location.search);
@@ -51,42 +52,75 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (productoIdURL) {
         const productoEncontrado = productos.find(p => p.idProducto === productoIdURL);
-        const contenedorDetalle = document.querySelector('.producto-detalle');
         
-        if (productoEncontrado && contenedorDetalle) {
-            contenedorDetalle.innerHTML = `
-                <div class="producto-imagen-grande">
-                    <img src="${productoEncontrado.imagen}" alt="${productoEncontrado.Nombre_Producto}">
-                </div>
-                <div class="producto-info-detalle">
-                    <h1>${productoEncontrado.Nombre_Producto}</h1>
-                    <p class="precio-detalle">$${Number(productoEncontrado.Precio_Producto).toLocaleString()} COP</p>
-                    <p class="descripcion-detalle">${productoEncontrado.descripcion_producto}</p>
-                    <p class="stock-detalle">Disponibles: <strong>${productoEncontrado.Stock_Producto} unidades</strong></p>
-                    <button class="btn-agregar-carrito" data-id="${productoEncontrado.idProducto}">Añadir al carrito</button>
-                </div>
-            `;
+        // Buscamos tanto el contenedor por clase como los IDs individuales por si tu HTML usa ambos
+        const contenedorDetalle = document.querySelector('.producto-detalle');
+        const imagenEl = document.getElementById("imagen-producto");
+        const nombreEl = document.getElementById("nombre-producto");
+        const precioEl = document.getElementById("precio-producto");
+        const descEl = document.getElementById("descripcion-producto");
 
-            // Funcionalidad del botón agregar al carrito
-            const botonAgregar = document.querySelector('.btn-agregar-carrito');
+        if (productoEncontrado) {
+            // Si tu HTML usa IDs estáticos independientes:
+            if (imagenEl) {
+                imagenEl.src = productoEncontrado.imagen;
+                imagenEl.alt = productoEncontrado.Nombre_Producto;
+            }
+            if (nombreEl) nombreEl.textContent = productoEncontrado.Nombre_Producto;
+            if (precioEl) precioEl.textContent = `$${Number(productoEncontrado.Precio_Producto).toLocaleString('es-CO')} COP`;
+            if (descEl) descEl.textContent = productoEncontrado.descripcion_producto;
+
+            // Si tu HTML usa el contenedor dinámico con clase .producto-detalle:
+            if (contenedorDetalle && !imagenEl) {
+                contenedorDetalle.innerHTML = `
+                    <div class="producto-imagen-grande">
+                        <img src="${productoEncontrado.imagen}" alt="${productoEncontrado.Nombre_Producto}">
+                    </div>
+                    <div class="producto-info-detalle">
+                        <h1>${productoEncontrado.Nombre_Producto}</h1>
+                        <p class="precio-detalle">$${Number(productoEncontrado.Precio_Producto).toLocaleString()} COP</p>
+                        <p class="descripcion-detalle">${productoEncontrado.descripcion_producto}</p>
+                        <p class="stock-detalle">Disponibles: <strong>${productoEncontrado.Stock_Producto} unidades</strong></p>
+                        
+                        <div class="grupo-cantidad">
+                            <label for="cantidad-producto">Cantidad:</label>
+                            <input type="number" id="cantidad-producto" class="carrito-item__cantidad" value="1" min="1" max="${productoEncontrado.Stock_Producto}">
+                        </div>
+
+                        <button class="btn-agregar-carrito boton-checkout" data-id="${productoEncontrado.idProducto}">Añadir al carrito</button>
+                    </div>
+                `;
+            }
+
+            // Funcionalidad unificada para el botón de agregar al carrito (funciona para ambas estructuras)
+            const botonAgregar = document.querySelector('.btn-agregar-carrito') || document.querySelector('.boton-checkout');
             if (botonAgregar) {
-                botonAgregar.addEventListener('click', () => {
+                botonAgregar.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const inputCantidad = document.getElementById('cantidad-producto') || document.querySelector('input[type="number"]');
+                    let cantidadSeleccionada = inputCantidad ? parseInt(inputCantidad.value) : 1;
+
+                    if (isNaN(cantidadSeleccionada) || cantidadSeleccionada < 1) {
+                        cantidadSeleccionada = 1;
+                    }
+
                     let carrito = JSON.parse(localStorage.getItem('lucimakeup_carrito')) || [];
                     
-                    const indexExistente = carrito.findIndex(item => item.id === productoEncontrado.idProducto);
+                    const indexExistente = carrito.findIndex(item => Number(item.id) === Number(productoEncontrado.idProducto));
                     if (indexExistente >= 0) {
-                        carrito[indexExistente].cantidad += 1;
+                        carrito[indexExistente].cantidad += cantidadSeleccionada;
                     } else {
                         carrito.push({
                             id: productoEncontrado.idProducto,
                             nombre: productoEncontrado.Nombre_Producto,
-                            precio: productoEncontrado.Precio_Producto,
+                            precio: Number(productoEncontrado.Precio_Producto),
                             imagen: productoEncontrado.imagen,
-                            cantidad: 1
+                            cantidad: cantidadSeleccionada
                         });
                     }
+                    
                     localStorage.setItem('lucimakeup_carrito', JSON.stringify(carrito));
-                    alert('¡Producto añadido al carrito con éxito!');
+                    window.location.href = 'carrito.html';
                 });
             }
         } else {

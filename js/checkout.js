@@ -1,6 +1,5 @@
 /**
  * Lógica del Checkout - Lucimakeup Store
- * Versión ultra-robuesta con escucha directa en el botón de pago
  */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -15,10 +14,7 @@ function cargarResumenCheckout() {
     const envioEl = document.getElementById("envio-checkout");
     const totalCheckout = document.getElementById("total-checkout");
     
-    const carrito = JSON.parse(localStorage.getItem("lucimakeup_carrito")) || [
-        { nombre: "Labial Matte Red", cantidad: 3, precioOriginal: 25000, precio: 25000, descuento: 0 },
-        { nombre: "Brillo Llavero", cantidad: 1, precioOriginal: 15000, precio: 15000, descuento: 0 }
-    ];
+    const carrito = JSON.parse(localStorage.getItem("lucimakeup_carrito")) || [];
 
     if (listaResumen) {
         listaResumen.innerHTML = "";
@@ -38,13 +34,13 @@ function cargarResumenCheckout() {
             itemLi.className = "resumen-orden__item";
             
             let textoDescuento = descuentoUnitario > 0 
-                ? `<small style="color: #880e2f;">Ahorro: -$${ahorroItem.toLocaleString('es-CO')} (-$${descuentoUnitario.toLocaleString('es-CO')} c/u)</small>` 
+                ? `<small style="color: #880e2f;">Ahorro: -$${ahorroItem.toLocaleString('es-CO')}</small>` 
                 : `<small style="color: #666;">Sin descuento</small>`;
 
             itemLi.innerHTML = `
                 <div style="display: flex; flex-direction: column;">
-                    <span><strong>${producto.nombre}</strong> (x${producto.cantidad})</span>
-                    <small style="color: #555;">Precio unitario: $${(precioUnitario + descuentoUnitario).toLocaleString('es-CO')}</small>
+                    <span><strong>${producto.nombre || producto.Nombre_Producto}</strong> (x${producto.cantidad})</span>
+                    <small style="color: #555;">Precio unitario: $${precioUnitario.toLocaleString('es-CO')}</small>
                     ${textoDescuento}
                 </div>
                 <strong style="text-align: right;">$${subtotalItem.toLocaleString('es-CO')}</strong>
@@ -53,7 +49,7 @@ function cargarResumenCheckout() {
         });
 
         let subtotalFinalVenta = subtotalBruto - descuentoTotal;
-        let costoEnvio = subtotalFinalVenta >= 200000 ? 0 : 8000;
+        let costoEnvio = subtotalFinalVenta >= 200000 || subtotalFinalVenta === 0 ? 0 : 8000;
         let totalFinal = subtotalFinalVenta + costoEnvio;
 
         if (subtotalEl) subtotalEl.textContent = `$${subtotalBruto.toLocaleString('es-CO')} COP`;
@@ -63,9 +59,6 @@ function cargarResumenCheckout() {
     }
 }
 
-/**
- * Muestra una notificación flotante visual (Toast)
- */
 function mostrarNotificacion(mensaje, tipo = 'error') {
     let contenedor = document.getElementById("toast-container");
     if (!contenedor) {
@@ -82,13 +75,11 @@ function mostrarNotificacion(mensaje, tipo = 'error') {
 
     contenedor.appendChild(toast);
 
-    // Forzar reflow para activar transición
     setTimeout(() => {
         toast.style.opacity = '1';
         toast.style.transform = 'translateY(0)';
     }, 10);
 
-    // Desaparecer a los 4 segundos
     setTimeout(() => {
         toast.style.opacity = '0';
         toast.style.transform = 'translateY(-20px)';
@@ -97,16 +88,11 @@ function mostrarNotificacion(mensaje, tipo = 'error') {
 }
 
 function configurarBotonPagoDirecto() {
-    // Buscamos directamente el botón por su ID que se ve en tu HTML
     const btnPagar = document.getElementById("btn-confirmar-pago");
 
-    if (!btnPagar) {
-        console.error("No se encontró el botón con ID 'btn-confirmar-pago'");
-        return;
-    }
+    if (!btnPagar) return;
 
-    btnPagar.addEventListener("click", (e) => {
-        // Prevenimos cualquier comportamiento por defecto del botón
+    btnPagar.addEventListener("click", async (e) => {
         e.preventDefault();
 
         const inputNombre = document.getElementById("nombre");
@@ -119,52 +105,65 @@ function configurarBotonPagoDirecto() {
         const direccion = inputDireccion ? inputDireccion.value.trim() : "";
         const telefono = inputTelefono ? inputTelefono.value.trim() : "";
 
-        // 1. Validar campos vacíos
         if (!nombre || !email || !direccion || !telefono) {
             mostrarNotificacion("⚠️ Por favor, completa todos los campos de envío.", "error");
             return;
         }
 
-        // 2. VALIDACIÓN ESTRICTA DE CORREO
-        const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        if (!regexEmail.test(email)) {
-            mostrarNotificacion("❌ Correo incompleto (Ej: usuario@gmail.com)", "error");
-            if (inputEmail) {
-                inputEmail.focus();
-                inputEmail.style.border = "2px solid #d32f2f";
-            }
+        const carrito = JSON.parse(localStorage.getItem("lucimakeup_carrito")) || [];
+        if (carrito.length === 0) {
+            mostrarNotificacion("⚠️ Tu carrito está vacío.", "error");
             return;
-        } else {
-            if (inputEmail) inputEmail.style.border = "";
         }
 
-        // 3. VALIDACIÓN ESTRICTA DE TELÉFONO
-        const regexCelular = /^3\d{9}$/;
-        if (!regexCelular.test(telefono)) {
-            mostrarNotificacion("❌ Celular inválido: 10 dígitos y empezar por 3", "error");
-            if (inputTelefono) {
-                inputTelefono.focus();
-                inputTelefono.style.border = "2px solid #d32f2f";
-            }
-            return;
-        } else {
-            if (inputTelefono) inputTelefono.style.border = "";
-        }
+        let subtotalProductos = carrito.reduce((acc, item) => acc + (Number(item.precio || item.precioOriginal) * Number(item.cantidad)), 0);
+        let costoEnvio = subtotalProductos >= 200000 ? 0 : 8000;
+        let totalFinal = subtotalProductos + costoEnvio;
 
-      // 4. ÉXITO: Guardar datos y redirigir
-        const datosCliente = {
-            nombre: inputNombre.value.trim(),
-            email: inputEmail.value.trim(),
-            direccion: inputDireccion.value.trim(),
-            telefono: inputTelefono.value.trim()
+        const usuarioLogueado = JSON.parse(localStorage.getItem("lucimakeup_usuario")) || null;
+        const clienteId = usuarioLogueado ? usuarioLogueado.id : null;
+
+        const datosPedido = {
+            subtotal: subtotalProductos,
+            costo_envio: costoEnvio,
+            total: totalFinal,
+            cliente_id: clienteId, 
+            items: carrito
         };
-        sessionStorage.setItem("lucimakeup_envio", JSON.stringify(datosCliente));
 
-        mostrarNotificacion("¡Datos correctos! Redirigiendo...", "success");
-        
-        setTimeout(() => {
-            localStorage.removeItem("lucimakeup_carrito");
-            window.location.href = "confirmacion.html";
-        }, 1000);
-    }); // Cierre del addEventListener del botón
-}     // Cierre de la función configurarBotonPagoDirecto
+        try {
+            mostrarNotificacion("Procesando pedido y guardando en base de datos...", "success");
+
+            const respuesta = await fetch('http://localhost:3000/api/pedido', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(datosPedido)
+            });
+
+            const resultado = await respuesta.json();
+
+            if (respuesta.ok && resultado.exito) {
+                const datosCliente = {
+                    nombre: nombre,
+                    email: email,
+                    direccion: direccion,
+                    telefono: telefono,
+                    idPedido: resultado.idPedido
+                };
+                sessionStorage.setItem("lucimakeup_envio", JSON.stringify(datosCliente));
+
+                mostrarNotificacion("¡Pedido registrado en la base de datos con éxito!", "success");
+                
+                setTimeout(() => {
+                    localStorage.removeItem("lucimakeup_carrito");
+                    window.location.href = "confirmacion.html";
+                }, 1200);
+            } else {
+                mostrarNotificacion(`❌ Error: ${resultado.mensaje || 'No se pudo guardar el pedido.'}`, "error");
+            }
+        } catch (error) {
+            console.error("Error de conexión con el servidor:", error);
+            mostrarNotificacion("❌ Error de conexión con el servidor backend.", "error");
+        }
+    }); 
+}

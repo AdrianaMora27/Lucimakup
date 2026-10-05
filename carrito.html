@@ -315,55 +315,16 @@
 
         <div class="carrito-grid">
 
-            <!-- Lista de productos agregados -->
-            <section class="carrito-contenido">
-
-                <!-- Producto 1 -->
-                <div class="carrito-item">
-                    <img src="img/brilloGloss.jpeg" alt="Brillo Gloss" class="carrito-item__imagen">
-                    <div class="carrito-item__detalles">
-                        <h3 class="carrito-item__nombre">Brillo Gloss</h3>
-                        <span class="carrito-item__precio">$12.000 COP</span>
-                    </div>
-                    <div class="carrito-item__controles">
-                        <input type="number" value="2" min="1" class="carrito-item__cantidad">
-                        <button class="carrito-item__eliminar">Eliminar</button>
-                    </div>
-                </div>
-
-                <!-- Producto 2 -->
-                <div class="carrito-item">
-                    <img src="img/block.jpeg" alt="block" class="carrito-item__imagen">
-                    <div class="carrito-item__detalles">
-                        <h3 class="carrito-item__nombre">Block 100 hojas</h3>
-                        <span class="carrito-item__precio">$8.000 COP</span>
-                    </div>
-                    <div class="carrito-item__controles">
-                        <input type="number" value="2" min="1" class="carrito-item__cantidad">
-                        <button class="carrito-item__eliminar">Eliminar</button>
-                    </div>
-                </div>
-
-                <!-- Producto 3 -->
-                <div class="carrito-item">
-                    <img src="img/velaAromatica.jpeg" alt="velaAromatica" class="carrito-item__imagen">
-                    <div class="carrito-item__detalles">
-                        <h3 class="carrito-item__nombre">Vela con aroma</h3>
-                        <span class="carrito-item__precio">$10.000 COP</span>
-                    </div>
-                    <div class="carrito-item__controles">
-                        <input type="number" value="2" min="1" class="carrito-item__cantidad">
-                        <button class="carrito-item__eliminar">Eliminar</button>
-                    </div>
-                </div>
-
+            <!-- Lista de productos agregados dinámicamente -->
+            <section class="carrito-contenido" id="lista-carrito">
+                <!-- Los productos se pintarán aquí automáticamente desde JS -->
             </section>
 
             <!-- Resumen Financiero -->
             <aside class="resumen-pedido">
                 <h2 class="resumen-pedido__titulo">Resumen de la compra</h2>
 
-                <!-- SECCIÓN DE CUPÓN DE DESCUENTO AÑADIDA -->
+                <!-- SECCIÓN DE CUPÓN DE DESCUENTO -->
                 <div class="cupon-seccion">
                     <label for="input-cupon">¿Tienes un cupón?</label>
                     <div class="cupon-grupo">
@@ -371,24 +332,22 @@
                         <button type="button" id="btn-aplicar-cupon" class="cupon-btn">Aplicar</button>
                     </div>
 
-                    <!---ESTILO DEL MENSAJE DE EXITO O ERROR-->
                     <div id="mensaje-cupon" style="font-size: 1.3rem; margin-top: 0.8rem; font-weight: bold; display: none;"></div>
-                    
                 </div>
 
                 <div class="resumen-linea">
                     <span>Subtotal:</span>
-                    <span id="subtotal-texto">$30.000 COP</span>
+                    <span id="subtotal-texto">$0 COP</span>
                 </div>
 
                 <div class="resumen-linea">
                     <span>Envío:</span>
-                    <span id="envio-texto">$8.000 COP</span>
+                    <span id="envio-texto">$0 COP</span>
                 </div>
 
                 <div class="resumen-linea resumen-linea--total">
                     <span>Total:</span>
-                    <span id="total-texto">$38.000 COP</span>
+                    <span id="total-texto">$0 COP</span>
                 </div>
 
                 <a href="checkout.html" class="boton-checkout">Pagar</a>
@@ -401,6 +360,73 @@
         <p class="footer__texto">Frontend store Lucimakeup - Todos los derechos reservados</p>
     </footer>
 
+    <!-- Script actualizado para renderizar el carrito dinámico -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const contenedorCarrito = document.getElementById('lista-carrito');
+            let carrito = JSON.parse(localStorage.getItem('lucimakeup_carrito')) || [];
+
+            function renderizarCarrito() {
+                contenedorCarrito.innerHTML = '';
+
+                if (carrito.length === 0) {
+                    contenedorCarrito.innerHTML = `<p style="text-align: center; font-size: 1.8rem; color: var(--gris);">Tu carrito está vacío.</p>`;
+                    return;
+                }
+
+                carrito.forEach((producto, index) => {
+                    const itemDiv = document.createElement('div');
+                    itemDiv.classList.add('carrito-item');
+                    itemDiv.innerHTML = `
+                        <img src="${producto.imagen}" alt="${producto.nombre}" class="carrito-item__imagen">
+                        <div class="carrito-item__detalles">
+                            <h3 class="carrito-item__nombre">${producto.nombre}</h3>
+                            <span class="carrito-item__precio">$${Number(producto.precio).toLocaleString('es-CO')} COP</span>
+                        </div>
+                        <div class="carrito-item__controles">
+                            <input type="number" value="${producto.cantidad}" min="1" class="carrito-item__cantidad" data-index="${index}">
+                            <button class="carrito-item__eliminar" data-index="${index}">Eliminar</button>
+                        </div>
+                    `;
+                    contenedorCarrito.appendChild(itemDiv);
+                });
+
+                asignarEventosControles();
+            }
+
+            function asignarEventosControles() {
+                // Cambiar cantidad
+                const inputsCantidad = document.querySelectorAll('.carrito-item__cantidad');
+                inputsCantidad.forEach(input => {
+                    input.addEventListener('change', (e) => {
+                        const index = e.target.dataset.index;
+                        let nuevaCantidad = parseInt(e.target.value);
+                        if (isNaN(nuevaCantidad) || nuevaCantidad < 1) nuevaCantidad = 1;
+                        
+                        carrito[index].cantidad = nuevaCantidad;
+                        localStorage.setItem('lucimakeup_carrito', JSON.stringify(carrito));
+                        
+                        // Disparar recálculo si existe la función externa en carrito.js
+                        if (typeof recalcularTotales === 'function') recalcularTotales();
+                    });
+                });
+
+                // Eliminar producto
+                const botonesEliminar = document.querySelectorAll('.carrito-item__eliminar');
+                botonesEliminar.forEach(boton => {
+                    boton.addEventListener('click', (e) => {
+                        const index = e.target.dataset.index;
+                        carrito.splice(index, 1);
+                        localStorage.setItem('lucimakeup_carrito', JSON.stringify(carrito));
+                        renderizarCarrito();
+                        if (typeof recalcularTotales === 'function') recalcularTotales();
+                    });
+                });
+            }
+
+            renderizarCarrito();
+        });
+    </script>
     <script src="JS/carrito.js"></script>
 </body>
 </html>
