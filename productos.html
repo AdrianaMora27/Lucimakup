@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalle de Producto - Lucimakeup</title>
+    <title>Detalle de Producto - Lucimakeup Store</title>
     <link rel="stylesheet" href="css/normalize.css"> 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Staatliches&display=swap" rel="stylesheet">
 
@@ -69,6 +69,7 @@
 
     .header__logo { 
         margin: 3rem 0;
+        max-width: 25rem;
     }
 
     .navegacion { 
@@ -207,7 +208,7 @@
     <!-- CABECERA CON LOGOTIPO INSTITUCIONAL -->
     <header class="header">
         <a href="index.html">
-            <img class="header__logo" src="img/logolucistore.png" alt="Logotipo LuciMakeup">
+            <img class="header__logo" src="img/logolucistore.png" alt="Logotipo Lucimakeup Store">
         </a>
     </header>
 
@@ -223,7 +224,7 @@
         <div id="detalle-producto" class="detalle-producto">
             <!-- Imagen del producto (controlada de forma dinámica por JS) -->
             <div class="detalle-producto__imagen">
-                <img id="imagen-producto" src="img/cremaPeinar.jpeg" alt="Producto LuciMakeup">
+                <img id="imagen-producto" src="img/cremaPeinar.jpeg" alt="Detalle del producto en Lucimakeup Store">
             </div>
 
             <!-- Información detallada del producto -->
@@ -245,7 +246,7 @@
                     <!-- Control de selección de cantidad de unidades -->
                     <div class="formulario-cantidad">
                         <label for="cantidad" style="font-size: 1.8rem; font-weight: bold;">Cantidad</label>
-                        <input class="formulario-cantidad__campo" type="number" id="cantidad" name="cantidad" min="1" value="1">
+                        <input class="formulario-cantidad__campo" type="number" id="cantidad" name="cantidad" min="1" max="99" value="1">
                     </div>
 
                     <button type="button" id="btn-agregar-carrito" class="boton">Añadir al carrito</button>
@@ -256,7 +257,7 @@
 
     <!-- PIE DE PÁGINA -->
     <footer class="footer">
-        <p class="footer__texto">Tienda Virtual LuciMakeup - Todos los derechos reservados &copy;</p>
+        <p class="footer__texto">Frontend store Lucimakeup - Todos los derechos reservados &copy;</p>
     </footer>
 
     <!-- SCRIPTS JS PARA LA INTERACTIVIDAD Y EL CARRITO -->

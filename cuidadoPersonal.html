@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cuidado personal - Lucimakeup</title>
+    <title>Cuidado Personal - Lucimakeup Store</title>
     <link rel="stylesheet" href="css/normalize.css"> 
     <link href="https://fonts.googleapis.com/css2?family=Akt:wght@100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Krub:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Staatliches&display=swap" rel="stylesheet">
 
@@ -199,14 +199,14 @@
 <body>
     <header class="header">
         <a href="index.html">
-            <img class="header__logo" src="img/logolucistore.png" alt="Logotipo">
+            <img class="header__logo" src="img/logolucistore.png" alt="Logotipo Lucimakeup Store">
         </a>
     </header>
 
     <nav class="navegacion">
         <a class="navegacion__enlace" href="categorias.html">Catálogo</a>
         <a class="navegacion__enlace navegacion__enlace--activo" href="cuidadoPersonal.html">Cuidado Personal</a>
-        <a class="navegacion__enlace" href="Nosotros.html">Nosotros</a>
+        <a class="navegacion__enlace" href="nosotros.html">Nosotros</a>
     </nav>
 
     <main class="contenedor">
@@ -216,9 +216,9 @@
         <h2 class="subcategoria__titulo">Cuidado Capilar</h2>
         <div class="grid-productos">
             <!--PRODUCTO 400-->
-            <div class="tarjeta-producto">
+            <div class="tarjeta-producto" data-id="400">
                 <div class="tarjeta-producto__imagen">
-                    <img src="img/cuidadocapilar.jpeg" alt="Acondicionador">
+                    <img src="img/cuidadocapilar.jpeg" alt="Acondicionador Capilar">
                 </div>
                 <div class="tarjeta-producto__info">
                     <h3 class="tarjeta-producto__nombre">Acondicionador</h3>
@@ -227,9 +227,9 @@
             </div>
 
             <!--PRODUCTO 401-->
-            <div class="tarjeta-producto">
+            <div class="tarjeta-producto" data-id="401">
                 <div class="tarjeta-producto__imagen">
-                    <img src="img/shampoo.jpeg" alt="shampoo">
+                    <img src="img/shampoo.jpeg" alt="Shampoo para todo tipo de cabello">
                 </div>
                 <div class="tarjeta-producto__info">
                     <h3 class="tarjeta-producto__nombre">Shampoo Todo tipo</h3>
@@ -238,9 +238,9 @@
             </div>
 
             <!--PRODUCTO 402-->
-            <div class="tarjeta-producto">
+            <div class="tarjeta-producto" data-id="402">
                 <div class="tarjeta-producto__imagen">
-                    <img src="img/cremaPeinar.jpeg" alt="Crema de Peinar">
+                    <img src="img/cremaPeinar.jpeg" alt="Crema de Peinar Hidratante">
                 </div>
                 <div class="tarjeta-producto__info">
                     <h3 class="tarjeta-producto__nombre">Crema de peinar</h3>
@@ -253,9 +253,9 @@
         <h2 class="subcategoria__titulo">Cuidado corporal</h2>
         <div class="grid-productos">
             <!--PRODUCTO 403-->
-            <div class="tarjeta-producto">
+            <div class="tarjeta-producto" data-id="403">
                 <div class="tarjeta-producto__imagen">
-                    <img src="img/cuidadocorporal.jpeg" alt="Cuidado corporal">
+                    <img src="img/cuidadocorporal.jpeg" alt="Aceite de coco corporal">
                 </div>
                 <div class="tarjeta-producto__info">
                     <h3 class="tarjeta-producto__nombre">Aceite de coco corporal</h3>
@@ -264,9 +264,9 @@
             </div>
 
             <!--PRODUCTO 404-->
-            <div class="tarjeta-producto">
+            <div class="tarjeta-producto" data-id="404">
                 <div class="tarjeta-producto__imagen">
-                    <img src="img/mantequilla.jpeg" alt="Mantequilla">
+                    <img src="img/mantequilla.jpeg" alt="Mantequilla corporal ultra hidratante">
                 </div>
                 <div class="tarjeta-producto__info">
                     <h3 class="tarjeta-producto__nombre">Mantequilla corporal</h3>
@@ -275,9 +275,9 @@
             </div>
 
             <!--PRODUCTO 405-->
-            <div class="tarjeta-producto">
+            <div class="tarjeta-producto" data-id="405">
                 <div class="tarjeta-producto__imagen">
-                    <img src="img/perfumeGlitter.jpeg" alt="perfume con glitter">
+                    <img src="img/perfumeGlitter.jpeg" alt="Perfume corporal con glitter">
                 </div>
                 <div class="tarjeta-producto__info">
                     <h3 class="tarjeta-producto__nombre">Perfume con Glitter</h3>
@@ -290,9 +290,9 @@
         <h2 class="subcategoria__titulo">Maquillaje y Rostro</h2>
         <div class="grid-productos">
             <!--PRODUCTO 406-->
-            <div class="tarjeta-producto">
+            <div class="tarjeta-producto" data-id="406">
                 <div class="tarjeta-producto__imagen">
-                    <img src="img/gelcejas.jpg" alt="Gel de cejas">
+                    <img src="img/gelcejas.jpg" alt="Gel fijador de cejas">
                 </div>
                 <div class="tarjeta-producto__info">
                     <h3 class="tarjeta-producto__nombre">Gel de cejas</h3>
@@ -301,9 +301,9 @@
             </div>
 
             <!--PRODUCTO 407-->
-            <div class="tarjeta-producto">
+            <div class="tarjeta-producto" data-id="407">
                 <div class="tarjeta-producto__imagen">
-                    <img src="img/ruborBarra.jpeg" alt="Rubor en barra">
+                    <img src="img/ruborBarra.jpeg" alt="Rubor cremoso en barra">
                 </div>
                 <div class="tarjeta-producto__info">
                     <h3 class="tarjeta-producto__nombre">Rubor en barra</h3>
@@ -312,9 +312,9 @@
             </div>
 
             <!--PRODUCTO 408-->
-            <div class="tarjeta-producto">
+            <div class="tarjeta-producto" data-id="408">
                 <div class="tarjeta-producto__imagen">
-                    <img src="img/blushLiquido.jpeg" alt="Blush liquido">
+                    <img src="img/blushLiquido.jpeg" alt="Blush líquido de larga duración">
                 </div>
                 <div class="tarjeta-producto__info">
                     <h3 class="tarjeta-producto__nombre">Blush Líquido</h3>
@@ -328,9 +328,10 @@
         <p class="footer__texto">Frontend store Lucimakeup - Todos los derechos reservados</p>
     </footer>
 
-    <script src="js/carrito.js"></script>
+    <!-- SCRIPTS DE LA APLICACIÓN -->
     <script src="js/productos.js"></script>
-    <script src="js/detalleproductos.js"></script>
+    <script src="js/carrito.js"></script>
+    <script src="js/detallesproductos.js"></script>
     <script src="js/checkout.js"></script>
 </body>
 </html>

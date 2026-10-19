@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar Sesión - Lucimakeup</title>
+    <link rel="stylesheet" href="css/normalize.css">
+    <title>Iniciar Sesión - Lucimakeup Store</title>
 
     <!-- Framework Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -37,7 +38,6 @@
             font-size: 1.6rem;
         }
 
-        /* Redefinición de clases de Bootstrap para acoplar la identidad visual */
         .text-primary {
             color: var(--rojo-oscuro) !important;
         }
@@ -62,6 +62,36 @@
         .card {
             background-color: var(--Blanco-crema);
         }
+
+        /* Estilos profesionales para las notificaciones (Toasts) de login.js */
+        #toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .toast {
+            background-color: #333;
+            color: #fff;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 1.4rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            opacity: 1;
+            transition: opacity 0.4s ease;
+        }
+
+        .toast.success {
+            background-color: #2e7d32 !important; /* Verde profesional */
+        }
+
+        .toast.error {
+            background-color: #c62828 !important; /* Rojo profesional */
+        }
     </style>
 </head>
 <body class="d-flex align-items-center vh-100">
@@ -74,31 +104,48 @@
                         <h2 class="fw-bold text-primary mb-2">Lucimakeup</h2>
                         <p class="text-muted mb-4" style="font-size: 1.5rem;">Ingresa tus credenciales para acceder</p>
 
-                        <!-- Contenedor opcional para alerta de error estática (simulada o controlada por JS) -->
-                        <!-- 
-                        <div class="alert alert-danger py-2 small" role="alert" style="font-size: 1.4rem;">
-                            Correo o contraseña incorrectos.
-                        </div> 
-                        -->
-
-                        <!-- Formulario de inicio de sesión -->
-                        <form action="login-endpoint.html" method="POST">
+                        <!-- Formulario de inicio de sesión blindado -->
+                        <form id="form-login" autocomplete="off" novalidate>
                             <div class="mb-3 text-start">
                                 <label for="correo" class="form-label fw-bold" style="font-size: 1.5rem;">Correo Electrónico</label>
-                                <input type="email" class="form-control" id="correo" name="correo" placeholder="ejemplo@correo.com" required>
+                                <input 
+                                    type="email" 
+                                    class="form-control" 
+                                    id="correo" 
+                                    name="correo" 
+                                    placeholder="ejemplo@correo.com" 
+                                    required 
+                                    maxlength="80"
+                                    autocomplete="username"
+                                >
                             </div>
 
-                            <div class="mb-4 text-start">
+                            <div class="mb-2 text-start">
                                 <label for="password" class="form-label fw-bold" style="font-size: 1.5rem;">Contraseña</label>
-                                <input type="password" class="form-control" id="password" name="password" placeholder="••••••••" required>
+                                <input 
+                                    type="password" 
+                                    class="form-control" 
+                                    id="password" 
+                                    name="password" 
+                                    placeholder="••••••••" 
+                                    required 
+                                    maxlength="50"
+                                    autocomplete="current-password"
+                                >
                             </div>
 
-                            <button type="submit" class="btn btn-primary w-100 py-2 rounded-3 fw-bold">Ingresar</button>
+                            <!-- Opciones adicionales de acceso -->
+                            <div class="text-end mb-4">
+                                <a href="recuperar.html" class="small" style="font-size: 1.3rem; color: var(--rojo-oscuro); text-decoration: underline;">¿Olvidaste tu contraseña?</a>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary w-100 py-2 rounded-3 fw-bold mb-3">Ingresar</button>
                         </form>
                         
-                        <!-- Enlace de retorno a la tienda -->
-                        <div class="mt-3">
-                            <a href="index.html" class="text-muted small" style="font-size: 1.4rem; text-decoration: underline;">Volver a la tienda</a>
+                        <!-- Enlaces de navegación adicionales -->
+                        <div class="enlaces d-flex flex-column gap-2 text-center mt-2">
+                            <a href="registro.html" class="fw-bold" style="font-size: 1.4rem; color: var(--morado-oscuro); text-decoration: underline;">¿No tienes cuenta? Regístrate aquí</a> 
+                            <a href="index.html" class="text-muted small" style="font-size: 1.3rem; text-decoration: none;">← Volver a la tienda</a>
                         </div>
                     </div>
                 </div>
@@ -106,7 +153,7 @@
         </div>
     </div>
 
-   <!-- Framework Bootstrap 5 JS Bundle -->
+    <!-- Framework Bootstrap 5 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     
     <!-- Script Personalizado de Login -->

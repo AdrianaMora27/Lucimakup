@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Errores - Lucimakeup</title>
+    <title>Errores - Lucimakeup Store</title>
     
     <!-- Archivo de Normalización CSS -->
-    <link rel="stylesheet" href="Normalize.css"> 
+    <link rel="stylesheet" href="css/normalize.css"> 
 
     <style>
         :root {
@@ -20,11 +20,13 @@
             --Blanco-crema: #FFF8F5;
         }
 
-        * { 
-            margin: 0;
-            padding: 0;
+        html {
             box-sizing: border-box;
-            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-size: 62.5%;
+        }
+
+        *, *:before, *:after { 
+            box-sizing: inherit;
         }
 
         body { 
@@ -33,6 +35,9 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            margin: 0;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-size: 1.6rem;
         }
 
         .contenedor-error { 

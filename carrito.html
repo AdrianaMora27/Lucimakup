@@ -328,7 +328,7 @@
                 <div class="cupon-seccion">
                     <label for="input-cupon">¿Tienes un cupón?</label>
                     <div class="cupon-grupo">
-                        <input type="text" id="input-cupon" class="cupon-input" placeholder="Ej: LUCI10">
+                        <input type="text" id="input-cupon" class="cupon-input" placeholder="Ej: LUCI10" maxlength="20">
                         <button type="button" id="btn-aplicar-cupon" class="cupon-btn">Aplicar</button>
                     </div>
 
@@ -360,13 +360,25 @@
         <p class="footer__texto">Frontend store Lucimakeup - Todos los derechos reservados</p>
     </footer>
 
-    <!-- Script actualizado para renderizar el carrito dinámico -->
+    <!-- Script blindado y sanitizado para renderizar el carrito -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const contenedorCarrito = document.getElementById('lista-carrito');
             let carrito = JSON.parse(localStorage.getItem('lucimakeup_carrito')) || [];
 
+            function sanitizarTexto(texto) {
+                if (!texto) return "";
+                return String(texto)
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;")
+                    .replace(/'/g, "&#x27;")
+                    .replace(/\//g, "&#x2F;");
+            }
+
             function renderizarCarrito() {
+                if (!contenedorCarrito) return;
                 contenedorCarrito.innerHTML = '';
 
                 if (carrito.length === 0) {
@@ -377,15 +389,21 @@
                 carrito.forEach((producto, index) => {
                     const itemDiv = document.createElement('div');
                     itemDiv.classList.add('carrito-item');
+
+                    const nombreLimpio = sanitizarTexto(producto.nombre || producto.Nombre_Producto);
+                    const imagenLimpia = sanitizarTexto(producto.imagen);
+                    const precioSeguro = Number(producto.precio) || 0;
+                    const cantidadSegura = parseInt(producto.cantidad, 10) || 1;
+
                     itemDiv.innerHTML = `
-                        <img src="${producto.imagen}" alt="${producto.nombre}" class="carrito-item__imagen">
+                        <img src="${imagenLimpia}" alt="${nombreLimpio}" class="carrito-item__imagen">
                         <div class="carrito-item__detalles">
-                            <h3 class="carrito-item__nombre">${producto.nombre}</h3>
-                            <span class="carrito-item__precio">$${Number(producto.precio).toLocaleString('es-CO')} COP</span>
+                            <h3 class="carrito-item__nombre">${nombreLimpio}</h3>
+                            <span class="carrito-item__precio">$${precioSeguro.toLocaleString('es-CO')} COP</span>
                         </div>
                         <div class="carrito-item__controles">
-                            <input type="number" value="${producto.cantidad}" min="1" class="carrito-item__cantidad" data-index="${index}">
-                            <button class="carrito-item__eliminar" data-index="${index}">Eliminar</button>
+                            <input type="number" value="${cantidadSegura}" min="1" max="50" class="carrito-item__cantidad" data-index="${index}">
+                            <button class="carrito-item__eliminar" data-index="${index}" type="button">Eliminar</button>
                         </div>
                     `;
                     contenedorCarrito.appendChild(itemDiv);
@@ -395,31 +413,39 @@
             }
 
             function asignarEventosControles() {
-                // Cambiar cantidad
                 const inputsCantidad = document.querySelectorAll('.carrito-item__cantidad');
                 inputsCantidad.forEach(input => {
                     input.addEventListener('change', (e) => {
-                        const index = e.target.dataset.index;
-                        let nuevaCantidad = parseInt(e.target.value);
-                        if (isNaN(nuevaCantidad) || nuevaCantidad < 1) nuevaCantidad = 1;
+                        const index = parseInt(e.target.dataset.index, 10);
+                        let nuevaCantidad = parseInt(e.target.value, 10);
                         
-                        carrito[index].cantidad = nuevaCantidad;
-                        localStorage.setItem('lucimakeup_carrito', JSON.stringify(carrito));
+                        if (isNaN(nuevaCantidad) || nuevaCantidad < 1) {
+                            nuevaCantidad = 1;
+                            e.target.value = 1;
+                        } else if (nuevaCantidad > 50) {
+                            nuevaCantidad = 50;
+                            e.target.value = 50;
+                        }
                         
-                        // Disparar recálculo si existe la función externa en carrito.js
-                        if (typeof recalcularTotales === 'function') recalcularTotales();
+                        if (carrito[index]) {
+                            carrito[index].cantidad = nuevaCantidad;
+                            localStorage.setItem('lucimakeup_carrito', JSON.stringify(carrito));
+                            
+                            if (typeof recalcularTotales === 'function') recalcularTotales();
+                        }
                     });
                 });
 
-                // Eliminar producto
                 const botonesEliminar = document.querySelectorAll('.carrito-item__eliminar');
                 botonesEliminar.forEach(boton => {
                     boton.addEventListener('click', (e) => {
-                        const index = e.target.dataset.index;
-                        carrito.splice(index, 1);
-                        localStorage.setItem('lucimakeup_carrito', JSON.stringify(carrito));
-                        renderizarCarrito();
-                        if (typeof recalcularTotales === 'function') recalcularTotales();
+                        const index = parseInt(e.target.dataset.index, 10);
+                        if (!isNaN(index) && carrito[index]) {
+                            carrito.splice(index, 1);
+                            localStorage.setItem('lucimakeup_carrito', JSON.stringify(carrito));
+                            renderizarCarrito();
+                            if (typeof recalcularTotales === 'function') recalcularTotales();
+                        }
                     });
                 });
             }

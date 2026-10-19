@@ -3,14 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Papelería - Lucimakeup</title>
+    <title>Papelería y Oficina - Lucimakeup Store</title>
+    
+    <!-- Archivo de Normalización CSS -->
     <link rel="stylesheet" href="css/normalize.css"> 
-    <link href="https://fonts.googleapis.com/css2?family=Akt:wght@100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Krub:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Staatliches&display=swap" rel="stylesheet">
+    
+    <!-- Fuentes de Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Krub:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Roboto+Condensed:wght@100..900&family=Staatliches&display=swap" rel="stylesheet">
 
     <style>
-        /* ==========================================
-            VARIABLES DE DISEÑO Y PALETA DE COLORES
-            ========================================== */
         :root { 
             --blanco: #ffffff;
             --oscuro: #212121;
@@ -19,43 +22,32 @@
             --rosa-claro: #ffb6c1;
             --rosa-fuerte: #ff69b4;
             --rojo-oscuro: #880e2f;
-            --Gris-claro: #dfe9f3;
-            --Blanco-crema: #FFF8F5;
-            --Gris-arena: #F4F4F2;
-            --Beige-calido: #F9F5EB;
-            --Azul-lavanda: #D6E4F0;
-            --Verde-menta: #E2F0D9;
-            --Rosa-sutil: #FCE4EC;
             --morado: #9C27B0;
-            --morado-oscuro: #89119D;
-            --secundario-oscuro: rgb(255,187,2);
             --negro: #000;
             --fuentePrincipal: "Staatliches", sans-serif;
         }
 
-        /* ==========================================
-            CONFIGURACIÓN GLOBAL Y RESET
-            ========================================== */
-        html { 
-            box-sizing: border-box;
+        html {
             font-size: 62.5%;
+            box-sizing: border-box;
         }
-        
-        *, *:before, *::after {
+
+        *, *:before, *:after {
             box-sizing: inherit;
         }
 
-        body { 
-            background-color: var(--rosa-fuerte, #ff69b4);
+        body {
             font-size: 1.6rem;
-            line-height: 1.5;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            background-color: var(--rosa-fuerte);
             margin: 0;
+            min-height: 100vh;
         }
 
         p { 
             font-size: 1.8rem;
             font-family: Arial, Helvetica, sans-serif;
-            color: var(--negro, #000);
+            color: var(--negro);
         }
 
         a { 
@@ -70,60 +62,120 @@
         .contenedor { 
             max-width: 120rem;
             margin: 0 auto;
-            padding: 0 2rem;
+            width: 90%;
+            padding: 0;
         }
 
         h1, h2, h3 { 
             text-align: center;
-            color: var(--oscuro, #333);
-            font-family: var(--fuentePrincipal, sans-serif);
+            color: var(--oscuro);
+            font-family: var(--fuentePrincipal);
         }
 
         h1 { font-size: 4rem; }
         h2 { font-size: 3.2rem; }
         h3 { font-size: 2.4rem; }
 
-        /* ==========================================
-            ESTILOS DE CABECERA Y NAVEGACIÓN
-            ========================================== */
-        .header { 
+        .header-top {
+            background-color: var(--rosa-fuerte);
+            padding: 2rem 0;
             display: flex;
             justify-content: center;
+            align-items: center;
         }
 
-        .header__logo { 
-            margin: 3rem 0;
+        .logo img {
+            max-width: 18rem;
+            height: auto;
+            margin: 0 auto;
+            border-radius: 50%;
         }
 
-        .navegacion { 
-            background-color: var(--Blanco-crema, #fffdd0);
-            padding: 1rem 0;
+        .nav-bg { 
+            background-color: var(--blanco);
+        }
+            
+        .navegacion-principal {
             display: flex;
-            justify-content: center; 
-            gap: 2rem;
+            justify-content: center;
+            align-items: center;
+            gap: 4rem;
             flex-wrap: wrap;
+            padding: 1.2rem 0;
         }
 
-        .navegacion__enlace {
-            font-family: var(--fuentePrincipal, sans-serif);
-            color: var(--negro, #000);
-            font-size: 2.5rem;
+        .navegacion-principal a, .dropdown-btn {
+            display: block;
+            text-align: center;
+            background-color: var(--blanco);
+            color: var(--oscuro);
+            text-decoration: none;
+            font-size: 1.8rem;
+            font-family: var(--fuentePrincipal);
+            border: none;
+            cursor: pointer;
+            transition: color 0.3s ease;
         }
 
-        .navegacion__enlace:hover {
-            color: var(--morado, #800080);
+        .navegacion-principal a:hover, .dropdown:hover .dropdown-btn {
+            color: var(--rosa-fuerte);
         }
 
-        /* ==========================================
-            SECCIONES Y TARJETAS DE PRODUCTOS
-            ========================================== */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: var(--blanco);
+            min-width: 20rem;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.15);
+            z-index: 10;
+            border-radius: 0 0 0.8rem 0.8rem;
+            overflow: hidden;
+        }
+
+        .dropdown-content a {
+            color: var(--oscuro);
+            padding: 1.2rem 1.6rem;
+            text-align: left;
+            font-size: 1.6rem;
+            font-weight: normal;
+            background-color: var(--blanco);
+            border-bottom: 1px solid #ffccd5;
+            font-family: Arial, sans-serif;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #fff0f3;
+            color: var(--rosa-fuerte);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .contenido-principal {
+            background-color: var(--rosa-fuerte);
+            padding: 3rem 0;
+        }
+
+        .titulo-seccion {
+            color: var(--oscuro);
+            font-size: 3.5rem;
+            margin: 2rem 0 4rem 0;
+            text-transform: uppercase;
+        }
+
         .subcategoria__titulo { 
-            font-family: var(--fuentePrincipal, sans-serif);
-            color: var(--morado, #800080);
+            font-family: var(--fuentePrincipal);
+            color: var(--morado);
             font-size: 2.4rem;
             text-align: left;
             margin: 3rem 0 1.5rem 0;
-            border-bottom: .2rem solid var(--rosa-claro, #ffb6c1);
+            border-bottom: .2rem solid var(--blanco);
             padding-bottom: .5rem;
         }
 
@@ -142,14 +194,14 @@
         }
 
         .tarjeta-producto { 
-            background-color: var(--Blanco-crema, #fffdd0);
+            background-color: var(--blanco);
             border-radius: 1rem;
             overflow: hidden;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             transition: transform .3s ease;
-            box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.08);
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.15);
         }
 
         .tarjeta-producto:hover {
@@ -159,7 +211,7 @@
         .tarjeta-producto__imagen img { 
             height: 22rem;
             object-fit: cover;
-            background-color: var(--Rosa-sutil, #ffe4e1);
+            background-color: #fff0f3;
         }
 
         .tarjeta-producto__info { 
@@ -172,17 +224,17 @@
         }
 
         .tarjeta-producto__nombre { 
-            font-family: var(--fuentePrincipal, sans-serif);
+            font-family: var(--fuentePrincipal);
             font-size: 2rem;
-            color: var(--oscuro, #333);
+            color: var(--oscuro);
             margin-bottom: 1.5rem;
         }
 
         .tarjeta-producto__boton { 
             display: inline-block;
-            background-color: var(--primario, #ffc0cb);
-            color: var(--negro, #000);
-            font-family: var(--fuentePrincipal, sans-serif);
+            background-color: var(--primario);
+            color: var(--oscuro);
+            font-family: var(--fuentePrincipal);
             font-size: 1.6rem;
             padding: 1rem 2rem;
             border-radius: .5rem;
@@ -191,179 +243,133 @@
         }
 
         .tarjeta-producto__boton:hover { 
-            background-color: var(--secundario-oscuro, #800080);
-            color: var(--blanco, #fff);
+            background-color: var(--rojo-oscuro);
+            color: var(--blanco);
             transform: scale(1.03);
         }
 
-        /* ==========================================
-            PIE DE PÁGINA (FOOTER)
-            ========================================== */
-        .footer { 
-            background-color: var(--Blanco-crema, #fffdd0);
-            padding: 1rem 0;
+        .footer {
+            background-color: rgba(0, 0, 0, 0.1);
+            padding: 3rem 0;
             margin-top: 4rem;
         }
 
         .footer__texto { 
             text-align: center;
-            font-family: var(--fuentePrincipal, sans-serif);
-            font-size: 2.2rem;
+            font-family: var(--fuentePrincipal);
+            font-size: 2rem;
+            color: var(--oscuro);
+            margin: 0;
         }
     </style>
 </head>
 
 <body>
-    <!-- CABECERA INSTITUCIONAL -->
-    <header class="header">
-        <a href="index.html">
-            <img class="header__logo" src="img/logolucistore.png" alt="Logotipo Lucimakeup">
-        </a>
+    <!-- CABECERA Y LOGOTIPO -->
+    <header class="header-top">
+        <div class="logo">
+            <a href="index.html">
+                <img src="img/logolucistore.png" alt="Logotipo Lucimakeup Store">
+            </a>
+        </div>
     </header>
 
-    <!-- NAVEGACIÓN PRINCIPAL -->
-    <nav class="navegacion">
-        <a class="navegacion__enlace" href="index.html">Inicio</a>
-        <a class="navegacion__enlace" href="categorias.html">Categorías</a>
-        <a class="navegacion__enlace" href="nosotros.html">Nosotros</a>
-    </nav>
+    <!-- BARRA DE NAVEGACIÓN BLANCA -->
+    <div class="nav-bg">
+        <nav class="navegacion-principal contenedor">
+            <a href="categorias.html">CATÁLOGO</a>
+            
+            <!-- Menú Desplegable Categorías -->
+            <div class="dropdown">
+                <button class="dropdown-btn">CUIDADO PERSONAL &#9662;</button>
+                <div class="dropdown-content">
+                    <a href="maquillaje.html">Maquillaje</a>
+                    <a href="cuidadoPersonal.html">Cuidado Personal</a>
+                    <a href="hogar.html">Hogar</a>
+                    <a href="papeleria.html">Papelería</a>
+                </div>
+            </div>
 
-    <!-- CONTENEDOR PRINCIPAL DE PAPELERÍA -->
-    <main class="contenedor">
-        <h1>Papelería</h1>
+            <a href="nosotros.html">NOSOTROS</a>
+        </nav>
+    </div>
 
-        <!-- SUBCATEGORIA: ESCRITORIO Y ESCRITURA -->
-        <h2 class="subcategoria__titulo">Escritorio y escritura</h2>
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="contenedor contenido-principal">
+        <h1 class="titulo-seccion">Papelería y Oficina</h1>
+
+        <!-- SUBCATEGORIA: ORGANIZACIÓN Y ESCRITUD -->
+        <h2 class="subcategoria__titulo">Organización y Escritura</h2>
         <div class="grid-productos">
         
-            <!-- PRODUCTO 101 -->
-            <div class="tarjeta-producto" data-id="101">
-                <a href="productos.html?id=101" class="tarjeta-producto__imagen">
-                    <img src="img/lapicerosDiseños.jpeg" alt="Lapicero con diseño">
+            <!-- PRODUCTO 501 -->
+            <div class="tarjeta-producto" data-id="501">
+                <a href="productos.html?id=501" class="tarjeta-producto__imagen">
+                    <img src="img/agendaAnual.jpeg" alt="Agenda anual argollada ejecutiva">
                 </a>
                 <div class="tarjeta-producto__info">
-                    <h3 class="tarjeta-producto__nombre">Lapicero con diseño</h3>
-                    <a href="productos.html?id=101" class="tarjeta-producto__boton">Ver producto</a>
+                    <h3 class="tarjeta-producto__nombre">Agenda Anual Ejecutiva</h3>
+                    <a href="productos.html?id=501" class="tarjeta-producto__boton">Ver producto</a>
                 </div>
             </div>
 
-            <!-- PRODUCTO 102 -->
-            <div class="tarjeta-producto" data-id="102">
-                <a href="productos.html?id=102" class="tarjeta-producto__imagen">
-                    <img src="img/lapizMina.jpeg" alt="Lápiz porta mina">
+            <!-- PRODUCTO 502 -->
+            <div class="tarjeta-producto" data-id="502">
+                <a href="productos.html?id=502" class="tarjeta-producto__imagen">
+                    <img src="img/boligrafoPastel.jpeg" alt="Set de bolígrafos tinta gel tonos pastel">
                 </a>
                 <div class="tarjeta-producto__info">
-                    <h3 class="tarjeta-producto__nombre">Lápiz porta mina</h3>
-                    <a href="productos.html?id=102" class="tarjeta-producto__boton">Ver producto</a>
+                    <h3 class="tarjeta-producto__nombre">Set Bolígrafos Pastel</h3>
+                    <a href="productos.html?id=502" class="tarjeta-producto__boton">Ver producto</a>
                 </div>
             </div>
 
-            <!-- PRODUCTO 103 -->
-            <div class="tarjeta-producto" data-id="103">
-                <a href="productos.html?id=103" class="tarjeta-producto__imagen">
-                    <img src="img/cartuchera.jpeg" alt="Cartuchera con diseño">
+            <!-- PRODUCTO 503 -->
+            <div class="tarjeta-producto" data-id="503">
+                <a href="productos.html?id=503" class="tarjeta-producto__imagen">
+                    <img src="img/notasAdhesivas.jpeg" alt="Notas adhesivas estéticas surtidas">
                 </a>
                 <div class="tarjeta-producto__info">
-                    <h3 class="tarjeta-producto__nombre">Cartuchera con diseño</h3>
-                    <a href="productos.html?id=103" class="tarjeta-producto__boton">Ver producto</a>
-                </div>
-            </div>
-
-            <!-- PRODUCTO 104 -->
-            <div class="tarjeta-producto" data-id="104">
-                <a href="productos.html?id=104" class="tarjeta-producto__imagen">
-                    <img src="img/resaltadores.jpeg" alt="Resaltadores con diseño">
-                </a>
-                <div class="tarjeta-producto__info">
-                    <h3 class="tarjeta-producto__nombre">Resaltadores con diseño</h3>
-                    <a href="productos.html?id=104" class="tarjeta-producto__boton">Ver producto</a>
+                    <h3 class="tarjeta-producto__nombre">Notas Adhesivas Estéticas</h3>
+                    <a href="productos.html?id=503" class="tarjeta-producto__boton">Ver producto</a>
                 </div>
             </div>
         </div>
 
-        <!-- SUBCATEGORIA: CUADERNOS -->
-        <h2 class="subcategoria__titulo">Cuadernos</h2>
+        <!-- SUBCATEGORIA: ACCESORIOS DE ESCRITORIO -->
+        <h2 class="subcategoria__titulo">Accesorios de Escritorio</h2>
         <div class="grid-productos">
 
-            <!-- PRODUCTO 105 -->
-            <div class="tarjeta-producto" data-id="105">
-                <a href="productos.html?id=105" class="tarjeta-producto__imagen">
-                    <img src="img/cuadernos.jpeg" alt="Cuadernos surtidos">
+            <!-- PRODUCTO 504 -->
+            <div class="tarjeta-producto" data-id="504">
+                <a href="productos.html?id=504" class="tarjeta-producto__imagen">
+                    <img src="img/organizadorEscritorio.jpeg" alt="Organizador de acrílico para escritorio">
                 </a>
                 <div class="tarjeta-producto__info">
-                    <h3 class="tarjeta-producto__nombre">Cuadernos surtidos</h3>
-                    <a href="productos.html?id=105" class="tarjeta-producto__boton">Ver producto</a>
+                    <h3 class="tarjeta-producto__nombre">Organizador de Escritorio</h3>
+                    <a href="productos.html?id=504" class="tarjeta-producto__boton">Ver producto</a>
                 </div>
             </div>
 
-            <!-- PRODUCTO 106 -->
-            <div class="tarjeta-producto" data-id="106">
-                <a href="productos.html?id=106" class="tarjeta-producto__imagen">
-                    <img src="img/carpeta.jpeg" alt="Carpeta plástica">
+            <!-- PRODUCTO 505 -->
+            <div class="tarjeta-producto" data-id="505">
+                <a href="productos.html?id=505" class="tarjeta-producto__imagen">
+                    <img src="img/washitapeSet.jpeg" alt="Set de cintas decorativas washi tape">
                 </a>
                 <div class="tarjeta-producto__info">
-                    <h3 class="tarjeta-producto__nombre">Carpeta plástica</h3>
-                    <a href="productos.html?id=106" class="tarjeta-producto__boton">Ver producto</a>
+                    <h3 class="tarjeta-producto__nombre">Set Washi Tape Decorativo</h3>
+                    <a href="productos.html?id=505" class="tarjeta-producto__boton">Ver producto</a>
                 </div>
             </div>
 
-            <!-- PRODUCTO 107 -->
-            <div class="tarjeta-producto" data-id="107">
-                <a href="productos.html?id=107" class="tarjeta-producto__imagen">
-                    <img src="img/cuadernoZootopia.jpeg" alt="Cuaderno Zootopia">
+            <!-- PRODUCTO 506 -->
+            <div class="tarjeta-producto" data-id="506">
+                <a href="productos.html?id=506" class="tarjeta-producto__imagen">
+                    <img src="img/marcatextosPastel.jpeg" alt="Marcadores resaltadores tonos pastel">
                 </a>
                 <div class="tarjeta-producto__info">
-                    <h3 class="tarjeta-producto__nombre">Cuaderno Zootopia</h3>
-                    <a href="productos.html?id=107" class="tarjeta-producto__boton">Ver producto</a>
-                </div>
-            </div>
-
-            <!-- PRODUCTO 108 -->
-            <div class="tarjeta-producto" data-id="108">
-                <a href="productos.html?id=108" class="tarjeta-producto__imagen">
-                    <img src="img/block.jpeg" alt="Block iris">
-                </a>
-                <div class="tarjeta-producto__info">
-                    <h3 class="tarjeta-producto__nombre">Block iris</h3>
-                    <a href="productos.html?id=108" class="tarjeta-producto__boton">Ver producto</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- SUBCATEGORIA: ACCESORIOS Y ESTILO -->
-        <h2 class="subcategoria__titulo">Accesorios y estilo</h2>
-        <div class="grid-productos">
-
-            <!-- PRODUCTO 109 -->
-            <div class="tarjeta-producto" data-id="109">
-                <a href="productos.html?id=109" class="tarjeta-producto__imagen">
-                    <img src="img/morrales.jpeg" alt="Morral unisex">
-                </a>
-                <div class="tarjeta-producto__info">
-                    <h3 class="tarjeta-producto__nombre">Morral unisex</h3>
-                    <a href="productos.html?id=109" class="tarjeta-producto__boton">Ver producto</a>
-                </div>
-            </div>
-            
-            <!-- PRODUCTO 110 -->
-            <div class="tarjeta-producto" data-id="110">
-                <a href="productos.html?id=110" class="tarjeta-producto__imagen">
-                    <img src="img/llavero.jpeg" alt="Llavero surtido">
-                </a>
-                <div class="tarjeta-producto__info">
-                    <h3 class="tarjeta-producto__nombre">Llavero surtido</h3>
-                    <a href="productos.html?id=110" class="tarjeta-producto__boton">Ver producto</a>
-                </div>
-            </div>
-
-            <!-- PRODUCTO 111 -->
-            <div class="tarjeta-producto" data-id="111">
-                <a href="productos.html?id=111" class="tarjeta-producto__imagen">
-                    <img src="img/llaveroGato.jpeg" alt="Llavero gato">
-                </a>
-                <div class="tarjeta-producto__info">
-                    <h3 class="tarjeta-producto__nombre">Llavero gato</h3>
-                    <a href="productos.html?id=111" class="tarjeta-producto__boton">Ver producto</a>
+                    <h3 class="tarjeta-producto__nombre">Resaltadores Pastel x6</h3>
+                    <a href="productos.html?id=506" class="tarjeta-producto__boton">Ver producto</a>
                 </div>
             </div>
         </div>
@@ -371,13 +377,15 @@
 
     <!-- PIE DE PÁGINA -->
     <footer class="footer">
-        <p class="footer__texto">Tienda Virtual Lucimakeup - Todos los derechos reservados &copy;</p>
+        <div class="contenedor">
+            <p class="footer__texto">Frontend store Lucimakeup - Todos los derechos reservados</p>
+        </div>
     </footer>
 
-    <!-- SCRIPTS DE LA TIENDA -->
-    <script src="js/carrito.js"></script>
+    <!-- Scripts de la tienda -->
     <script src="js/productos.js"></script>
-    <script src="js/detalleproductos.js"></script>
+    <script src="js/carrito.js"></script>
+    <script src="js/detallesproductos.js"></script>
     <script src="js/checkout.js"></script>
 </body>
 </html>

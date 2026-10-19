@@ -1,9 +1,13 @@
 const express = require('express');
 const mysql = require('mysql2');
-const cors = express.require ? require('cors') : require('cors');
+const cors = require('cors');
 
 const app = express();
+
+// Middlewares de seguridad y procesamiento
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(__dirname));
 app.use(cors());
 
 // Configuración de la conexión a la base de datos local (phpMyAdmin)
@@ -11,12 +15,15 @@ const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'lucimakeup_db'
+    database: 'lucimakeup_db',
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0
 });
 
 db.connect((err) => {
     if (err) {
-        console.error('❌ Error al conectar a la base de datos:', err);
+        console.error('❌ Error al conectar a la base de datos local:', err.message);
         return;
     }
     console.log('✅ Conectado exitosamente a la base de datos lucimakeup_db');
@@ -26,12 +33,13 @@ db.connect((err) => {
 // 1. MÓDULO DE PRODUCTOS (CATÁLOGO PÚBLICO)
 // ==========================================
 app.get('/api/productos', (req, res) => {
-    db.query('SELECT * FROM producto', (err, results) => {
+    const query = 'SELECT * FROM producto';
+    db.query(query, (err, results) => {
         if (err) {
             console.error('Error al consultar los productos:', err);
-            return res.status(500).json({ error: 'Error al consultar los productos' });
+            return res.status(500).json({ exito: false, error: 'Error al consultar los productos' });
         }
-        res.json(results);
+        res.status(200).json(results);
     });
 });
 
@@ -93,14 +101,18 @@ app.post('/api/login', (req, res) => {
 
 app.post('/api/contacto', (req, res) => {
     const { nombre, telefono, correo, mensaje } = req.body;
+
+    if (!nombre || !correo || !mensaje) {
+        return res.status(400).json({ exito: false, mensaje: 'Faltan campos obligatorios en el formulario de contacto.' });
+    }
     
     const query = 'INSERT INTO mensajes_contacto (nombre, telefono, correo, mensaje) VALUES (?, ?, ?, ?)';
-    db.query(query, [nombre, telefono, correo, mensaje], (err, result) => {
+    db.query(query, [nombre, telefono || '', correo, mensaje], (err, result) => {
         if (err) {
             console.error('Error al guardar el mensaje:', err);
-            return res.status(500).json({ exito: false, mensaje: 'Error en el servidor' });
+            return res.status(500).json({ exito: false, mensaje: 'Error en el servidor al guardar el mensaje.' });
         }
-        res.json({ exito: true, mensaje: '¡Mensaje guardado con éxito!' });
+        res.status(200).json({ exito: true, mensaje: '¡Mensaje guardado con éxito!' });
     });
 });
 
@@ -110,13 +122,12 @@ app.post('/api/contacto', (req, res) => {
 app.post('/api/pedido', (req, res) => {
     const { subtotal, costo_envio, total, cliente_id, items } = req.body;
 
-    if (!total || !items || items.length === 0) {
+    if (!total || !items || !Array.isArray(items) || items.length === 0) {
         return res.status(400).json({ exito: false, mensaje: 'El carrito está vacío o faltan datos del pedido.' });
     }
 
     const clienteFinal = cliente_id ? cliente_id : 1; 
 
-    // Columnas exactas de la tabla pedido
     const queryPedido = `
         INSERT INTO pedido (fecha, subtotal, impuesto, costo_envio, total, Estado, Cliente_idCliente) 
         VALUES (NOW(), ?, 0.00, ?, ?, 'Procesando', ?)
@@ -140,7 +151,6 @@ app.post('/api/pedido', (req, res) => {
             const subtotalItem = cant * precioUnit;
 
             return new Promise((resolve, reject) => {
-                // Columnas exactas de la tabla detallepedido
                 const q = `
                     INSERT INTO detallepedido (Producto_idProducto, Pedido_idPedido, precio_Unitario, cantidad, SubTotal) 
                     VALUES (?, ?, ?, ?, ?)
@@ -191,7 +201,7 @@ app.put('/api/admin/productos/:id', (req, res) => {
     db.query(query, [Nombre_Producto, descripcion_producto, Precio_Producto, Stock_Producto, Categoria_idCategoria, imagen, id], (err, result) => {
         if (err) {
             console.error('Error al actualizar:', err);
-            return res.status(500).json({ exito: false, mensaje: 'Error al actualizar.' });
+            return res.status(500).json({ exito: false, mensaje: 'Error al actualizar el producto.' });
         }
         res.status(200).json({ exito: true, mensaje: '¡Producto actualizado con éxito!' });
     });
@@ -204,13 +214,14 @@ app.delete('/api/admin/productos/:id', (req, res) => {
     db.query(query, [id], (err, result) => {
         if (err) {
             console.error('Error al eliminar:', err);
-            return res.status(500).json({ exito: false, mensaje: 'Error al eliminar.' });
+            return res.status(500).json({ exito: false, mensaje: 'Error al eliminar el producto.' });
         }
         res.status(200).json({ exito: true, mensaje: '¡Producto eliminado!' });
     });
 });
 
-const PORT = 3000;
+// Inicialización del servidor
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`🚀 Servidor de API corriendo en http://localhost:${PORT}`);
 });

@@ -1,30 +1,75 @@
+/**
+ * Lógica principal avanzada y blindada - Lucimakeup Store
+ */
+
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('Lucimakeup Store - Script principal cargado correctamente.');
+    console.log('Lucimakeup Store - Script principal cargado y blindado correctamente.');
 
     // ==========================================
-    // 1. GESTIÓN DEL FORMULARIO DE CONTACTO (CONEXIÓN BACKEND)
+    // 1. GESTIÓN DEL FORMULARIO DE CONTACTO (BLINDADO Y CONECTADO)
     // ==========================================
     const formulario = document.querySelector('.formulario');
+    const inputNombre = document.getElementById('nombre');
+    const inputTelefono = document.getElementById('telefono');
+    const inputEmail = document.getElementById('correo'); // 👈 Sincronizado con id="correo" de tu index.html
+    const inputMensaje = document.getElementById('mensaje');
+
+    // 🛡️ BLINDAJE EN TIEMPO REAL: Filtrar inputs según su naturaleza
+    if (inputTelefono) {
+        inputTelefono.addEventListener('input', (e) => {
+            // Solo permite números, máximo 10 dígitos
+            e.target.value = e.target.value.replace(/[^0-9]/g, '').slice(0, 10);
+        });
+    }
+
+    if (inputNombre) {
+        inputNombre.addEventListener('input', (e) => {
+            // Solo permite letras, tildes y espacios
+            e.target.value = e.target.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, '');
+        });
+    }
+
+    if (inputEmail) {
+        inputEmail.addEventListener('input', (e) => {
+            // Remueve caracteres peligrosos para inyecciones XSS
+            e.target.value = e.target.value.replace(/[<>"'`;()]/g, '').trim();
+        });
+    }
 
     if (formulario) {
         formulario.addEventListener('submit', async function(e) {
-            e.preventDefault(); // Evita que la página se recargue por defecto
+            e.preventDefault(); // Evita recarga por defecto
 
-            // Obtenemos los valores de los campos
-            const nombre = document.getElementById('nombre').value.trim();
-            const telefono = document.getElementById('telefono').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const mensaje = document.getElementById('mensaje').value.trim();
+            // Capturar y sanitizar valores
+            const nombre = sanitizarTexto(inputNombre ? inputNombre.value.trim() : '');
+            const telefono = inputTelefono ? inputTelefono.value.trim() : '';
+            const email = sanitizarTexto(inputEmail ? inputEmail.value.trim() : '');
+            const mensaje = sanitizarTexto(inputMensaje ? inputMensaje.value.trim() : '');
 
-            // Validación simple
+            // Validación estricta de campos obligatorios
             if (nombre === '' || email === '' || mensaje === '') {
                 mostrarAlerta('Por favor, completa los campos obligatorios.', 'error');
                 return;
             }
 
+            // Validación de correo electrónico
+            const regexCorreo = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (!regexCorreo.test(email)) {
+                mostrarAlerta('❌ El formato del correo electrónico no es válido.', 'error');
+                if (inputEmail) inputEmail.focus();
+                return;
+            }
+
+            // Validación opcional de teléfono si se ingresa
+            if (telefono && telefono.length < 7) {
+                mostrarAlerta('❌ El teléfono debe tener al menos 7 dígitos.', 'error');
+                if (inputTelefono) inputTelefono.focus();
+                return;
+            }
+
             try {
-                // Petición HTTP POST al servidor Node.js (phpMyAdmin)
-                const respuesta = await fetch('http://localhost:3000/api/contacto', {
+                // Petición HTTP POST al servidor Node.js mediante ruta relativa (/api/contacto)
+                const respuesta = await fetch('/api/contacto', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -32,19 +77,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     body: JSON.stringify({
                         nombre: nombre,
                         telefono: telefono,
-                        correo: email,
+                        correo: email, // Envía 'correo' tal como lo espera el servidor y la tabla mensaje_contacto
                         mensaje: mensaje
                     })
                 });
 
                 const resultado = await respuesta.json();
 
-                if (resultado.exito) {
-                    // Mensaje de éxito integrado con la base de datos
+                if (respuesta.ok && resultado.exito) {
                     mostrarAlerta(`¡Gracias por escribirnos, ${nombre}! Tu mensaje se guardó con éxito.`, 'exito');
                     formulario.reset(); // Limpiamos el formulario
                 } else {
-                    mostrarAlerta('Hubo un error al guardar el mensaje en el servidor.', 'error');
+                    mostrarAlerta(resultado.mensaje || 'Hubo un error al guardar el mensaje en el servidor.', 'error');
                 }
 
             } catch (error) {
@@ -58,7 +102,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // 2. FUNCIÓN AUXILIAR PARA ALERTAS VISUALES
     // ==========================================
     function mostrarAlerta(mensaje, tipo) {
-        // Evitamos crear múltiples alertas acumuladas
         const alertaPrevia = document.querySelector('.alerta-dinamica');
         if (alertaPrevia) {
             alertaPrevia.remove();
@@ -68,7 +111,6 @@ document.addEventListener('DOMContentLoaded', () => {
         alerta.textContent = mensaje;
         alerta.classList.add('alerta-dinamica');
 
-        // Estilos dinámicos para la alerta
         alerta.style.position = 'fixed';
         alerta.style.bottom = '20px';
         alerta.style.right = '20px';
@@ -90,7 +132,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         document.body.appendChild(alerta);
 
-        // Desaparece automáticamente a los 4 segundos
         setTimeout(() => {
             alerta.style.opacity = '0';
             setTimeout(() => alerta.remove(), 300);
@@ -105,11 +146,25 @@ document.addEventListener('DOMContentLoaded', () => {
         carritoContainer.addEventListener('click', (e) => {
             const badge = carritoContainer.querySelector('.carrito-badge');
             if (badge) {
-                let cantidad = parseInt(badge.textContent);
-                if (cantidad === 0) {
+                let cantidad = parseInt(badge.textContent, 10);
+                if (isNaN(cantidad) || cantidad === 0) {
                     console.log('Tu carrito está vacío por ahora.');
                 }
             }
         });
     }
 });
+
+/**
+ * 🛡️ Función auxiliar de Sanitización para prevenir ataques XSS
+ */
+function sanitizarTexto(texto) {
+    if (!texto) return "";
+    return texto
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#x27;")
+        .replace(/\//g, "&#x2F;");
+}

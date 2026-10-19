@@ -4,126 +4,166 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Confirmación de Pedido - Lucimakeup Store</title>
-    <link rel="stylesheet" href="styles.css"> <!-- O tu archivo de estilos principal -->
+    <link rel="stylesheet" href="css/normalize.css">
+    <link href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --blanco: #ffffff;
+            --oscuro: #212121;
+            --rosa-fuerte: #ff69b4;
+            --rojo-oscuro: #880e2f;
+            --Blanco-crema: #FFF8F5;
+            --fucsia-marca: #d81b60;
+            --fuentePrincipal: "Staatliches", sans-serif;
+        }
+
+        html {
+            box-sizing: border-box;
+            font-size: 62.5%;
+        }
+
+        *, *:before, *:after {
+            box-sizing: inherit;
+        }
+
         body {
-            background-color: #fff0f5; /* Rosa muy suave */
+            background-color: #fff0f5;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #333;
+            color: var(--oscuro);
             margin: 0;
-            padding: 20px;
+            padding: 2rem;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            font-size: 1.6rem;
         }
+
         .confirmacion-container {
-            background: #ffffff;
-            max-width: 600px;
+            background: var(--blanco);
+            max-width: 60rem;
             width: 100%;
-            padding: 40px;
-            border-radius: 12px;
+            padding: 4rem;
+            border-radius: 1.2rem;
             box-shadow: 0 8px 24px rgba(0,0,0,0.1);
             text-align: center;
-            border-top: 6px solid #d81b60; /* Fucsia / Rosa marca */
+            border-top: 6px solid var(--fucsia-marca);
         }
+
         .icono-exito {
-            font-size: 50px;
+            font-size: 5rem;
             color: #2e7d32;
-            margin-bottom: 10px;
+            margin-bottom: 1rem;
         }
+
         h1 {
-            color: #880e2f;
-            margin-bottom: 5px;
-            font-size: 26px;
+            color: var(--rojo-oscuro);
+            margin-bottom: 0.5rem;
+            font-size: 3.2rem;
+            font-family: var(--fuentePrincipal);
         }
+
         .subtitulo {
             color: #666;
-            font-size: 15px;
-            margin-bottom: 25px;
+            font-size: 1.5rem;
+            margin-bottom: 2.5rem;
         }
+
         .pedido-card {
             background: #fdf2f4;
-            border: 1px dashed #d81b60;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 25px;
-            font-size: 16px;
+            border: 1px dashed var(--fucsia-marca);
+            padding: 1.5rem;
+            border-radius: 0.8rem;
+            margin-bottom: 2.5rem;
+            font-size: 1.6rem;
         }
+
         .pedido-card strong {
-            color: #d81b60;
+            color: var(--fucsia-marca);
         }
+
         .seccion-info {
             text-align: left;
-            margin-bottom: 20px;
+            margin-bottom: 2rem;
             border-bottom: 1px solid #eee;
-            padding-bottom: 15px;
+            padding-bottom: 1.5rem;
         }
+
         .seccion-info h3 {
-            font-size: 16px;
+            font-size: 1.8rem;
             color: #444;
-            margin-bottom: 10px;
+            margin-bottom: 1rem;
+            font-family: var(--fuentePrincipal);
         }
+
         .detalle-lista {
             list-style: none;
             padding: 0;
             margin: 0;
         }
+
         .detalle-lista li {
             display: flex;
             justify-content: space-between;
-            padding: 6px 0;
-            font-size: 14px;
+            padding: 0.6rem 0;
+            font-size: 1.5rem;
             color: #555;
         }
+
         .total-pago {
             display: flex;
             justify-content: space-between;
-            font-size: 18px;
+            font-size: 1.8rem;
             font-weight: bold;
-            color: #880e2f;
-            margin-top: 15px;
+            color: var(--rojo-oscuro);
+            margin-top: 1.5rem;
             border-top: 2px solid #ddd;
-            padding-top: 10px;
+            padding-top: 1rem;
         }
+
         .alerta-correo {
             background: #e3f2fd;
             color: #0d47a1;
-            padding: 12px;
-            border-radius: 6px;
-            font-size: 14px;
-            margin-bottom: 25px;
+            padding: 1.2rem;
+            border-radius: 0.6rem;
+            font-size: 1.4rem;
+            margin-bottom: 2.5rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 0.8rem;
         }
+
         .soporte-box {
-            font-size: 13px;
+            font-size: 1.3rem;
             color: #666;
             background: #fafafa;
-            padding: 12px;
-            border-radius: 6px;
-            margin-bottom: 25px;
+            padding: 1.2rem;
+            border-radius: 0.6rem;
+            margin-bottom: 2.5rem;
+            line-height: 1.5;
         }
+
         .soporte-box a {
-            color: #d81b60;
+            color: var(--fucsia-marca);
             text-decoration: none;
             font-weight: bold;
         }
+
         .btn-volver {
-            background-color: #d81b60;
-            color: white;
+            background-color: var(--fucsia-marca);
+            color: var(--blanco);
             border: none;
-            padding: 12px 25px;
-            font-size: 15px;
-            font-weight: bold;
-            border-radius: 6px;
+            padding: 1.2rem 2.5rem;
+            font-size: 1.8rem;
+            font-family: var(--fuentePrincipal);
+            border-radius: 0.6rem;
             cursor: pointer;
             transition: background 0.3s;
             text-decoration: none;
             display: inline-block;
         }
+
         .btn-volver:hover {
             background-color: #ad1457;
         }
@@ -172,6 +212,6 @@
     </div>
 
     <!-- Archivo de lógica de confirmación -->
-    <script src="confirmacion.js"></script>
+    <script src="js/confirmacion.js"></script>
 </body>
 </html>

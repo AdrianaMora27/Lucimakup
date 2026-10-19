@@ -1,10 +1,10 @@
 /**
- * Lógica del Carrito de Compras - LuciMakeup Store
+ * Lógica del Carrito de Compras Avanzada y Blindada - LuciMakeup Store
  * Controla el renderizado desde localStorage, cálculo dinámico, cantidades, eliminación, cupones y envío.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log("Módulo del carrito cargado correctamente.");
+    console.log("Módulo del carrito cargado y blindado correctamente.");
     renderizarYGestionarCarrito();
 });
 
@@ -16,7 +16,7 @@ function renderizarYGestionarCarrito() {
     // 1. Obtener carrito desde localStorage
     let carrito = JSON.parse(localStorage.getItem('lucimakeup_carrito')) || [];
 
-    // Función interna para pintar los productos en la vista
+    // Función interna para pintar los productos en la vista de forma segura
     function pintarProductos() {
         if (!contenedorCarrito) return;
 
@@ -36,14 +36,21 @@ function renderizarYGestionarCarrito() {
         carrito.forEach((producto, index) => {
             const itemDiv = document.createElement('div');
             itemDiv.classList.add('carrito-item');
+
+            // 🛡️ Sanitizar datos del producto para prevenir ataques XSS
+            const nombreLimpio = sanitizarTexto(producto.nombre || producto.Nombre_Producto);
+            const imagenLimpia = sanitizarTexto(producto.imagen);
+            const precioSeguro = Number(producto.precio) || 0;
+            const cantidadSegura = parseInt(producto.cantidad, 10) || 1;
+
             itemDiv.innerHTML = `
-                <img src="${producto.imagen}" alt="${producto.nombre}" class="carrito-item__imagen">
+                <img src="${imagenLimpia}" alt="${nombreLimpio}" class="carrito-item__imagen">
                 <div class="carrito-item__detalles">
-                    <h3 class="carrito-item__nombre">${producto.nombre}</h3>
-                    <span class="carrito-item__precio">$${Number(producto.precio).toLocaleString('es-CO')} COP</span>
+                    <h3 class="carrito-item__nombre">${nombreLimpio}</h3>
+                    <span class="carrito-item__precio">$${precioSeguro.toLocaleString('es-CO')} COP</span>
                 </div>
                 <div class="carrito-item__controles">
-                    <input type="number" value="${producto.cantidad}" min="1" class="carrito-item__cantidad" data-index="${index}">
+                    <input type="number" value="${cantidadSegura}" min="1" max="50" class="carrito-item__cantidad" data-index="${index}">
                     <button class="carrito-item__eliminar" data-index="${index}" type="button">Eliminar</button>
                 </div>
             `;
@@ -61,29 +68,38 @@ function renderizarYGestionarCarrito() {
 
         inputsCantidad.forEach(input => {
             input.addEventListener('change', (e) => {
-                const index = e.target.dataset.index;
-                let valor = parseInt(e.target.value);
+                const index = parseInt(e.target.dataset.index, 10);
+                let valor = parseInt(e.target.value, 10);
+                
                 if (isNaN(valor) || valor < 1) {
                     valor = 1;
                     e.target.value = 1;
+                } else if (valor > 50) {
+                    valor = 50;
+                    e.target.value = 50;
                 }
-                carrito[index].cantidad = valor;
-                localStorage.setItem('lucimakeup_carrito', JSON.stringify(carrito));
-                recalcularTotales();
+
+                if (carrito[index]) {
+                    carrito[index].cantidad = valor;
+                    localStorage.setItem('lucimakeup_carrito', JSON.stringify(carrito));
+                    recalcularTotales();
+                }
             });
         });
 
         botonesEliminar.forEach(boton => {
             boton.addEventListener('click', (e) => {
-                const index = e.target.dataset.index;
-                carrito.splice(index, 1); // Elimina del arreglo
-                localStorage.setItem('lucimakeup_carrito', JSON.stringify(carrito));
-                pintarProductos(); // Vuelve a pintar la lista y recalcular
+                const index = parseInt(e.target.dataset.index, 10);
+                if (!isNaN(index) && carrito[index]) {
+                    carrito.splice(index, 1); // Elimina del arreglo de forma segura
+                    localStorage.setItem('lucimakeup_carrito', JSON.stringify(carrito));
+                    pintarProductos(); // Vuelve a pintar la lista y recalcular
+                }
             });
         });
     }
 
-    // 3. Escuchar la aplicación del cupón de descuento
+    // 3. Escuchar la aplicación del cupón de descuento de manera segura
     if (btnAplicarCupon) {
         btnAplicarCupon.addEventListener('click', () => {
             const inputCupon = document.getElementById('input-cupon');
@@ -91,10 +107,10 @@ function renderizarYGestionarCarrito() {
             
             if (!inputCupon || !mensajeCupon) return;
 
-            const codigo = inputCupon.value.trim().toUpperCase();
+            const codigo = sanitizarTexto(inputCupon.value.trim().toUpperCase());
             mensajeCupon.style.display = 'block';
 
-            if (codigo === "LUCI10") {
+            if (codigo === "LUCI10" || codigo === "LUCILOVER") {
                 mensajeCupon.textContent = "¡Cupón aplicado con éxito! 10% de descuento.";
                 mensajeCupon.style.color = "#2e7d32"; 
                 inputCupon.dataset.descuento = "0.10"; 
@@ -113,10 +129,10 @@ function renderizarYGestionarCarrito() {
 
     // 4. Interceptar el botón de pagar
     if (btnPagar) {
-        btnPagar.addEventListener('click', () => {
+        btnPagar.addEventListener('click', (e) => {
             const totalTexto = document.getElementById('total-texto');
             if (totalTexto) {
-                localStorage.setItem('lucimakeup_total_pagar', totalTexto.textContent);
+                localStorage.setItem('lucimakeup_total_pagar', sanitizarTexto(totalTexto.textContent));
             }
         });
     }
@@ -126,14 +142,16 @@ function renderizarYGestionarCarrito() {
 }
 
 /**
- * Función central para calcular Subtotal, Descuentos, Envío y Total basado en los datos reales
+ * Función central para calcular Subtotal, Descuentos, Envío y Total basado en datos seguros
  */
 function recalcularTotales() {
     let carrito = JSON.parse(localStorage.getItem('lucimakeup_carrito')) || [];
     let subtotalProductos = 0;
 
     carrito.forEach(item => {
-        subtotalProductos += (Number(item.precio) * Number(item.cantidad));
+        const precio = Number(item.precio) || 0;
+        const cantidad = parseInt(item.cantidad, 10) || 1;
+        subtotalProductos += (precio * cantidad);
     });
 
     const inputCupon = document.getElementById('input-cupon');
@@ -157,4 +175,18 @@ function recalcularTotales() {
         envioDOM.textContent = costoEnvio === 0 ? "¡Gratis! ($0 COP)" : `$${costoEnvio.toLocaleString('es-CO')} COP`;
     }
     if (totalDOM) totalDOM.textContent = `$${totalFinal.toLocaleString('es-CO')} COP`;
+}
+
+/**
+ * 🛡️ Función auxiliar de Sanitización para prevenir ataques XSS
+ */
+function sanitizarTexto(texto) {
+    if (!texto) return "";
+    return String(texto)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#x27;")
+        .replace(/\//g, "&#x2F;");
 }

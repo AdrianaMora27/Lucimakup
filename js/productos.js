@@ -44,16 +44,18 @@ const productos = [
 ];
 
 // ==========================================
-// LÓGICA DE DETALLE (productos.html) compatible con ambos estilos de diseño
+// LÓGICA DE DETALLE (productos.html) blindada y segura
 // ==========================================
 document.addEventListener('DOMContentLoaded', () => {
     const parametrosURL = new URLSearchParams(window.location.search);
-    const productoIdURL = parseInt(parametrosURL.get('id'));
+    const idBruto = parametrosURL.get('id');
+
+    // 🛡️ BLINDAJE: Validar estrictamente que el ID de la URL sea numérico entero positivo
+    const productoIdURL = /^\d+$/.test(idBruto) ? parseInt(idBruto, 10) : null;
 
     if (productoIdURL) {
         const productoEncontrado = productos.find(p => p.idProducto === productoIdURL);
         
-        // Buscamos tanto el contenedor por clase como los IDs individuales por si tu HTML usa ambos
         const contenedorDetalle = document.querySelector('.producto-detalle');
         const imagenEl = document.getElementById("imagen-producto");
         const nombreEl = document.getElementById("nombre-producto");
@@ -61,25 +63,25 @@ document.addEventListener('DOMContentLoaded', () => {
         const descEl = document.getElementById("descripcion-producto");
 
         if (productoEncontrado) {
-            // Si tu HTML usa IDs estáticos independientes:
+            // Si el HTML usa IDs estáticos independientes:
             if (imagenEl) {
                 imagenEl.src = productoEncontrado.imagen;
-                imagenEl.alt = productoEncontrado.Nombre_Producto;
+                imagenEl.alt = sanitizarTexto(productoEncontrado.Nombre_Producto);
             }
             if (nombreEl) nombreEl.textContent = productoEncontrado.Nombre_Producto;
             if (precioEl) precioEl.textContent = `$${Number(productoEncontrado.Precio_Producto).toLocaleString('es-CO')} COP`;
             if (descEl) descEl.textContent = productoEncontrado.descripcion_producto;
 
-            // Si tu HTML usa el contenedor dinámico con clase .producto-detalle:
+            // Si el HTML usa el contenedor dinámico con clase .producto-detalle:
             if (contenedorDetalle && !imagenEl) {
                 contenedorDetalle.innerHTML = `
                     <div class="producto-imagen-grande">
-                        <img src="${productoEncontrado.imagen}" alt="${productoEncontrado.Nombre_Producto}">
+                        <img src="${productoEncontrado.imagen}" alt="${sanitizarTexto(productoEncontrado.Nombre_Producto)}">
                     </div>
                     <div class="producto-info-detalle">
-                        <h1>${productoEncontrado.Nombre_Producto}</h1>
-                        <p class="precio-detalle">$${Number(productoEncontrado.Precio_Producto).toLocaleString()} COP</p>
-                        <p class="descripcion-detalle">${productoEncontrado.descripcion_producto}</p>
+                        <h1>${sanitizarTexto(productoEncontrado.Nombre_Producto)}</h1>
+                        <p class="precio-detalle">$${Number(productoEncontrado.Precio_Producto).toLocaleString('es-CO')} COP</p>
+                        <p class="descripcion-detalle">${sanitizarTexto(productoEncontrado.descripcion_producto)}</p>
                         <p class="stock-detalle">Disponibles: <strong>${productoEncontrado.Stock_Producto} unidades</strong></p>
                         
                         <div class="grupo-cantidad">
@@ -92,16 +94,30 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
             }
 
-            // Funcionalidad unificada para el botón de agregar al carrito (funciona para ambas estructuras)
+            // 🛡️ BLINDAJE EN TIEMPO REAL: Control estricto del input de cantidad
+            const inputCantidad = document.getElementById('cantidad-producto') || document.querySelector('input[type="number"]');
+            if (inputCantidad) {
+                inputCantidad.addEventListener('input', (e) => {
+                    let val = parseInt(e.target.value, 10);
+                    if (isNaN(val) || val < 1) {
+                        e.target.value = 1;
+                    } else if (val > productoEncontrado.Stock_Producto) {
+                        e.target.value = productoEncontrado.Stock_Producto; // No permite superar el stock real
+                    }
+                });
+            }
+
+            // Funcionalidad unificada para el botón de agregar al carrito
             const botonAgregar = document.querySelector('.btn-agregar-carrito') || document.querySelector('.boton-checkout');
             if (botonAgregar) {
                 botonAgregar.addEventListener('click', (e) => {
                     e.preventDefault();
-                    const inputCantidad = document.getElementById('cantidad-producto') || document.querySelector('input[type="number"]');
-                    let cantidadSeleccionada = inputCantidad ? parseInt(inputCantidad.value) : 1;
+                    let cantidadSeleccionada = inputCantidad ? parseInt(inputCantidad.value, 10) : 1;
 
                     if (isNaN(cantidadSeleccionada) || cantidadSeleccionada < 1) {
                         cantidadSeleccionada = 1;
+                    } else if (cantidadSeleccionada > productoEncontrado.Stock_Producto) {
+                        cantidadSeleccionada = productoEncontrado.Stock_Producto;
                     }
 
                     let carrito = JSON.parse(localStorage.getItem('lucimakeup_carrito')) || [];
@@ -109,6 +125,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     const indexExistente = carrito.findIndex(item => Number(item.id) === Number(productoEncontrado.idProducto));
                     if (indexExistente >= 0) {
                         carrito[indexExistente].cantidad += cantidadSeleccionada;
+                        if (carrito[indexExistente].cantidad > productoEncontrado.Stock_Producto) {
+                            carrito[indexExistente].cantidad = productoEncontrado.Stock_Producto;
+                        }
                     } else {
                         carrito.push({
                             id: productoEncontrado.idProducto,
@@ -128,5 +147,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 contenedorDetalle.innerHTML = `<h2>Lo sentimos, el producto no fue encontrado.</h2>`;
             }
         }
+    } else {
+        const contenedorDetalle = document.querySelector('.producto-detalle');
+        if (contenedorDetalle) {
+            contenedorDetalle.innerHTML = `<h2>Identificador de producto inválido.</h2>`;
+        }
     }
 });
+
+/**
+ * 🛡️ Función auxiliar de Sanitización para prevenir ataques XSS
+ */
+function sanitizarTexto(texto) {
+    if (!texto) return "";
+    return texto
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#x27;")
+        .replace(/\//g, "&#x2F;");
+}
