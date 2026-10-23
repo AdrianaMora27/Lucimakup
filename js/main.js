@@ -155,6 +155,29 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+
+// ==========================================
+    // 4. GESTIÓN DE CIERRE DE SESIÓN (LOGOUT)
+    // ==========================================
+    const btnCerrarSesion = document.getElementById("btn-cerrar-sesion");
+
+    if (btnCerrarSesion) {
+        btnCerrarSesion.addEventListener("click", (e) => {
+            e.preventDefault();
+
+            // Limpiar credenciales y rastros de sesión del cliente
+            localStorage.removeItem("lucimakeup_usuario");
+            sessionStorage.clear();
+
+            mostrarAlerta("Sesión cerrada correctamente. ¡Hasta pronto!", "exito");
+
+            // Redirigir al inicio después de un breve instante
+            setTimeout(() => {
+                window.location.href = "index.html";
+            }, 1200);
+        });
+    }
+
 /**
  * 🛡️ Función auxiliar de Sanitización para prevenir ataques XSS
  */

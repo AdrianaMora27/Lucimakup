@@ -116,14 +116,12 @@ function configurarFiltrosEntradaCheckout() {
     const inputDireccion = document.getElementById("direccion");
 
     if (inputTelefono) {
-        // Solo permite números, máximo 10 dígitos
         inputTelefono.addEventListener("input", (e) => {
             e.target.value = e.target.value.replace(/[^0-9]/g, "").slice(0, 10);
         });
     }
 
     if (inputNombre) {
-        // Solo permite letras y espacios, bloqueando símbolos o números
         inputNombre.addEventListener("input", (e) => {
             e.target.value = e.target.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, "");
         });
@@ -183,7 +181,6 @@ function configurarBotonPagoDirecto() {
         const inputDireccion = document.getElementById("direccion");
         const inputTelefono = document.getElementById("telefono");
 
-        // Sanitización previa
         const nombre = sanitizarTexto(inputNombre ? inputNombre.value.trim() : "");
         const email = sanitizarTexto(inputEmail ? inputEmail.value.trim() : "");
         const direccion = sanitizarTexto(inputDireccion ? inputDireccion.value.trim() : "");
@@ -194,7 +191,6 @@ function configurarBotonPagoDirecto() {
             return;
         }
 
-        // 🛡️ Validación estricta con expresión regular
         const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         if (!regexEmail.test(email)) {
             mostrarNotificacion("❌ El formato del correo electrónico no es válido.", "error");
@@ -254,6 +250,9 @@ function configurarBotonPagoDirecto() {
                     idPedido: resultado.idPedido
                 };
                 sessionStorage.setItem("lucimakeup_envio", JSON.stringify(datosCliente));
+                
+                // 🛡️ GUARDAR RESPALDO DEL CARRITO ANTES DE LIMPIARLO (Soluciona el problema de los ceros)
+                sessionStorage.setItem("lucimakeup_carrito_ultimo", JSON.stringify(carrito));
 
                 mostrarNotificacion("¡Pedido registrado en la base de datos con éxito!", "success");
                 
