@@ -157,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 // ==========================================
-    // 4. GESTIÓN DE CIERRE DE SESIÓN (LOGOUT)
+    // 4. GESTIÓN DE CIERRE DE SESIÓN (LOGOUT ESTÉTICO)
     // ==========================================
     const btnCerrarSesion = document.getElementById("btn-cerrar-sesion");
 
@@ -169,14 +169,65 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.removeItem("lucimakeup_usuario");
             sessionStorage.clear();
 
-            mostrarAlerta("Sesión cerrada correctamente. ¡Hasta pronto!", "exito");
+            // Mostrar notificación estética flotante
+            mostrarNotificacionEstetica("✨ ¡Sesión cerrada correctamente! Hasta pronto.", "success");
 
-            // Redirigir al inicio después de un breve instante
+            // Redirigir al inicio después de que el usuario aprecie la alerta
             setTimeout(() => {
                 window.location.href = "index.html";
             }, 1200);
         });
     }
+
+/**
+ * 🎨 Función auxiliar para mostrar notificaciones estéticas flotantes
+ */
+function mostrarNotificacionEstetica(mensaje, tipo = "success") {
+    let contenedor = document.getElementById("toast-container");
+    if (!contenedor) {
+        contenedor = document.createElement("div");
+        contenedor.id = "toast-container";
+        contenedor.style.cssText = "position: fixed; top: 20px; right: 20px; z-index: 99999; display: flex; flex-direction: column; gap: 10px;";
+        document.body.appendChild(contenedor);
+    }
+
+    const toast = document.createElement("div");
+    const bgColor = tipo === "success" ? "#880e2f" : "#d32f2f"; // Tono vino tinto acorde a tu marca
+    
+    toast.style.cssText = `
+        min-width: 300px;
+        max-width: 400px;
+        padding: 16px 20px;
+        border-radius: 10px;
+        color: #ffffff;
+        font-family: 'Arial', sans-serif;
+        font-size: 1.5rem;
+        background-color: ${bgColor};
+        box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        opacity: 0;
+        transform: translateY(-20px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    `;
+    
+    toast.innerHTML = `<span>${mensaje}</span>`;
+    contenedor.appendChild(toast);
+
+    // Animación de entrada
+    setTimeout(() => {
+        toast.style.opacity = "1";
+        toast.style.transform = "translateY(0)";
+    }, 10);
+
+    // Animación de salida y remoción
+    setTimeout(() => {
+        toast.style.opacity = "0";
+        toast.style.transform = "translateY(-20px)";
+        setTimeout(() => toast.remove(), 300);
+    }, 3500);
+}
 
 /**
  * 🛡️ Función auxiliar de Sanitización para prevenir ataques XSS
