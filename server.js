@@ -106,7 +106,7 @@ app.post('/api/contacto', (req, res) => {
         return res.status(400).json({ exito: false, mensaje: 'Faltan campos obligatorios en el formulario de contacto.' });
     }
     
-    const query = 'INSERT INTO mensajes_contacto (nombre, telefono, correo, mensaje) VALUES (?, ?, ?, ?)';
+    const query = "INSERT INTO mensajes_contacto (nombre, telefono, email, mensaje) VALUES (?, ?, ?, ?)";
     db.query(query, [nombre, telefono || '', correo, mensaje], (err, result) => {
         if (err) {
             console.error('Error al guardar el mensaje:', err);
