@@ -31,8 +31,9 @@ function cargarDetallesConfirmacion() {
     const listaProductos = document.getElementById("lista-productos-confirmacion");
     const totalConfirmacion = document.getElementById("total-confirmacion");
     
-    // Recuperar datos de envío o usar valores seguros por defecto
-    const datosEnvioBrutos = JSON.parse(sessionStorage.getItem("lucimakeup_envio")) || {
+    // Recuperar datos de envío o usar valores por defecto
+    const datosEnvioBrutos = JSON.parse(sessionStorage.getItem("lucimakeup_envio")) || 
+                             JSON.parse(localStorage.getItem("lucimakeup_envio")) || {
         nombre: "Cliente",
         email: "cliente@correo.com",
         direccion: "Dirección principal",
@@ -62,31 +63,40 @@ function cargarDetallesConfirmacion() {
         alertaEmail.innerHTML = `📧 Hemos enviado un correo electrónico de confirmación a <strong>${datosEnvio.email || 'tu correo'}</strong> con los detalles del pedido.`;
     }
 
-    // Carrito de respaldo o recuperado sanitizado
-    const carritoCrudo = JSON.parse(localStorage.getItem("lucimakeup_carrito")) || [
-        { nombre: "Labial Matte Red", cantidad: 3, precioOriginal: 25000, precio: 25000 },
-        { nombre: "Brillo Llavero", cantidad: 1, precioOriginal: 15000, precio: 15000 }
-    ];
+    // 🔄 Buscar el carrito en cualquiera de las claves usadas en la aplicación
+    let carritoCrudo = JSON.parse(localStorage.getItem("lucimakeup_carrito")) || 
+                       JSON.parse(localStorage.getItem("carrito")) || 
+                       JSON.parse(sessionStorage.getItem("lucimakeup_carrito_ultimo"));
+
+    // Si aún no encuentra carrito, usar un arreglo vacío en lugar de datos falsos
+    if (!carritoCrudo || !Array.isArray(carritoCrudo)) {
+        carritoCrudo = [];
+    }
 
     if (listaProductos) {
         listaProductos.innerHTML = "";
         let subtotalBruto = 0;
 
-        carritoCrudo.forEach(producto => {
-            const precioUnit = Number(producto.precio || producto.precioOriginal) || 0;
-            const cantidad = parseInt(producto.cantidad, 10) || 1;
-            const subtotalItem = precioUnit * cantidad;
-            subtotalBruto += subtotalItem;
+        if (carritoCrudo.length === 0) {
+            listaProductos.innerHTML = "<li><span>No se encontraron productos en el pedido</span></li>";
+        } else {
+            carritoCrudo.forEach(producto => {
+                const nombreProd = producto.nombre || producto.Nombre_Producto || producto.titulo || "Producto";
+                const precioUnit = Number(producto.precio || producto.precioOriginal) || 0;
+                const cantidad = parseInt(producto.cantidad, 10) || 1;
+                const subtotalItem = precioUnit * cantidad;
+                subtotalBruto += subtotalItem;
 
-            const li = document.createElement("li");
-            li.innerHTML = `
-                <span>${sanitizarTexto(producto.nombre || producto.Nombre_Producto)} (x${cantidad})</span>
-                <span>$${subtotalItem.toLocaleString('es-CO')} COP</span>
-            `;
-            listaProductos.appendChild(li);
-        });
+                const li = document.createElement("li");
+                li.innerHTML = `
+                    <span>${sanitizarTexto(nombreProd)} (x${cantidad})</span>
+                    <span>$${subtotalItem.toLocaleString('es-CO')} COP</span>
+                `;
+                listaProductos.appendChild(li);
+            });
+        }
 
-        let costoEnvio = subtotalBruto >= 200000 || subtotalBruto === 0 ? 0 : 8000;
+        let costoEnvio = (subtotalBruto >= 200000 || subtotalBruto === 0) ? 0 : 8000;
         let totalFinal = subtotalBruto + costoEnvio;
 
         if (totalConfirmacion) {
@@ -94,8 +104,14 @@ function cargarDetallesConfirmacion() {
         }
     }
 
-    // Limpiar el carrito de compras principal de forma segura ya que la orden fue procesada
+    // Guardar una copia de respaldo del último pedido procesado para no perderlo si el usuario recarga la página
+    if (carritoCrudo.length > 0) {
+        sessionStorage.setItem("lucimakeup_carrito_ultimo", JSON.stringify(carritoCrudo));
+    }
+
+    // Limpiar los carritos del almacenamiento local
     localStorage.removeItem("lucimakeup_carrito");
+    localStorage.removeItem("carrito");
 }
 
 /**
