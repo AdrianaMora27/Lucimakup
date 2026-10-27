@@ -153,31 +153,54 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // ==========================================
+    // 5. BUSCADOR DINÁMICO DE PRODUCTOS (TIEMPO REAL)
+    // ==========================================
+    const inputBuscador = document.getElementById('inputBuscador');
+    if (inputBuscador) {
+        inputBuscador.addEventListener('keyup', () => {
+            const textoBusqueda = inputBuscador.value.toLowerCase().trim();
+            const productos = document.querySelectorAll('.producto-card');
+
+            productos.forEach(producto => {
+                const tituloElemento = producto.querySelector('.producto-titulo');
+                if (tituloElemento) {
+                    const nombreProducto = tituloElemento.textContent.toLowerCase();
+                    if (nombreProducto.includes(textoBusqueda)) {
+                        producto.style.display = ''; // Muestra el producto si coincide
+                    } else {
+                        producto.style.display = 'none'; // Oculta si no coincide
+                    }
+                }
+            });
+        });
+    }
 });
 
 
 // ==========================================
-    // 4. GESTIÓN DE CIERRE DE SESIÓN (LOGOUT ESTÉTICO)
-    // ==========================================
-    const btnCerrarSesion = document.getElementById("btn-cerrar-sesion");
+// 4. GESTIÓN DE CIERRE DE SESIÓN (LOGOUT ESTÉTICO)
+// ==========================================
+const btnCerrarSesion = document.getElementById("btn-cerrar-sesion");
 
-    if (btnCerrarSesion) {
-        btnCerrarSesion.addEventListener("click", (e) => {
-            e.preventDefault();
+if (btnCerrarSesion) {
+    btnCerrarSesion.addEventListener("click", (e) => {
+        e.preventDefault();
 
-            // Limpiar credenciales y rastros de sesión del cliente
-            localStorage.removeItem("lucimakeup_usuario");
-            sessionStorage.clear();
+        // Limpiar credenciales y rastros de sesión del cliente
+        localStorage.removeItem("lucimakeup_usuario");
+        sessionStorage.clear();
 
-            // Mostrar notificación estética flotante
-            mostrarNotificacionEstetica("✨ ¡Sesión cerrada correctamente! Hasta pronto.", "success");
+        // Mostrar notificación estética flotante
+        mostrarNotificacionEstetica("✨ ¡Sesión cerrada correctamente! Hasta pronto.", "success");
 
-            // Redirigir al inicio después de que el usuario aprecie la alerta
-            setTimeout(() => {
-                window.location.href = "index.html";
-            }, 1200);
-        });
-    }
+        // Redirigir al inicio después de que el usuario aprecie la alerta
+        setTimeout(() => {
+            window.location.href = "index.html";
+        }, 1200);
+    });
+}
 
 /**
  * 🎨 Función auxiliar para mostrar notificaciones estéticas flotantes
