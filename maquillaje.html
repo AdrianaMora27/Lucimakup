@@ -230,6 +230,43 @@
             font-family: var(--fuentePrincipal);
             font-size: 2.2rem;
         }
+
+        /**BARRA DE BUSQUEDA*/
+
+.buscador-header {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 15px;
+}
+
+.buscador-header input {
+    padding: 6px 12px;
+    border: 1px solid #dcdcdc;
+    border-radius: 20px;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.buscador-header input:focus {
+    border-color: #e91e63; /* Color rosado/magenta corporativo */
+    box-shadow: 0 0 5px rgba(233, 30, 99, 0.3);
+}
+
+.buscador-header button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: -30px; /* Queda integrado dentro del input */
+}
+
+.buscador-header button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: -30px; /* Queda integrado dentro del input */
+}
+
     </style>
 </head>
 
@@ -247,6 +284,11 @@
         <a class="navegacion__enlace" href="index.html">Inicio</a>
         <a class="navegacion__enlace" href="categorias.html">Catálogo</a>
         <a class="navegacion__enlace" href="nosotros.html">Nosotros</a>
+        <!-- BARRA DE BÚSQUEDA AL LADO DE CONTACTO -->
+    <div class="buscador-header">
+        <input type="text" id="inputBuscador" placeholder="Buscar productos..." onkeyup="filtrarProductos()">
+        <button type="button" aria-label="Buscar"><i class="fas fa-search"></i>🔍</button>
+    </div>
     </nav>
 
     <!-- CONTENEDOR PRINCIPAL: MAQUILLAJE -->

@@ -198,6 +198,42 @@
         margin-top: 1rem;
     }
 
+/**BARRA DE BUSQUEDA*/
+
+.buscador-header {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 15px;
+}
+
+.buscador-header input {
+    padding: 6px 12px;
+    border: 1px solid #dcdcdc;
+    border-radius: 20px;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.buscador-header input:focus {
+    border-color: #e91e63; /* Color rosado/magenta corporativo */
+    box-shadow: 0 0 5px rgba(233, 30, 99, 0.3);
+}
+
+.buscador-header button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: -30px; /* Queda integrado dentro del input */
+}
+
+.buscador-header button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: -30px; /* Queda integrado dentro del input */
+}
+
     /* ==========================================
         PIE DE PÁGINA (FOOTER)
         ========================================== */
@@ -219,7 +255,7 @@
     <!-- CABECERA INSTITUCIONAL -->
     <header class="header">
         <a href="index.html">
-            <a href="#" id="btn-cerrar-sesion" class="navegacion__enlace" style="color: var(--oscuro); font-weight: uppercase;">Cerrar Sesión</a>
+            
             <img class="header__logo" src="img/logolucistore.png" alt="Logotipo Lucimakeup Store">
         </a>
     </header>
@@ -229,6 +265,12 @@
         <a class="navegacion__enlace" href="index.html">Inicio</a>
         <a class="navegacion__enlace" href="categorias.html">Catálogo</a>
         <a class="navegacion__enlace" href="nosotros.html">Nosotros</a>
+        <a href="#" id="btn-cerrar-sesion" class="navegacion__enlace" style="color: var(--oscuro); font-weight: uppercase;">Cerrar Sesión</a>
+        <!-- BARRA DE BÚSQUEDA AL LADO DE CONTACTO -->
+    <div class="buscador-header">
+        <input type="text" id="inputBuscador" placeholder="Buscar productos..." onkeyup="filtrarProductos()">
+        <button type="button" aria-label="Buscar"><i class="fas fa-search"></i>🔍</button>
+    </div>
     </nav>
 
     <!-- CONTENIDO PRINCIPAL: HISTORIA Y COMUNIDAD -->

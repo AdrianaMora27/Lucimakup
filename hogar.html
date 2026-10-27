@@ -261,6 +261,43 @@
             color: var(--oscuro);
             margin: 0;
         }
+
+        /**BARRA DE BUSQUEDA*/
+
+.buscador-header {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 15px;
+}
+
+.buscador-header input {
+    padding: 6px 12px;
+    border: 1px solid #dcdcdc;
+    border-radius: 20px;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.buscador-header input:focus {
+    border-color: #e91e63; /* Color rosado/magenta corporativo */
+    box-shadow: 0 0 5px rgba(233, 30, 99, 0.3);
+}
+
+.buscador-header button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: -30px; /* Queda integrado dentro del input */
+}
+
+.buscador-header button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: -30px; /* Queda integrado dentro del input */
+}
+
     </style>
 </head>
 
@@ -292,6 +329,8 @@
             </div>
 
             <a href="nosotros.html">NOSOTROS</a>
+
+            <a href="#" id="btn-cerrar-sesion" class="navegacion__enlace" style="color: var(--oscuro); font-weight: uppercase;">Cerrar Sesión</a>
         </nav>
     </div>
 
