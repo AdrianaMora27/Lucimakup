@@ -247,51 +247,12 @@
             color: var(--blanco);
             transform: scale(1.03);
         }
-
-        /**BARRA DE BUSQUEDA*/
-
-.buscador-header {
-    display: inline-flex;
-    align-items: center;
-    margin-left: 15px;
-}
-
-.buscador-header input {
-    padding: 6px 12px;
-    border: 1px solid #dcdcdc;
-    border-radius: 20px;
-    font-size: 14px;
-    outline: none;
-    transition: all 0.3s ease;
-}
-
-.buscador-header input:focus {
-    border-color: #e91e63; /* Color rosado/magenta corporativo */
-    box-shadow: 0 0 5px rgba(233, 30, 99, 0.3);
-}
-
-.buscador-header button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    margin-left: -30px; /* Queda integrado dentro del input */
-}
-
-.buscador-header button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    margin-left: -30px; /* Queda integrado dentro del input */
-}
-
     </style>
 </head>
 
 <body>
     <header class="header">
-        
         <a href="index.html">
-            
             <img class="header__logo" src="img/logolucistore.png" alt="Logotipo Lucimakeup Store">
         </a>
     </header>
@@ -300,15 +261,15 @@
         <a class="navegacion__enlace navegacion__enlace--activo" href="categorias.html">Catálogo</a>
         <a class="navegacion__enlace" href="cuidadoPersonal.html">Cuidado Personal</a>
         <a class="navegacion__enlace" href="nosotros.html">Nosotros</a>
-        <a href="#" id="btn-cerrar-sesion" class="navegacion__enlace" style="color: var(--oscuro); font-weight: uppercase;">Cerrar Sesión</a>
+        <a href="#" id="btn-cerrar-sesion" class="navegacion__enlace">Cerrar Sesión</a>
     </nav>
 
     <main class="contenedor">
-        <h1>Nuestro Catálogo</h1>
-        <p style="text-align: center;">Explora nuestras categorías principales</p>
+        <h1 id="titulo-catalogo-principal">Nuestro Catálogo</h1>
+        <p id="subtitulo-catalogo" style="text-align: center;">Explora nuestras categorías principales</p>
 
-        <!-- CATEGORÍAS PRINCIPALES -->
-        <div class="vitrina-categorias">
+        <!-- CATEGORÍAS PRINCIPALES (Se ocultan automáticamente si hay búsqueda activa) -->
+        <div class="vitrina-categorias" id="bloque-categorias-principales">
             <a href="cuidadoPersonal.html" class="tarjeta-categoria">
                 <img class="tarjeta-categoria__imagen" src="img/cuidadocorporal.jpeg" alt="Categoría Cuidado Personal">
                 <div class="tarjeta-categoria__overlay">
@@ -331,9 +292,10 @@
             </a>
         </div>
 
-        <!-- PRODUCTOS DESTACADOS -->
-        <h2 class="seccion-titulo">Productos Destacados</h2>
-        <div class="grid-productos">
+        <!-- PRODUCTOS (Se filtran de inmediato según lo que el usuario busque) -->
+        <h2 class="seccion-titulo" id="titulo-productos-seccion">Productos Destacados</h2>
+        
+        <div class="grid-productos" id="contenedor-grid-productos">
 
             <!-- PRODUCTO 101 (PAPELERÍA) -->
             <div class="tarjeta-producto" data-id="101">
@@ -375,9 +337,60 @@
         <p class="footer__texto">Frontend store Lucimakeup - Todos los derechos reservados</p>
     </footer>
 
-    <!-- Scripts de la tienda -->
+    <!-- Script específico para procesar el filtro visual instantáneo al cargar esta página -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const busqueda = urlParams.get('busqueda');
+
+            if (busqueda) {
+                const termino = busqueda.toLowerCase().trim();
+
+                // 1. Ocultar las tarjetas grandes de categorías principales
+                const bloqueCategorias = document.getElementById('bloque-categorias-principales');
+                if (bloqueCategorias) bloqueCategorias.style.display = 'none';
+
+                // 2. Ocultar el subtítulo estático
+                const sub = document.getElementById('subtitulo-catalogo');
+                if (sub) sub.style.display = 'none';
+
+                // 3. Cambiar el título principal para reflejar la búsqueda
+                const tituloPrincipal = document.getElementById('titulo-catalogo-principal');
+                if (tituloPrincipal) tituloPrincipal.textContent = `Resultados para: "${busqueda}"`;
+
+                // 4. Cambiar el título de sección
+                const tituloSeccion = document.getElementById('titulo-productos-seccion');
+                if (tituloSeccion) tituloSeccion.textContent = 'Coincidencias encontradas';
+
+                // 5. Filtrar las tarjetas de productos reales en pantalla de forma exacta
+                const tarjetas = document.querySelectorAll('.tarjeta-producto');
+                let encontrados = 0;
+
+                tarjetas.forEach(tarjeta => {
+                    const texto = tarjeta.textContent.toLowerCase();
+                    if (texto.includes(termino)) {
+                        tarjeta.style.display = 'flex';
+                        encontrados++;
+                    } else {
+                        tarjeta.style.display = 'none';
+                    }
+                });
+
+                // 6. Si no hay coincidencias con las palabras, mostrar aviso amigable
+                if (encontrados === 0) {
+                    const grid = document.getElementById('contenedor-grid-productos');
+                    if (grid) {
+                        grid.innerHTML = `<p style="grid-column: 1 / -1; text-align: center; font-size: 1.8rem; color: #fff; padding: 4rem;">🔍 No se encontraron productos coincidentes para <strong>"${busqueda}"</strong>.</p>`;
+                    }
+                }
+            }
+        });
+    </script>
+
+    <!-- Scripts generales de la tienda -->
     <script src="js/productos.js"></script>
     <script src="js/carrito.js"></script>
     <script src="js/checkout.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>

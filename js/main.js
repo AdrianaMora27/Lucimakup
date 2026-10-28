@@ -6,53 +6,46 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('Lucimakeup Store - Script principal cargado y blindado correctamente.');
 
     // ==========================================
-    // 1. GESTIÓN DEL FORMULARIO DE CONTACTO (BLINDADO Y CONECTADO)
+    // 1. GESTIÓN DEL FORMULARIO DE CONTACTO
     // ==========================================
     const formulario = document.querySelector('.formulario');
     const inputNombre = document.getElementById('nombre');
     const inputTelefono = document.getElementById('telefono');
-    const inputEmail = document.getElementById('correo'); // 👈 Sincronizado con id="correo" de tu index.html
+    const inputEmail = document.getElementById('correo');
     const inputMensaje = document.getElementById('mensaje');
 
-    // 🛡️ BLINDAJE EN TIEMPO REAL: Filtrar inputs según su naturaleza
     if (inputTelefono) {
         inputTelefono.addEventListener('input', (e) => {
-            // Solo permite números, máximo 10 dígitos
             e.target.value = e.target.value.replace(/[^0-9]/g, '').slice(0, 10);
         });
     }
 
     if (inputNombre) {
         inputNombre.addEventListener('input', (e) => {
-            // Solo permite letras, tildes y espacios
             e.target.value = e.target.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, '');
         });
     }
 
     if (inputEmail) {
         inputEmail.addEventListener('input', (e) => {
-            // Remueve caracteres peligrosos para inyecciones XSS
             e.target.value = e.target.value.replace(/[<>"'`;()]/g, '').trim();
         });
     }
 
     if (formulario) {
         formulario.addEventListener('submit', async function(e) {
-            e.preventDefault(); // Evita recarga por defecto
+            e.preventDefault();
 
-            // Capturar y sanitizar valores
             const nombre = sanitizarTexto(inputNombre ? inputNombre.value.trim() : '');
             const telefono = inputTelefono ? inputTelefono.value.trim() : '';
             const email = sanitizarTexto(inputEmail ? inputEmail.value.trim() : '');
             const mensaje = sanitizarTexto(inputMensaje ? inputMensaje.value.trim() : '');
 
-            // Validación estricta de campos obligatorios
             if (nombre === '' || email === '' || mensaje === '') {
                 mostrarAlerta('Por favor, completa los campos obligatorios.', 'error');
                 return;
             }
 
-            // Validación de correo electrónico
             const regexCorreo = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
             if (!regexCorreo.test(email)) {
                 mostrarAlerta('❌ El formato del correo electrónico no es válido.', 'error');
@@ -60,7 +53,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Validación opcional de teléfono si se ingresa
             if (telefono && telefono.length < 7) {
                 mostrarAlerta('❌ El teléfono debe tener al menos 7 dígitos.', 'error');
                 if (inputTelefono) inputTelefono.focus();
@@ -68,82 +60,34 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             try {
-                // Petición HTTP POST al servidor Node.js mediante ruta relativa (/api/contacto)
                 const respuesta = await fetch('/api/contacto', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        nombre: nombre,
-                        telefono: telefono,
-                        correo: email, // Envía 'correo' tal como lo espera el servidor y la tabla mensaje_contacto
-                        mensaje: mensaje
-                    })
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ nombre, telefono, correo: email, mensaje })
                 });
 
                 const resultado = await respuesta.json();
 
                 if (respuesta.ok && resultado.exito) {
                     mostrarAlerta(`¡Gracias por escribirnos, ${nombre}! Tu mensaje se guardó con éxito.`, 'exito');
-                    formulario.reset(); // Limpiamos el formulario
+                    formulario.reset();
                 } else {
-                    mostrarAlerta(resultado.mensaje || 'Hubo un error al guardar el mensaje en el servidor.', 'error');
+                    mostrarAlerta(resultado.mensaje || 'Hubo un error al guardar el mensaje.', 'error');
                 }
 
             } catch (error) {
-                console.error("Error de red al conectar con el servidor:", error);
+                console.error("Error de red:", error);
                 mostrarAlerta('No se pudo conectar con el servidor backend.', 'error');
             }
         });
     }
 
     // ==========================================
-    // 2. FUNCIÓN AUXILIAR PARA ALERTAS VISUALES
-    // ==========================================
-    function mostrarAlerta(mensaje, tipo) {
-        const alertaPrevia = document.querySelector('.alerta-dinamica');
-        if (alertaPrevia) {
-            alertaPrevia.remove();
-        }
-
-        const alerta = document.createElement('div');
-        alerta.textContent = mensaje;
-        alerta.classList.add('alerta-dinamica');
-
-        alerta.style.position = 'fixed';
-        alerta.style.bottom = '20px';
-        alerta.style.right = '20px';
-        alerta.style.padding = '1.5rem 2rem';
-        alerta.style.borderRadius = '0.8rem';
-        alerta.style.fontSize = '1.6rem';
-        alerta.style.fontFamily = 'Arial, sans-serif';
-        alerta.style.boxShadow = '0px 5px 15px rgba(0,0,0,0.2)';
-        alerta.style.zIndex = '1000';
-        alerta.style.transition = 'opacity 0.3s ease';
-
-        if (tipo === 'error') {
-            alerta.style.backgroundColor = '#880e2f';
-            alerta.style.color = '#ffffff';
-        } else {
-            alerta.style.backgroundColor = '#ffc107';
-            alerta.style.color = '#212121';
-        }
-
-        document.body.appendChild(alerta);
-
-        setTimeout(() => {
-            alerta.style.opacity = '0';
-            setTimeout(() => alerta.remove(), 300);
-        }, 4000);
-    }
-
-    // ==========================================
-    // 3. INTERACTIVIDAD DEL CARRITO DE COMPRAS
+    // 2. INTERACTIVIDAD DEL CARRITO DE COMPRAS
     // ==========================================
     const carritoContainer = document.querySelector('.carrito-container');
     if (carritoContainer) {
-        carritoContainer.addEventListener('click', (e) => {
+        carritoContainer.addEventListener('click', () => {
             const badge = carritoContainer.querySelector('.carrito-badge');
             if (badge) {
                 let cantidad = parseInt(badge.textContent, 10);
@@ -155,56 +99,134 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================
-    // 5. BUSCADOR DINÁMICO DE PRODUCTOS (TIEMPO REAL)
+    // 3. GESTIÓN DE CIERRE DE SESIÓN
     // ==========================================
-    const inputBuscador = document.getElementById('inputBuscador');
-    if (inputBuscador) {
-        inputBuscador.addEventListener('keyup', () => {
-            const textoBusqueda = inputBuscador.value.toLowerCase().trim();
-            const productos = document.querySelectorAll('.producto-card');
+    const btnCerrarSesion = document.getElementById("btn-cerrar-sesion") || document.getElementById("btnCerrarSesion");
 
-            productos.forEach(producto => {
-                const tituloElemento = producto.querySelector('.producto-titulo');
-                if (tituloElemento) {
-                    const nombreProducto = tituloElemento.textContent.toLowerCase();
-                    if (nombreProducto.includes(textoBusqueda)) {
-                        producto.style.display = ''; // Muestra el producto si coincide
-                    } else {
-                        producto.style.display = 'none'; // Oculta si no coincide
-                    }
-                }
-            });
+    if (btnCerrarSesion) {
+        btnCerrarSesion.addEventListener("click", (e) => {
+            e.preventDefault();
+            localStorage.removeItem("lucimakeup_usuario");
+            localStorage.removeItem("usuario");
+            localStorage.removeItem("token");
+            sessionStorage.clear();
+
+            mostrarNotificacionEstetica("✨ ¡Sesión cerrada correctamente! Hasta pronto.", "success");
+
+            setTimeout(() => {
+                window.location.href = "index.html";
+            }, 1200);
         });
     }
+
+    // ==========================================
+    // 4. BUSCADOR GLOBAL UNIFICADO (ÚNICA DECLARACIÓN)
+    // ==========================================
+    const inputBuscador = document.getElementById('inputBuscador');
+    
+    if (inputBuscador) {
+        const botonBuscar = inputBuscador.nextElementSibling || inputBuscador.parentElement.querySelector('button, .fa-search, img');
+
+        const procesarBusquedaGlobal = (e) => {
+            if (e.key === 'Enter' || e.type === 'click') {
+                if (e.key === 'Enter') e.preventDefault();
+
+                const texto = inputBuscador.value.toLowerCase().trim();
+                if (texto === '') return;
+
+                // Redirige a categorias.html con el término buscado
+                window.location.href = `categorias.html?busqueda=${encodeURIComponent(texto)}`;
+            }
+        };
+
+        inputBuscador.addEventListener('keydown', procesarBusquedaGlobal);
+        if (botonBuscar) {
+            botonBuscar.addEventListener('click', procesarBusquedaGlobal);
+        }
+    }
+
+    // ==========================================
+    // 5. AUTO-FILTRADO Y VISTA EN CATEGORIAS.HTML
+    // ==========================================
+    const urlParams = new URLSearchParams(window.location.search);
+    const busquedaActiva = urlParams.get('busqueda');
+
+    if (busquedaActiva && window.location.pathname.includes('categorias.html')) {
+        if (inputBuscador) {
+            inputBuscador.value = busquedaActiva;
+        }
+
+        // Actualizar el título principal para mostrar el término buscado
+        const tituloSeccion = document.querySelector('h1, h2, .titulo-catalogo, .titulo-pagina');
+        if (tituloSeccion) {
+            tituloSeccion.textContent = `Resultados para: "${busquedaActiva}"`;
+        }
+
+        // Filtrar tarjetas en pantalla si existen
+        const tarjetas = document.querySelectorAll('.tarjeta-producto, .producto-card, .card');
+        let encontrados = 0;
+
+        tarjetas.forEach(tarjeta => {
+            if (tarjeta.textContent.toLowerCase().includes(busquedaActiva.toLowerCase())) {
+                tarjeta.style.display = '';
+                encontrados++;
+            } else {
+                tarjeta.style.display = 'none';
+            }
+        });
+
+        // Si la página estática de categorías no contiene productos directos en su HTML
+        if (encontrados === 0 && tarjetas.length === 0) {
+            const main = document.querySelector('main') || document.body;
+            let aviso = document.getElementById('sin-resultados-msg');
+            
+            if (!aviso) {
+                aviso = document.createElement('div');
+                aviso.id = 'sin-resultados-msg';
+                aviso.style.cssText = "text-align: center; padding: 4rem 2rem; font-size: 1.6rem; color: #880e2f; width: 100%;";
+                main.appendChild(aviso);
+            }
+            aviso.innerHTML = `🔍 Buscando productos para <strong>"${busquedaActiva}"</strong>...`;
+        }
+    }
+
 });
 
-
 // ==========================================
-// 4. GESTIÓN DE CIERRE DE SESIÓN (LOGOUT ESTÉTICO)
+// FUNCIONES AUXILIARES GLOBALES
 // ==========================================
-const btnCerrarSesion = document.getElementById("btn-cerrar-sesion");
 
-if (btnCerrarSesion) {
-    btnCerrarSesion.addEventListener("click", (e) => {
-        e.preventDefault();
+function mostrarAlerta(mensaje, tipo) {
+    const alertaPrevia = document.querySelector('.alerta-dinamica');
+    if (alertaPrevia) alertaPrevia.remove();
 
-        // Limpiar credenciales y rastros de sesión del cliente
-        localStorage.removeItem("lucimakeup_usuario");
-        sessionStorage.clear();
+    const alerta = document.createElement('div');
+    alerta.textContent = mensaje;
+    alerta.classList.add('alerta-dinamica');
 
-        // Mostrar notificación estética flotante
-        mostrarNotificacionEstetica("✨ ¡Sesión cerrada correctamente! Hasta pronto.", "success");
+    alerta.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        padding: 1.5rem 2rem;
+        border-radius: 0.8rem;
+        font-size: 1.6rem;
+        font-family: Arial, sans-serif;
+        box-shadow: 0px 5px 15px rgba(0,0,0,0.2);
+        z-index: 1000;
+        transition: opacity 0.3s ease;
+        background-color: ${tipo === 'error' ? '#880e2f' : '#ffc107'};
+        color: ${tipo === 'error' ? '#ffffff' : '#212121'};
+    `;
 
-        // Redirigir al inicio después de que el usuario aprecie la alerta
-        setTimeout(() => {
-            window.location.href = "index.html";
-        }, 1200);
-    });
+    document.body.appendChild(alerta);
+
+    setTimeout(() => {
+        alerta.style.opacity = '0';
+        setTimeout(() => alerta.remove(), 300);
+    }, 4000);
 }
 
-/**
- * 🎨 Función auxiliar para mostrar notificaciones estéticas flotantes
- */
 function mostrarNotificacionEstetica(mensaje, tipo = "success") {
     let contenedor = document.getElementById("toast-container");
     if (!contenedor) {
@@ -215,7 +237,7 @@ function mostrarNotificacionEstetica(mensaje, tipo = "success") {
     }
 
     const toast = document.createElement("div");
-    const bgColor = tipo === "success" ? "#880e2f" : "#d32f2f"; // Tono vino tinto acorde a tu marca
+    const bgColor = tipo === "success" ? "#880e2f" : "#d32f2f";
     
     toast.style.cssText = `
         min-width: 300px;
@@ -238,13 +260,11 @@ function mostrarNotificacionEstetica(mensaje, tipo = "success") {
     toast.innerHTML = `<span>${mensaje}</span>`;
     contenedor.appendChild(toast);
 
-    // Animación de entrada
     setTimeout(() => {
         toast.style.opacity = "1";
         toast.style.transform = "translateY(0)";
     }, 10);
 
-    // Animación de salida y remoción
     setTimeout(() => {
         toast.style.opacity = "0";
         toast.style.transform = "translateY(-20px)";
@@ -252,9 +272,6 @@ function mostrarNotificacionEstetica(mensaje, tipo = "success") {
     }, 3500);
 }
 
-/**
- * 🛡️ Función auxiliar de Sanitización para prevenir ataques XSS
- */
 function sanitizarTexto(texto) {
     if (!texto) return "";
     return texto
