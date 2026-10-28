@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================
-    // 4. BUSCADOR GLOBAL UNIFICADO (ÚNICA DECLARACIÓN)
+    // 4. BUSCADOR GLOBAL UNIFICADO (100% COMPATIBLE CON NETLIFY)
     // ==========================================
     const inputBuscador = document.getElementById('inputBuscador');
     
@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const texto = inputBuscador.value.toLowerCase().trim();
                 if (texto === '') return;
 
-                // Redirige a categorias.html con el término buscado
+                // Redirige limpiamente a categorias.html llevando el parámetro en la URL
                 window.location.href = `categorias.html?busqueda=${encodeURIComponent(texto)}`;
             }
         };
@@ -162,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
             tituloSeccion.textContent = `Resultados para: "${busquedaActiva}"`;
         }
 
-        // Filtrar tarjetas en pantalla si existen
+        // Filtrar tarjetas en pantalla de manera local
         const tarjetas = document.querySelectorAll('.tarjeta-producto, .producto-card, .card');
         let encontrados = 0;
 
@@ -175,7 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Si la página estática de categorías no contiene productos directos en su HTML
+        // Si no hay tarjetas que coincidan
         if (encontrados === 0 && tarjetas.length === 0) {
             const main = document.querySelector('main') || document.body;
             let aviso = document.getElementById('sin-resultados-msg');
@@ -186,7 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 aviso.style.cssText = "text-align: center; padding: 4rem 2rem; font-size: 1.6rem; color: #880e2f; width: 100%;";
                 main.appendChild(aviso);
             }
-            aviso.innerHTML = `🔍 Buscando productos para <strong>"${busquedaActiva}"</strong>...`;
+            aviso.innerHTML = `🔍 No se encontraron productos para <strong>"${busquedaActiva}"</strong>.`;
         }
     }
 
