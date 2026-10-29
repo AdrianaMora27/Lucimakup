@@ -6,6 +6,30 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('Lucimakeup Store - Script principal cargado y blindado correctamente.');
 
     // ==========================================
+    // 0. GESTIÓN DE ROLES Y ACCESO ADMIN EN NAVBAR
+    // ==========================================
+    const usuarioLogueado = JSON.parse(localStorage.getItem("lucimakeup_usuario") || localStorage.getItem("usuarioLogueado"));
+    const navNavegacion = document.querySelector(".navegacion");
+
+    if (usuarioLogueado && navNavegacion) {
+        // Si el usuario detectado tiene rol de administrador, inyectar el enlace al Panel Admin
+        if (usuarioLogueado.rol === "admin" || (usuarioLogueado.email && usuarioLogueado.email.includes("admin"))) {
+            if (!document.getElementById("enlace-admin")) {
+                const linkAdmin = document.createElement("a");
+                linkAdmin.id = "enlace-admin";
+                linkAdmin.className = "navegacion__enlace";
+                linkAdmin.href = "admin.html";
+                linkAdmin.textContent = "Panel Admin";
+                linkAdmin.style.color = "#880e2f"; // Destacado visual para el administrador
+                linkAdmin.style.fontWeight = "bold";
+                
+                // Insertar el enlace en la barra de navegación
+                navNavegacion.appendChild(linkAdmin);
+            }
+        }
+    }
+
+    // ==========================================
     // 1. GESTIÓN DEL FORMULARIO DE CONTACTO
     // ==========================================
     const formulario = document.querySelector('.formulario');
@@ -120,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================
-    // 4. BUSCADOR GLOBAL UNIFICADO (100% COMPATIBLE CON NETLIFY)
+    // 4. BUSCADOR GLOBAL UNIFICADO
     // ==========================================
     const inputBuscador = document.getElementById('inputBuscador');
     
@@ -134,7 +158,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 const texto = inputBuscador.value.toLowerCase().trim();
                 if (texto === '') return;
 
-                // Redirige limpiamente a categorias.html llevando el parámetro en la URL
                 window.location.href = `categorias.html?busqueda=${encodeURIComponent(texto)}`;
             }
         };
@@ -156,13 +179,11 @@ document.addEventListener('DOMContentLoaded', () => {
             inputBuscador.value = busquedaActiva;
         }
 
-        // Actualizar el título principal para mostrar el término buscado
         const tituloSeccion = document.querySelector('h1, h2, .titulo-catalogo, .titulo-pagina');
         if (tituloSeccion) {
             tituloSeccion.textContent = `Resultados para: "${busquedaActiva}"`;
         }
 
-        // Filtrar tarjetas en pantalla de manera local
         const tarjetas = document.querySelectorAll('.tarjeta-producto, .producto-card, .card');
         let encontrados = 0;
 
@@ -175,7 +196,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Si no hay tarjetas que coincidan
         if (encontrados === 0 && tarjetas.length === 0) {
             const main = document.querySelector('main') || document.body;
             let aviso = document.getElementById('sin-resultados-msg');
