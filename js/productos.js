@@ -1,62 +1,32 @@
-// ==========================================
-// BASE DE DATOS LOCAL DE PRODUCTOS (Sincronizada con MySQL)
-// ==========================================
-const productos = [
-    // Papelería (IDs 101 - 111)
-    { idProducto: 101, Nombre_Producto: "Lapicero con diseño", descripcion_producto: "Lapicero con tinta fluida y diseños variados.", Precio_Producto: 5000.00, Stock_Producto: 15, Categoria_idCategoria: 1, imagen: "img/lapicerosDiseños.jpeg" },
-    { idProducto: 102, Nombre_Producto: "Lápiz porta mina", descripcion_producto: "Lápiz portaminas ergonómico para alta precisión.", Precio_Producto: 6500.00, Stock_Producto: 10, Categoria_idCategoria: 1, imagen: "img/lapizMina.jpeg" },
-    { idProducto: 103, Nombre_Producto: "Cartuchera con diseño", descripcion_producto: "Cartuchera organizadora amplia con cierre.", Precio_Producto: 18000.00, Stock_Producto: 10, Categoria_idCategoria: 1, imagen: "img/cartuchera.jpeg" },
-    { idProducto: 104, Nombre_Producto: "Resaltadores con diseño", descripcion_producto: "Set de resaltadores en tonos pastel o fluorescentes.", Precio_Producto: 12000.00, Stock_Producto: 10, Categoria_idCategoria: 1, imagen: "img/resaltadores.jpeg" },
-    { idProducto: 105, Nombre_Producto: "Cuadernos surtidos", descripcion_producto: "Cuadernos pasta dura con motivos ilustrados.", Precio_Producto: 8000.00, Stock_Producto: 10, Categoria_idCategoria: 1, imagen: "img/cuadernos.jpeg" },
-    { idProducto: 106, Nombre_Producto: "Carpeta plástica", descripcion_producto: "Carpeta organizadora para documentos.", Precio_Producto: 4500.00, Stock_Producto: 10, Categoria_idCategoria: 1, imagen: "img/carpeta.jpeg" },
-    { idProducto: 107, Nombre_Producto: "Cuaderno Zootopia", descripcion_producto: "Cuaderno edición especial Zootopia.", Precio_Producto: 9500.00, Stock_Producto: 10, Categoria_idCategoria: 1, imagen: "img/cuadernoZootopia.jpeg" },
-    { idProducto: 108, Nombre_Producto: "Block iris", descripcion_producto: "Block de papel iris en múltiples colores.", Precio_Producto: 7000.00, Stock_Producto: 10, Categoria_idCategoria: 1, imagen: "img/block.jpeg" },
-    { idProducto: 109, Nombre_Producto: "Morral unisex", descripcion_producto: "Morral resistente con múltiples compartimentos.", Precio_Producto: 45000.00, Stock_Producto: 10, Categoria_idCategoria: 1, imagen: "img/morrales.jpeg" },
-    { idProducto: 110, Nombre_Producto: "Llavero surtido", descripcion_producto: "Llaveros decorativos con figuras variadas.", Precio_Producto: 4000.00, Stock_Producto: 10, Categoria_idCategoria: 1, imagen: "img/llavero.jpeg" },
-    { idProducto: 111, Nombre_Producto: "Llavero gato", descripcion_producto: "Llavero de silicona suave en forma de gato.", Precio_Producto: 5000.00, Stock_Producto: 10, Categoria_idCategoria: 1, imagen: "img/llaveroGato.jpeg" },
+/**
+ * Lógica dinámica y blindada de detalles de productos y carrito - Lucimakeup Store
+ * Conectada al backend local (MySQL)
+ */
 
-    // Cuidado Personal y Maquillaje (IDs 201 - 206)
-    { idProducto: 201, Nombre_Producto: "Mascarilla Facial Bioaqua", descripcion_producto: "Mascarilla facial hidratante para el cuidado de la piel y nutrición profunda.", Precio_Producto: 5000.00, Stock_Producto: 20, Categoria_idCategoria: 2, imagen: "img/MascarillasHidratantes.jpeg" },
-    { idProducto: 202, Nombre_Producto: "Polvo Compacto Matte", descripcion_producto: "Polvo compacto con acabado matte de larga duración.", Precio_Producto: 38000.00, Stock_Producto: 10, Categoria_idCategoria: 2, imagen: "img/gelCejas.jpeg" },
-    { idProducto: 203, Nombre_Producto: "Corrector Líquido de Ojeras", descripcion_producto: "Corrector líquido de alta cobertura para imperfecciones y ojeras.", Precio_Producto: 25000.00, Stock_Producto: 10, Categoria_idCategoria: 2, imagen: "img/sombras.jpeg" },
-    { idProducto: 204, Nombre_Producto: "Paleta de Sombras Nude", descripcion_producto: "Paleta de sombras de alta pigmentación con tonos versátiles.", Precio_Producto: 65000.00, Stock_Producto: 10, Categoria_idCategoria: 2, imagen: "img/sombras.jpeg" },
-    { idProducto: 205, Nombre_Producto: "Pestañina Volumen Extremo", descripcion_producto: "Pestañina especializada para dar volumen y alargamiento extremo.", Precio_Producto: 30000.00, Stock_Producto: 10, Categoria_idCategoria: 2, imagen: "img/pestañinaExtra.jpeg" },
-    { idProducto: 206, Nombre_Producto: "Base Líquida Alta Cobertura", descripcion_producto: "Base líquida de alta cobertura - SAMY. Tres tonos ideales para unificar la piel.", Precio_Producto: 45000.00, Stock_Producto: 8, Categoria_idCategoria: 1, imagen: "img/baseLiquida.jpg" },
-
-    // Estilo y Vida (IDs 301 - 306)
-    { idProducto: 301, Nombre_Producto: "Cojines estampados", descripcion_producto: "Cojines 80% algodon 20% Poliester.", Precio_Producto: 25000.00, Stock_Producto: 10, Categoria_idCategoria: 3, imagen: "img/cojinesEstampados.jpeg" },
-    { idProducto: 302, Nombre_Producto: "Espejo con diseño", descripcion_producto: "Espejo decorativo con marco de diseño moderno y elegante.", Precio_Producto: 45000.00, Stock_Producto: 10, Categoria_idCategoria: 3, imagen: "img/espejoconDiseño.jpeg" },
-    { idProducto: 303, Nombre_Producto: "Soporte para computador portátil", descripcion_producto: "Soporte ergonómico ajustable para laptop y mejora postural.", Precio_Producto: 55000.00, Stock_Producto: 10, Categoria_idCategoria: 3, imagen: "img/soportePC.jpeg" },
-    { idProducto: 304, Nombre_Producto: "Difusor de aroma electrónico", descripcion_producto: "Difusor ultrasónico de aromas con iluminación LED ambiental.", Precio_Producto: 48000.00, Stock_Producto: 10, Categoria_idCategoria: 3, imagen: "img/difusorAroma.jpeg" },
-    { idProducto: 305, Nombre_Producto: "Vela con aroma", descripcion_producto: "Vela aromática artesanal en recipiente protector.", Precio_Producto: 22000.00, Stock_Producto: 10, Categoria_idCategoria: 3, imagen: "img/velaAromatica.jpeg" },
-    { idProducto: 306, Nombre_Producto: "Aceite esencial Lavanda", descripcion_producto: "Aceite esencial concentrado con relajante aroma a lavanda.", Precio_Producto: 18000.00, Stock_Producto: 10, Categoria_idCategoria: 3, imagen: "img/aceiteEscencial.jpeg" },
-
-    // Productos adicionales / Capilares (IDs 400 - 408)
-    { idProducto: 400, Nombre_Producto: "Acondicionador", descripcion_producto: "Acondicionador nutritivo para suavidad y brillo capilar.", Precio_Producto: 15000.00, Stock_Producto: 10, Categoria_idCategoria: 2, imagen: "img/cuidadocapilar.jpeg" },
-    { idProducto: 401, Nombre_Producto: "Shampoo Todo tipo", descripcion_producto: "Shampoo formulado para limpieza profunda en todo tipo de cabello.", Precio_Producto: 18000.00, Stock_Producto: 10, Categoria_idCategoria: 2, imagen: "img/shampoo.jpeg" },
-    { idProducto: 402, Nombre_Producto: "Crema de peinar", descripcion_producto: "Crema para peinar ideal para definición y control de frizz.", Precio_Producto: 20000.00, Stock_Producto: 10, Categoria_idCategoria: 2, imagen: "img/cremaPeinar.jpeg" },
-    { idProducto: 403, Nombre_Producto: "Aceite de coco corporal", descripcion_producto: "Aceite de coco hidratante para nutrición corporal profunda.", Precio_Producto: 22000.00, Stock_Producto: 10, Categoria_idCategoria: 2, imagen: "img/cuidadocorporal.jpeg" },
-    { idProducto: 404, Nombre_Producto: "Mantequilla corporal", descripcion_producto: "Mantequilla corporal hidratante con textura suave.", Precio_Producto: 25000.00, Stock_Producto: 10, Categoria_idCategoria: 2, imagen: "img/mantequilla.jpeg" },
-    { idProducto: 405, Nombre_Producto: "Perfume con Glitter", descripcion_producto: "Perfume corporal con destellos brillantes de glitter.", Precio_Producto: 30000.00, Stock_Producto: 10, Categoria_idCategoria: 2, imagen: "img/perfumeGlitter.jpeg" },
-    { idProducto: 406, Nombre_Producto: "Gel de cejas", descripcion_producto: "Gel fijador transparente de larga duración para cejas perfectas.", Precio_Producto: 15000.00, Stock_Producto: 10, Categoria_idCategoria: 2, imagen: "img/gelcejas.jpg" },
-    { idProducto: 407, Nombre_Producto: "Rubor en barra", descripcion_producto: "Rubor en barra de fácil difuminado para un efecto natural.", Precio_Producto: 24000.00, Stock_Producto: 10, Categoria_idCategoria: 2, imagen: "img/ruborBarra.jpeg" },
-    { idProducto: 408, Nombre_Producto: "Blush Líquido", descripcion_producto: "Rubor líquido de alta pigmentación y acabado fresco.", Precio_Producto: 22000.00, Stock_Producto: 10, Categoria_idCategoria: 2, imagen: "img/blushLiquido.jpeg" }
-];
-
-// ==========================================
-// LÓGICA DE DETALLE (productos.html) blindada y segura
-// ==========================================
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     const parametrosURL = new URLSearchParams(window.location.search);
     const idBruto = parametrosURL.get('id');
 
     // 🛡️ BLINDAJE: Validar estrictamente que el ID de la URL sea numérico entero positivo
     const productoIdURL = /^\d+$/.test(idBruto) ? parseInt(idBruto, 10) : null;
 
-    if (productoIdURL) {
-        const productoEncontrado = productos.find(p => p.idProducto === productoIdURL);
-        
-        const contenedorDetalle = document.querySelector('.producto-detalle');
+    const contenedorDetalle = document.querySelector('.producto-detalle');
+
+    if (!productoIdURL) {
+        if (contenedorDetalle) {
+            contenedorDetalle.innerHTML = `<h2>Identificador de producto inválido.</h2>`;
+        }
+        return;
+    }
+
+    try {
+        // Consultar los productos directamente desde el servidor backend (MySQL)
+        const respuesta = await fetch('http://localhost:3000/api/productos');
+        const resultado = await respuesta.json();
+        const productosDB = Array.isArray(resultado) ? resultado : (resultado.productos || []);
+
+        const productoEncontrado = productosDB.find(p => Number(p.idProducto) === productoIdURL);
+
         const imagenEl = document.getElementById("imagen-producto");
         const nombreEl = document.getElementById("nombre-producto");
         const precioEl = document.getElementById("precio-producto");
@@ -65,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (productoEncontrado) {
             // Si el HTML usa IDs estáticos independientes:
             if (imagenEl) {
-                imagenEl.src = productoEncontrado.imagen;
+                imagenEl.src = productoEncontrado.imagen || 'img/default.jpg';
                 imagenEl.alt = sanitizarTexto(productoEncontrado.Nombre_Producto);
             }
             if (nombreEl) nombreEl.textContent = productoEncontrado.Nombre_Producto;
@@ -76,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (contenedorDetalle && !imagenEl) {
                 contenedorDetalle.innerHTML = `
                     <div class="producto-imagen-grande">
-                        <img src="${productoEncontrado.imagen}" alt="${sanitizarTexto(productoEncontrado.Nombre_Producto)}">
+                        <img src="${productoEncontrado.imagen || 'img/default.jpg'}" alt="${sanitizarTexto(productoEncontrado.Nombre_Producto)}">
                     </div>
                     <div class="producto-info-detalle">
                         <h1>${sanitizarTexto(productoEncontrado.Nombre_Producto)}</h1>
@@ -102,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (isNaN(val) || val < 1) {
                         e.target.value = 1;
                     } else if (val > productoEncontrado.Stock_Producto) {
-                        e.target.value = productoEncontrado.Stock_Producto; // No permite superar el stock real
+                        e.target.value = productoEncontrado.Stock_Producto; // No permite superar el stock real de MySQL
                     }
                 });
             }
@@ -133,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             id: productoEncontrado.idProducto,
                             nombre: productoEncontrado.Nombre_Producto,
                             precio: Number(productoEncontrado.Precio_Producto),
-                            imagen: productoEncontrado.imagen,
+                            imagen: productoEncontrado.imagen || 'img/default.jpg',
                             cantidad: cantidadSeleccionada
                         });
                     }
@@ -144,13 +114,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } else {
             if (contenedorDetalle) {
-                contenedorDetalle.innerHTML = `<h2>Lo sentimos, el producto no fue encontrado.</h2>`;
+                contenedorDetalle.innerHTML = `<h2>Lo sentimos, el producto no fue encontrado en la base de datos.</h2>`;
             }
         }
-    } else {
-        const contenedorDetalle = document.querySelector('.producto-detalle');
+
+    } catch (error) {
+        console.error("Error al conectar con el servidor backend para el detalle del producto:", error);
         if (contenedorDetalle) {
-            contenedorDetalle.innerHTML = `<h2>Identificador de producto inválido.</h2>`;
+            contenedorDetalle.innerHTML = `<h2>Error de conexión con el servidor local.</h2>`;
         }
     }
 });
