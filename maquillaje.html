@@ -89,12 +89,10 @@
         .header { 
             display: flex;
             justify-content: center;
-            align-items: center;
-            flex-direction: column;
         }
 
         .header__logo { 
-            margin: 2rem 0;
+            margin: 3rem 0;
             max-width: 25rem;
         }
 
@@ -105,7 +103,6 @@
             justify-content: center; 
             gap: 2rem;
             flex-wrap: wrap;
-            align-items: center;
         }
 
         .navegacion__enlace {
@@ -235,39 +232,40 @@
         }
 
         /**BARRA DE BUSQUEDA*/
-        .buscador-header {
-            display: inline-flex;
-            align-items: center;
-            margin-left: 15px;
-        }
 
-        .buscador-header input {
-            padding: 6px 12px;
-            border: 1px solid #dcdcdc;
-            border-radius: 20px;
-            font-size: 14px;
-            outline: none;
-            transition: all 0.3s ease;
-        }
+.buscador-header {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 15px;
+}
 
-        .buscador-header input:focus {
-            border-color: #e91e63;
-            box-shadow: 0 0 5px rgba(233, 30, 99, 0.3);
-        }
+.buscador-header input {
+    padding: 6px 12px;
+    border: 1px solid #dcdcdc;
+    border-radius: 20px;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s ease;
+}
 
-        .buscador-header button {
-            background: none;
-            border: none;
-            cursor: pointer;
-            margin-left: -30px;
-        }
+.buscador-header input:focus {
+    border-color: #e91e63; /* Color rosado/magenta corporativo */
+    box-shadow: 0 0 5px rgba(233, 30, 99, 0.3);
+}
+
+.buscador-header button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: -30px; /* Queda integrado dentro del input */
+}
+
     </style>
 </head>
 
 <body>
     <!-- CABECERA INSTITUCIONAL -->
     <header class="header">
-        <a href="#" id="btn-cerrar-sesion" class="navegacion__enlace" style="color: var(--rojo-oscuro); font-size: 1.4rem; margin-top: 1rem;">Cerrar Sesión</a>
         <a href="index.html">
             <img class="header__logo" src="img/logolucistore.png" alt="Logotipo Lucimakeup Store">
         </a>
@@ -278,26 +276,90 @@
         <a class="navegacion__enlace" href="index.html">Inicio</a>
         <a class="navegacion__enlace" href="categorias.html">Catálogo</a>
         <a class="navegacion__enlace" href="nosotros.html">Nosotros</a>
-        <div class="buscador-header">
-            <input type="text" id="inputBuscador" placeholder="Buscar productos...">
-            <button type="button" aria-label="Buscar">🔍</button>
-        </div>
+        <a href="#" id="btn-cerrar-sesion" class="navegacion__enlace" style="color: var(--oscuro); font-weight: uppercase;">Cerrar Sesión</a>
+        <!-- BARRA DE BÚSQUEDA AL LADO DE CONTACTO -->
+    <div class="buscador-header">
+        <input type="text" id="inputBuscador" placeholder="Buscar productos..." onkeyup="filtrarProductos()">
+        <button type="button" aria-label="Buscar"><i class="fas fa-search"></i>🔍</button>
+    </div>
     </nav>
 
     <!-- CONTENEDOR PRINCIPAL: MAQUILLAJE -->
     <main class="contenedor">
         <h1>Maquillaje</h1>
 
-        <!-- Subcategoría 1: Rostro (Dinámico desde MySQL) -->
+        <!-- Subcategoría 1: Rostro -->
         <h2 class="subcategoria__titulo">Rostro</h2>
-        <div class="grid-productos" id="grid-rostro">
-            <!-- Los productos se cargarán automáticamente desde el servidor -->
+        <div class="grid-productos">
+            <div class="tarjeta-producto" data-id="206">
+                <a href="productos.html?id=206" class="tarjeta-producto__imagen">
+                    <img src="img/baseLiquida.jpg" alt="Base Líquida Alta Cobertura Samy">
+                </a>
+                <div class="tarjeta-producto__info">
+                    <h3 class="tarjeta-producto__nombre">Base Líquida Alta Cobertura</h3>
+                    <p class="tarjeta-producto__precio">$45.000 COP</p>
+                    <a href="productos.html?id=206" class="tarjeta-producto__boton">Ver producto</a>
+                </div>
+            </div>
+
+            <div class="tarjeta-producto" data-id="202">
+                <a href="productos.html?id=202" class="tarjeta-producto__imagen">
+                    <img src="img/polvo.png" alt="Polvo Compacto Matte">
+                </a>
+                <div class="tarjeta-producto__info">
+                    <h3 class="tarjeta-producto__nombre">Polvo Compacto Matte</h3>
+                    <p class="tarjeta-producto__precio">$38.000 COP</p>
+                    <a href="productos.html?id=202" class="tarjeta-producto__boton">Ver producto</a>
+                </div>
+            </div>
+
+            <div class="tarjeta-producto" data-id="203">
+                <a href="productos.html?id=203" class="tarjeta-producto__imagen">
+                    <img src="img/corrector.jpeg" alt="Corrector Líquido de Ojeras">
+                </a>
+                <div class="tarjeta-producto__info">
+                    <h3 class="tarjeta-producto__nombre">Corrector Líquido de Ojeras</h3>
+                    <p class="tarjeta-producto__precio">$25.000 COP</p>
+                    <a href="productos.html?id=203" class="tarjeta-producto__boton">Ver producto</a>
+                </div>
+            </div>
         </div>
 
-        <!-- Subcategoría 2: Ojos (Dinámico desde MySQL) -->
+        <!-- Subcategoría 2: Ojos -->
         <h2 class="subcategoria__titulo">Ojos</h2>
-        <div class="grid-productos" id="grid-ojos">
-            <!-- Los productos se cargarán automáticamente desde el servidor -->
+        <div class="grid-productos">
+            <div class="tarjeta-producto" data-id="204">
+                <a href="productos.html?id=204" class="tarjeta-producto__imagen">
+                    <img src="img/sombras.jpeg" alt="Paleta de Sombras Nude">
+                </a>
+                <div class="tarjeta-producto__info">
+                    <h3 class="tarjeta-producto__nombre">Paleta de Sombras Nude</h3>
+                    <p class="tarjeta-producto__precio">$65.000 COP</p>
+                    <a href="productos.html?id=204" class="tarjeta-producto__boton">Ver producto</a>
+                </div>
+            </div>
+
+            <div class="tarjeta-producto" data-id="205">
+                <a href="productos.html?id=205" class="tarjeta-producto__imagen">
+                    <img src="img/pestañinaExtra.jpeg" alt="Pestañina Volumen Extremo">
+                </a>
+                <div class="tarjeta-producto__info">
+                    <h3 class="tarjeta-producto__nombre">Pestañina Volumen Extremo</h3>
+                    <p class="tarjeta-producto__precio">$30.000 COP</p>
+                    <a href="productos.html?id=205" class="tarjeta-producto__boton">Ver producto</a>
+                </div>
+            </div>
+
+            <div class="tarjeta-producto" data-id="410">
+                <a href="productos.html?id=410" class="tarjeta-producto__imagen">
+                    <img src="img/sombrasverano.jpg" alt="Paleta de Sombras Verano">
+                </a>
+                <div class="tarjeta-producto__info">
+                    <h3 class="tarjeta-producto__nombre">Paleta de Sombras Verano</h3>
+                    <p class="tarjeta-producto__precio">$48.000 COP</p>
+                    <a href="productos.html?id=410" class="tarjeta-producto__boton">Ver producto</a>
+                </div>
+            </div>
         </div>
     </main>
 
@@ -306,52 +368,8 @@
         <p class="footer__texto">Frontend Store Lucimakeup - Todos los derechos reservados</p>
     </footer>
 
-    <!-- SCRIPT DE CARGA DINÁMICA DESDE EL BACKEND -->
-    <script>
-        document.addEventListener("DOMContentLoaded", async () => {
-            const gridRostro = document.getElementById("grid-rostro");
-            const gridOjos = document.getElementById("grid-ojos");
-
-            if (!gridRostro && !gridOjos) return;
-
-            try {
-                // Petición al servidor local de Node.js y MySQL
-                const respuesta = await fetch("http://localhost:3000/api/productos");
-                const resultado = await respuesta.json();
-                const productos = Array.isArray(resultado) ? resultado : (resultado.productos || []);
-
-                if (gridRostro) gridRostro.innerHTML = "";
-                if (gridOjos) gridOjos.innerHTML = "";
-
-                productos.forEach(prod => {
-                    const tarjetaHTML = `
-                        <div class="tarjeta-producto" data-id="${prod.idProducto}">
-                            <a href="productos.html?id=${prod.idProducto}" class="tarjeta-producto__imagen">
-                                <img src="${prod.imagen || 'img/default.jpg'}" alt="${prod.Nombre_Producto}">
-                            </a>
-                            <div class="tarjeta-producto__info">
-                                <h3 class="tarjeta-producto__nombre">${prod.Nombre_Producto}</h3>
-                                <p class="tarjeta-producto__precio">$${Number(prod.Precio_Producto).toLocaleString()} COP</p>
-                                <a href="productos.html?id=${prod.idProducto}" class="tarjeta-producto__boton">Ver producto</a>
-                            </div>
-                        </div>
-                    `;
-
-                    // Clasificación según el ID de categoría en tu base de datos (ajusta si tus IDs varían)
-                    if (prod.Categoria_idCategoria === 1 && gridRostro) {
-                        gridRostro.innerHTML += tarjetaHTML;
-                    } else if (prod.Categoria_idCategoria === 2 && gridOjos) {
-                        gridOjos.innerHTML += tarjetaHTML;
-                    }
-                });
-
-            } catch (error) {
-                console.error("Error al conectar con el servidor local para cargar maquillaje:", error);
-            }
-        });
-    </script>
-
-    <!-- SCRIPTS GENERALES -->
+    <!-- SCRIPTS DE LA APLICACIÓN -->
+    <script src="js/productos.js"></script>
     <script src="js/carrito.js"></script>
     <script src="js/checkout.js"></script>
     <script src="js/main.js"></script>
