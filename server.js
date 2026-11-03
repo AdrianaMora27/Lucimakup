@@ -10,7 +10,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname));
 app.use(cors());
 
-// Configuración de la conexión a la base de datos local (phpMyAdmin)
+// Configuración de la conexión a la base de datos local (MySQL en Ubuntu)
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -30,16 +30,45 @@ db.connect((err) => {
 });
 
 // ==========================================
-// 1. MÓDULO DE PRODUCTOS (CATÁLOGO PÚBLICO)
+// 1. MÓDULO DE PRODUCTOS (CATÁLOGO, BÚSQUEDA Y DETALLE)
 // ==========================================
+
+// Obtener todos los productos (con soporte para filtro por búsqueda ?buscar=...)
 app.get('/api/productos', (req, res) => {
-    const query = 'SELECT * FROM producto';
-    db.query(query, (err, results) => {
+    const { buscar } = req.query;
+    let query = 'SELECT * FROM producto';
+    let params = [];
+
+    if (buscar) {
+        query += ' WHERE Nombre_Producto LIKE ? OR descripcion_producto LIKE ?';
+        params = [`%${buscar}%`, `%${buscar}%`];
+    }
+
+    db.query(query, params, (err, results) => {
         if (err) {
             console.error('Error al consultar los productos:', err);
             return res.status(500).json({ exito: false, error: 'Error al consultar los productos' });
         }
         res.status(200).json(results);
+    });
+});
+
+// Obtener un solo producto por su ID (Esencial para detallesproductos.js)
+app.get('/api/productos/:id', (req, res) => {
+    const { id } = req.params;
+    const query = 'SELECT * FROM producto WHERE idProducto = ?';
+
+    db.query(query, [id], (err, results) => {
+        if (err) {
+            console.error('Error al consultar el producto por ID:', err);
+            return res.status(500).json({ exito: false, error: 'Error interno del servidor' });
+        }
+
+        if (results.length > 0) {
+            res.status(200).json(results[0]);
+        } else {
+            res.status(404).json({ exito: false, mensaje: 'Producto no encontrado' });
+        }
     });
 });
 

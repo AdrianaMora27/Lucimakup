@@ -106,6 +106,7 @@
             display: flex;
             justify-content: center; 
             gap: 3rem;
+            align-items: center;
         }
 
         .navegacion__enlace {
@@ -178,6 +179,14 @@
             margin-bottom: 1rem;
         }
 
+        .tarjeta-producto__precio {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--rojo-oscuro);
+            margin-bottom: 1rem;
+        }
+
         .tarjeta-producto__boton { 
             display: inline-block;
             background-color: var(--primario);
@@ -194,42 +203,33 @@
             transform: scale(1.03);
         }
 
-        /**BARRA DE BUSQUEDA*/
+        /** BARRA DE BÚSQUEDA **/
+        .buscador-header {
+            display: inline-flex;
+            align-items: center;
+            margin-left: 15px;
+        }
 
-.buscador-header {
-    display: inline-flex;
-    align-items: center;
-    margin-left: 15px;
-}
+        .buscador-header input {
+            padding: 6px 12px;
+            border: 1px solid #dcdcdc;
+            border-radius: 20px;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
 
-.buscador-header input {
-    padding: 6px 12px;
-    border: 1px solid #dcdcdc;
-    border-radius: 20px;
-    font-size: 14px;
-    outline: none;
-    transition: all 0.3s ease;
-}
+        .buscador-header input:focus {
+            border-color: #e91e63;
+            box-shadow: 0 0 5px rgba(233, 30, 99, 0.3);
+        }
 
-.buscador-header input:focus {
-    border-color: #e91e63; /* Color rosado/magenta corporativo */
-    box-shadow: 0 0 5px rgba(233, 30, 99, 0.3);
-}
-
-.buscador-header button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    margin-left: -30px; /* Queda integrado dentro del input */
-}
-
-.buscador-header button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    margin-left: -30px; /* Queda integrado dentro del input */
-}
-
+        .buscador-header button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin-left: -30px;
+        }
     </style>
 </head>
 
@@ -244,123 +244,123 @@
         <a class="navegacion__enlace" href="categorias.html">Catálogo</a>
         <a class="navegacion__enlace navegacion__enlace--activo" href="cuidadoPersonal.html">Cuidado Personal</a>
         <a class="navegacion__enlace" href="nosotros.html">Nosotros</a>
-        <a href="#" id="btn-cerrar-sesion" class="navegacion__enlace" style="color: var(--oscuro); font-weight: uppercase;">Cerrar Sesión</a>
-        <!-- BARRA DE BÚSQUEDA AL LADO DE CONTACTO -->
-    <div class="buscador-header">
-        <input type="text" id="inputBuscador" placeholder="Buscar productos..." onkeyup="filtrarProductos()">
-        <button type="button" aria-label="Buscar"><i class="fas fa-search"></i>🔍</button>
-    </div>
+        <a href="#" id="btn-cerrar-sesion" class="navegacion__enlace" style="color: var(--oscuro);">Cerrar Sesión</a>
+        
+        <div class="buscador-header">
+            <input type="text" id="inputBuscador" placeholder="Buscar productos..." onkeyup="filtrarProductos()">
+            <button type="button" aria-label="Buscar">🔍</button>
+        </div>
     </nav>
 
     <main class="contenedor">
         <h1>Cuidado Personal</h1>
 
-        <!--SUBCATEGORIA: CUIDADO CAPILAR-->
+        <!-- SUBCATEGORIA: CUIDADO CAPILAR -->
         <h2 class="subcategoria__titulo">Cuidado Capilar</h2>
-        <div class="grid-productos">
-            <!--PRODUCTO 400-->
+        <div class="grid-productos" id="grid-capilar">
             <div class="tarjeta-producto" data-id="400">
                 <div class="tarjeta-producto__imagen">
                     <img src="img/cuidadocapilar.jpeg" alt="Acondicionador Capilar">
                 </div>
                 <div class="tarjeta-producto__info">
                     <h3 class="tarjeta-producto__nombre">Acondicionador</h3>
+                    <p class="tarjeta-producto__precio">$25,000</p>
                     <a href="productos.html?id=400" class="tarjeta-producto__boton">Ver producto</a>
                 </div>
             </div>
 
-            <!--PRODUCTO 401-->
             <div class="tarjeta-producto" data-id="401">
                 <div class="tarjeta-producto__imagen">
                     <img src="img/shampoo.jpeg" alt="Shampoo para todo tipo de cabello">
                 </div>
                 <div class="tarjeta-producto__info">
                     <h3 class="tarjeta-producto__nombre">Shampoo Todo tipo</h3>
+                    <p class="tarjeta-producto__precio">$28,000</p>
                     <a href="productos.html?id=401" class="tarjeta-producto__boton">Ver producto</a>
                 </div>
             </div>
 
-            <!--PRODUCTO 402-->
             <div class="tarjeta-producto" data-id="402">
                 <div class="tarjeta-producto__imagen">
                     <img src="img/cremaPeinar.jpeg" alt="Crema de Peinar Hidratante">
                 </div>
                 <div class="tarjeta-producto__info">
                     <h3 class="tarjeta-producto__nombre">Crema de peinar</h3>
+                    <p class="tarjeta-producto__precio">$25,000</p>
                     <a href="productos.html?id=402" class="tarjeta-producto__boton">Ver producto</a>
                 </div>
             </div>
         </div>
 
-        <!--SUBCATEGORIA: CUIDADO CORPORAL-->
+        <!-- SUBCATEGORIA: CUIDADO CORPORAL -->
         <h2 class="subcategoria__titulo">Cuidado corporal</h2>
-        <div class="grid-productos">
-            <!--PRODUCTO 403-->
+        <div class="grid-productos" id="grid-corporal">
             <div class="tarjeta-producto" data-id="403">
                 <div class="tarjeta-producto__imagen">
                     <img src="img/cuidadocorporal.jpeg" alt="Aceite de coco corporal">
                 </div>
                 <div class="tarjeta-producto__info">
                     <h3 class="tarjeta-producto__nombre">Aceite de coco corporal</h3>
+                    <p class="tarjeta-producto__precio">$30,000</p>
                     <a href="productos.html?id=403" class="tarjeta-producto__boton">Ver producto</a>
                 </div>
             </div>
 
-            <!--PRODUCTO 404-->
             <div class="tarjeta-producto" data-id="404">
                 <div class="tarjeta-producto__imagen">
                     <img src="img/mantequilla.jpeg" alt="Mantequilla corporal ultra hidratante">
                 </div>
                 <div class="tarjeta-producto__info">
                     <h3 class="tarjeta-producto__nombre">Mantequilla corporal</h3>
+                    <p class="tarjeta-producto__precio">$35,000</p>
                     <a href="productos.html?id=404" class="tarjeta-producto__boton">Ver producto</a>
                 </div>
             </div>
 
-            <!--PRODUCTO 405-->
             <div class="tarjeta-producto" data-id="405">
                 <div class="tarjeta-producto__imagen">
                     <img src="img/perfumeGlitter.jpeg" alt="Perfume corporal con glitter">
                 </div>
                 <div class="tarjeta-producto__info">
                     <h3 class="tarjeta-producto__nombre">Perfume con Glitter</h3>
+                    <p class="tarjeta-producto__precio">$40,000</p>
                     <a href="productos.html?id=405" class="tarjeta-producto__boton">Ver producto</a>
                 </div>
             </div>
         </div>
 
-        <!--SUBCATEGORIA: MAQUILLAJE / OTROS CUIDADOS-->
+        <!-- SUBCATEGORIA: MAQUILLAJE Y ROSTRO -->
         <h2 class="subcategoria__titulo">Maquillaje y Rostro</h2>
-        <div class="grid-productos">
-            <!--PRODUCTO 406-->
+        <div class="grid-productos" id="grid-rostro">
             <div class="tarjeta-producto" data-id="406">
                 <div class="tarjeta-producto__imagen">
                     <img src="img/gelcejas.jpg" alt="Gel fijador de cejas">
                 </div>
                 <div class="tarjeta-producto__info">
                     <h3 class="tarjeta-producto__nombre">Gel de cejas</h3>
+                    <p class="tarjeta-producto__precio">$18,000</p>
                     <a href="productos.html?id=406" class="tarjeta-producto__boton">Ver producto</a>
                 </div>
             </div>
 
-            <!--PRODUCTO 407-->
             <div class="tarjeta-producto" data-id="407">
                 <div class="tarjeta-producto__imagen">
                     <img src="img/ruborBarra.jpeg" alt="Rubor cremoso en barra">
                 </div>
                 <div class="tarjeta-producto__info">
                     <h3 class="tarjeta-producto__nombre">Rubor en barra</h3>
+                    <p class="tarjeta-producto__precio">$24,000</p>
                     <a href="productos.html?id=407" class="tarjeta-producto__boton">Ver producto</a>
                 </div>
             </div>
 
-            <!--PRODUCTO 408-->
             <div class="tarjeta-producto" data-id="408">
                 <div class="tarjeta-producto__imagen">
                     <img src="img/blushLiquido.jpeg" alt="Blush líquido de larga duración">
                 </div>
                 <div class="tarjeta-producto__info">
                     <h3 class="tarjeta-producto__nombre">Blush Líquido</h3>
+                    <p class="tarjeta-producto__precio">$26,000</p>
                     <a href="productos.html?id=408" class="tarjeta-producto__boton">Ver producto</a>
                 </div>
             </div>
@@ -371,11 +371,9 @@
         <p class="footer__texto">Frontend store Lucimakeup - Todos los derechos reservados</p>
     </footer>
 
-    <!-- SCRIPTS DE LA APLICACIÓN -->
+    <!-- SCRIPTS EXCLUSIVOS DE LA VISTA DE CATÁLOGO -->
     <script src="js/productos.js"></script>
     <script src="js/carrito.js"></script>
-    <script src="js/detallesproductos.js"></script>
-    <script src="js/checkout.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>
