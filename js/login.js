@@ -89,7 +89,7 @@ function ejecutarSimulacionRoles(correo, password) {
             nombre: "Administrador Lucimakeup",
             correo: correo,
             rol: "admin", // 🔑 ROL ADMINISTRADOR
-            token: "token_admin_netlify_secure_123"
+            token: "Admin2026*"
         };
         mostrarNotificacion(`✨ ¡Bienvenido, Administrador (${usuarioSimulado.nombre})!`, "success");
     } else {

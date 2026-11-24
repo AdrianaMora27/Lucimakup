@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
  */
 async function cargarProductosCatalogo() {
     try {
-        const respuesta = await fetch('http://localhost:3000/api/productos');
+        const respuesta = await fetch('/api/productos');
         if (!respuesta.ok) {
             throw new Error('Error al obtener los productos del servidor.');
         }
@@ -40,7 +40,7 @@ async function filtrarProductos() {
     const terminoBusqueda = inputBuscador.value.trim();
 
     try {
-        const respuesta = await fetch(`http://localhost:3000/api/productos?buscar=${encodeURIComponent(terminoBusqueda)}`);
+        const respuesta = await fetch(`/api/productos?buscar=${encodeURIComponent(terminoBusqueda)}`);
         if (!respuesta.ok) throw new Error('Error en la búsqueda');
 
         const resultados = await respuesta.json();

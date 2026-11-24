@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Función para listar productos en la tabla
     async function cargarProductosAdmin() {
         try {
-            const respuesta = await fetch("http://localhost:3000/api/productos");
+            const respuesta = await fetch("/api/productos");
             const resultado = await respuesta.json();
             
             // Soportar tanto si devuelve array directo o {exito: true, productos: [...]}
@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
             imagen: document.getElementById("imagen").value || "images/default.jpg"
         };
 
-        const url = idProducto ? `http://localhost:3000/api/admin/productos/${idProducto}` : "http://localhost:3000/api/admin/productos";
+        const url = idProducto ? `/api/admin/productos/${idProducto}` : "/api/admin/productos";
         const metodo = idProducto ? "PUT" : "POST";
 
         try {
@@ -105,7 +105,7 @@ window.eliminarProducto = async function(id) {
     if (!confirm("¿Estás segura de que deseas eliminar este producto de la base de datos?")) return;
 
     try {
-        const respuesta = await fetch(`http://localhost:3000/api/admin/productos/${id}`, {
+        const respuesta = await fetch(`/api/admin/productos/${id}`, {
             method: "DELETE"
         });
         const resultado = await respuesta.json();

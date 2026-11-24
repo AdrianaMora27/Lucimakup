@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
@@ -10,23 +11,33 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname));
 app.use(cors());
 
-// Configuración de la conexión a la base de datos local (MySQL en Ubuntu)
-const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'lucimakeup_db',
+// Configuración de la conexión con Pool (funciona en Local y en Nube sin desconectarse)
+const dbConfig = {
+    host: process.env.DB_HOST || 'localhost',
+    user: process.env.DB_USER || 'root',
+    password: process.env.DB_PASSWORD !== undefined ? process.env.DB_PASSWORD : '',
+    database: process.env.DB_NAME || 'lucimakeup_db',
+    port: process.env.DB_PORT ? Number(process.env.DB_PORT) : 3306,
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0
-});
+};
 
-db.connect((err) => {
+// Habilitar SSL automáticamente si es una base de datos remota/nube
+if (process.env.DB_SSL === 'true' || (process.env.DB_HOST && process.env.DB_HOST !== 'localhost' && process.env.DB_HOST !== '127.0.0.1')) {
+    dbConfig.ssl = { rejectUnauthorized: false };
+}
+
+const db = mysql.createPool(dbConfig);
+
+// Verificar la conexión a la base de datos al iniciar
+db.getConnection((err, connection) => {
     if (err) {
-        console.error('❌ Error al conectar a la base de datos local:', err.message);
+        console.error('❌ Error al conectar a la base de datos:', err.message);
         return;
     }
-    console.log('✅ Conectado exitosamente a la base de datos lucimakeup_db');
+    console.log(`✅ Conectado exitosamente a la base de datos '${dbConfig.database}' en host '${dbConfig.host}'`);
+    connection.release();
 });
 
 // ==========================================
