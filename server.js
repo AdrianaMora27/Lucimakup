@@ -1,4 +1,5 @@
 require('dotenv').config();
+const path = require('path');
 const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
@@ -8,7 +9,7 @@ const app = express();
 // Middlewares de seguridad y procesamiento
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(__dirname));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 
 // Configuración de la conexión con Pool (funciona en Local y en Nube sin desconectarse)
@@ -24,7 +25,10 @@ const dbConfig = {
 };
 
 // Habilitar SSL automáticamente si es una base de datos remota/nube
-if (process.env.DB_SSL === 'true' || (process.env.DB_HOST && process.env.DB_HOST !== 'localhost' && process.env.DB_HOST !== '127.0.0.1')) {
+// Si DB_SSL está definido se respeta; si no, se activa solo para hosts remotos
+const hostRemoto = process.env.DB_HOST && process.env.DB_HOST !== 'localhost' && process.env.DB_HOST !== '127.0.0.1';
+const usarSSL = process.env.DB_SSL !== undefined ? process.env.DB_SSL === 'true' : hostRemoto;
+if (usarSSL) {
     dbConfig.ssl = { rejectUnauthorized: false };
 }
 
@@ -220,6 +224,15 @@ app.post('/api/pedido', (req, res) => {
 // ==========================================
 // 4. MÓDULO DE ADMINISTRADOR (CRUD PRODUCTOS)
 // ==========================================
+// Protege las rutas /api/admin con la clave definida en ADMIN_KEY (cabecera x-admin-key)
+function requiereAdmin(req, res, next) {
+    const clave = process.env.ADMIN_KEY;
+    if (!clave || req.get('x-admin-key') !== clave) {
+        return res.status(403).json({ exito: false, mensaje: 'No autorizado.' });
+    }
+    next();
+}
+app.use('/api/admin', requiereAdmin);
 app.post('/api/admin/productos', (req, res) => {
     const { Nombre_Producto, descripcion_producto, Precio_Producto, Stock_Producto, Categoria_idCategoria, imagen } = req.body;
     const query = 'INSERT INTO producto (Nombre_Producto, descripcion_producto, Precio_Producto, Stock_Producto, Categoria_idCategoria, imagen) VALUES (?, ?, ?, ?, ?, ?)';
@@ -264,4 +277,4 @@ app.delete('/api/admin/productos/:id', (req, res) => {
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`🚀 Servidor de API corriendo en http://localhost:${PORT}`);
-});
+});
