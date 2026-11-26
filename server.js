@@ -227,8 +227,12 @@ app.post('/api/pedido', (req, res) => {
 // Protege las rutas /api/admin con la clave definida en ADMIN_KEY (cabecera x-admin-key)
 function requiereAdmin(req, res, next) {
     const clave = process.env.ADMIN_KEY;
-    if (!clave || req.get('x-admin-key') !== clave) {
-        return res.status(403).json({ exito: false, mensaje: 'No autorizado.' });
+    if (!clave) {
+        console.error('ADMIN_KEY no está definida en el servidor (.env).');
+        return res.status(500).json({ exito: false, mensaje: 'El servidor no tiene ADMIN_KEY configurada.' });
+    }
+    if (req.get('x-admin-key') !== clave) {
+        return res.status(403).json({ exito: false, mensaje: 'Clave de administrador incorrecta.' });
     }
     next();
 }

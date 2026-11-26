@@ -1,3 +1,20 @@
+// Envía la petición con la clave de admin. Si el servidor responde 403, descarta la clave guardada y la pide de nuevo una vez.
+async function fetchAdmin(url, opciones = {}) {
+    for (let intento = 0; intento < 2; intento++) {
+        const clave = sessionStorage.getItem("adminKey");
+        const respuesta = await fetch(url, {
+            ...opciones,
+            headers: { ...(opciones.headers || {}), "x-admin-key": clave || "" }
+        });
+        if (respuesta.status !== 403) return respuesta;
+        sessionStorage.removeItem("adminKey");
+        const nueva = prompt("Clave de administrador incorrecta. Inténtalo de nuevo:");
+        if (!nueva) return respuesta;
+        sessionStorage.setItem("adminKey", nueva);
+    }
+    return fetch(url, opciones);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     // 1. Validar seguridad de rol Administrador
     const usuarioLogueado = JSON.parse(localStorage.getItem("lucimakeup_usuario") || localStorage.getItem("usuarioLogueado"));
@@ -65,9 +82,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const metodo = idProducto ? "PUT" : "POST";
 
         try {
-            const respuesta = await fetch(url, {
+            const respuesta = await fetchAdmin(url, {
                 method: metodo,
-                headers: { "Content-Type": "application/json", "x-admin-key": sessionStorage.getItem("adminKey") },
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(datosProducto)
             });
 
@@ -108,9 +125,8 @@ window.eliminarProducto = async function(id) {
     if (!confirm("¿Estás segura de que deseas eliminar este producto de la base de datos?")) return;
 
     try {
-        const respuesta = await fetch(`/api/admin/productos/${id}`, {
-            method: "DELETE",
-            headers: { "x-admin-key": sessionStorage.getItem("adminKey") }
+        const respuesta = await fetchAdmin(`/api/admin/productos/${id}`, {
+            method: "DELETE"
         });
         const resultado = await respuesta.json();
 
