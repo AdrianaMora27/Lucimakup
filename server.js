@@ -277,6 +277,80 @@ app.delete('/api/admin/productos/:id', (req, res) => {
     });
 });
 
+// ------------------------------------------
+// Gestión de usuarios (tabla cliente). Nunca se devuelve la contraseña.
+// ------------------------------------------
+function validarCliente(d, passwordObligatoria) {
+    const nombre = String(d.nombre || '').trim();
+    const apellido = String(d.apellido || '').trim();
+    const telefono = String(d.telefono || '').trim();
+    const email = String(d.email || '').trim();
+    const password = d.password === undefined || d.password === null ? '' : String(d.password);
+    if (!nombre || nombre.length > 200) return { error: 'El nombre es obligatorio (máx. 200 caracteres).' };
+    if (apellido.length > 50) return { error: 'El apellido admite máximo 50 caracteres.' };
+    if (telefono.length > 15) return { error: 'El teléfono admite máximo 15 caracteres.' };
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 200) return { error: 'El correo no es válido.' };
+    if (passwordObligatoria || password) {
+        if (password.length < 6 || password.length > 50) return { error: 'La contraseña debe tener entre 6 y 50 caracteres.' };
+    }
+    return { valores: { nombre, apellido, telefono, email, password } };
+}
+function errorCliente(res, err, accion) {
+    if (err.code === 'ER_DUP_ENTRY') {
+        return res.status(409).json({ exito: false, mensaje: 'Ya existe un usuario con ese correo.' });
+    }
+    console.error('Error al ' + accion + ' usuario:', err);
+    res.status(500).json({ exito: false, mensaje: 'Error al ' + accion + ' el usuario.' });
+}
+app.get('/api/admin/clientes', (req, res) => {
+    const { buscar } = req.query;
+    let query = 'SELECT c.idCliente, c.Nombre, c.Apellido, c.telefono, c.Email, c.fecha_registro, ' +
+                '(SELECT COUNT(*) FROM pedido p WHERE p.Cliente_idCliente = c.idCliente) AS pedidos FROM cliente c';
+    let params = [];
+    if (buscar) {
+        query += ' WHERE c.Nombre LIKE ? OR c.Apellido LIKE ? OR c.Email LIKE ?';
+        params = [`%${buscar}%`, `%${buscar}%`, `%${buscar}%`];
+    }
+    query += ' ORDER BY c.idCliente';
+    db.query(query, params, (err, results) => {
+        if (err) return errorCliente(res, err, 'consultar');
+        res.status(200).json(results);
+    });
+});
+app.post('/api/admin/clientes', (req, res) => {
+    const v = validarCliente(req.body, true);
+    if (v.error) return res.status(400).json({ exito: false, mensaje: v.error });
+    const { nombre, apellido, telefono, email, password } = v.valores;
+    const query = 'INSERT INTO cliente (Nombre, Apellido, telefono, Email, Password, fecha_registro) VALUES (?, ?, ?, ?, ?, NOW())';
+    db.query(query, [nombre, apellido, telefono, email, password], (err, result) => {
+        if (err) return errorCliente(res, err, 'crear');
+        res.status(200).json({ exito: true, mensaje: 'Usuario creado.', idCliente: result.insertId });
+    });
+});
+app.put('/api/admin/clientes/:id', (req, res) => {
+    const v = validarCliente(req.body, false);
+    if (v.error) return res.status(400).json({ exito: false, mensaje: v.error });
+    const { nombre, apellido, telefono, email, password } = v.valores;
+    // La contraseña solo se cambia si se envía una nueva
+    let query = 'UPDATE cliente SET Nombre = ?, Apellido = ?, telefono = ?, Email = ?';
+    const params = [nombre, apellido, telefono, email];
+    if (password) { query += ', Password = ?'; params.push(password); }
+    query += ' WHERE idCliente = ?';
+    params.push(req.params.id);
+    db.query(query, params, (err, result) => {
+        if (err) return errorCliente(res, err, 'actualizar');
+        if (result.affectedRows === 0) return res.status(404).json({ exito: false, mensaje: 'Usuario no encontrado.' });
+        res.status(200).json({ exito: true, mensaje: 'Usuario actualizado.' });
+    });
+});
+app.delete('/api/admin/clientes/:id', (req, res) => {
+    // Los pedidos del usuario se eliminan en cascada (clave foránea ON DELETE CASCADE)
+    db.query('DELETE FROM cliente WHERE idCliente = ?', [req.params.id], (err, result) => {
+        if (err) return errorCliente(res, err, 'eliminar');
+        if (result.affectedRows === 0) return res.status(404).json({ exito: false, mensaje: 'Usuario no encontrado.' });
+        res.status(200).json({ exito: true, mensaje: 'Usuario eliminado.' });
+    });
+});
 // Inicialización del servidor
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
